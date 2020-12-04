@@ -37,35 +37,6 @@ if(nick != null){
 
 const number = Math.random(100000,999999);
 
-sg({
-  apikey:"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",
-  to: [`${Nick}<${Email}>`],
-  cc: [],
-  bcc: [],
-
-  // Optional from/replyTo fields.
-  // The from address must be a verified sender in your SendGrid account.
-  from: 'Skap <vic.frei2@gmail.com>',
-
-  // Optional subject of the email
-  subject: 'Skap(Criação de Conta)',
-
-  // Optional body of the email
-  body: `Seu código é:${number}`,
-
-  // Optional content type of email body.
-  contentType: 'text/html',
-
-  // Optionally avoid sending empty emails
-  suppressEmpty: true,
-
-})
-
-
-
-
-
-
 
 
 const HashPass = bcrypt.hashSync(Pass,12)

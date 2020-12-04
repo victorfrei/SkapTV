@@ -38,6 +38,7 @@ export default function home(){
         >
 
       <Head>
+      <title>Skap</title>
       <meta name="google-site-verification" content="t7gqm6tCrsdg3FUMNOKoxzUBTchYObfQB0CeZiw-9W4" />
       </Head>
 
