@@ -38,7 +38,7 @@ if(nick != null){
 const number = Math.random(100000,999999);
 
 sg({
-  apikey:"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",
+  apikey:{process.env.SendGrid},
   to: [`${Nick}<${Email}>`],
   cc: [],
   bcc: [],
