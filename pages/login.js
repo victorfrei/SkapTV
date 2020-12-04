@@ -29,7 +29,7 @@ export default function Home() {
     Axios.post("/api/login",{Nick,Pass})
     .then((docs)=>{
       if(docs.data != "Login Denied!"){
-      localStorage.setItem("User",docs.data);
+      localStorage.setItem("PublicKey",docs.data);
       router.replace("/");
       }
     })

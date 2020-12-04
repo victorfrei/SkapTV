@@ -1,7 +1,7 @@
 
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
-
+import bcrypt from 'bcrypt';
 
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
@@ -31,7 +31,7 @@ console.log(pack);
       }else{
       const {_id,Nickname} = pack;
       console.log(_id);
-      const token = jwt.sign({exp:60*60,data:{id:_id,Nickname:Nickname,profile:"img"} }, process.env.privateKey);
+      let token = jwt.sign({data:{Nick:Nickname,profile:"img"} }, process.env.privateKey,{expiresIn:3600});
       return token;
       }
 }

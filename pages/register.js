@@ -5,19 +5,8 @@ import Input from '../components/Input'
 import {useColorModeValue,useColorMode} from '@chakra-ui/react';
 import {SiGoogle} from 'react-icons/si';
 import {FiUser,FiSun,FiMoon} from 'react-icons/fi';
-import {HStack,PinInput, PinInputField } from "@chakra-ui/react"
+import {useRouter} from 'next/router'
 
-
-import {
-    AlertDialog,
-    AlertDialogBody,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogContent,
-    AlertDialogOverlay,
-    Alert,
-    AlertIcon,
-  } from "@chakra-ui/react"
 import Axios from 'axios';
 
 export default function Home() {
@@ -25,13 +14,13 @@ export default function Home() {
   const color = useColorModeValue("white","gray.300");
   const { colorMode, toggleColorMode } = useColorMode()
   const toast = useToast();
+  const router = useRouter();
 
-
-  const fre = (data) =>{
+  const fre = (data,status) =>{
     toast({
       title: "ATENÇÃO",
       description: data,
-      status: "warning",
+      status: status,
       duration: 9000,
       isClosable: true
     })}
@@ -45,6 +34,11 @@ export default function Home() {
       let Nick = document.getElementById("user");
       let Email = document.getElementById("email");
       let Pass = document.getElementById("senha");
+      
+
+
+
+
       Nick = Nick.value;
       Email = Email.value;
       Pass = Pass.value;
@@ -52,33 +46,21 @@ export default function Home() {
      Axios.post("/api/register",{Nick,Email,Pass})
       .then((data)=>{
         if(data.data.err){
-        fre(data.data.msg);
+        fre(data.data.msg,"warning");
         }else{
-          console.log("conta criada!")
+          localStorage.setItem("PublicKey",data.data);
+          router.replace("/");
         }
       });
 
      }
 
-     
-
-
+    
 Register.onclick = register;
 
 })
 
 
-
-
-  const [isOpen, setIsOpen] = React.useState(false)
-  const onClose = () => setIsOpen(false)
-  const cancelRef = React.useRef()
-
-  
-
-
- 
-  
 return (
   
     <Grid
@@ -92,57 +74,8 @@ return (
       justifyItems="center"
     >
 
+ 
 
-<AlertDialog
-        isOpen={isOpen}
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-      >
-        <AlertDialogOverlay>
-          <AlertDialogContent>
-            <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Confirme Seu Email:
-          </AlertDialogHeader>
-          
-            <AlertDialogBody>
-            <Alert marginBottom="40px" status="info">
-              <AlertIcon />
-              Um email de confirmação foi enviado ao seu email!
-              </Alert>
-              
-              <HStack>
-              <PinInput colorScheme={useColorModeValue("black","white")} placeholder="*">
-              <PinInputField />
-              <PinInputField />
-              <PinInputField />
-              <strong>-</strong>
-              <PinInputField />
-              <PinInputField />
-              <PinInputField />
-              </PinInput>
-              </HStack>
-            </AlertDialogBody>
-
-            <AlertDialogFooter>
-              <Button colorScheme="blue" onClick={onClose} >Renviar Email</Button>
-              <Button colorScheme="gray" onClick={() =>
-        toast({
-          title: "🥳 Conta Criada 🥳",
-          description: "Sua conta foi criada com sucesso!!",
-          status: "success",
-          duration: 10000,
-          isClosable: true,
-        })
-      } ml={5}>
-              Confirmar
-              </Button>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialogOverlay>
-      </AlertDialog>
-
-
-      
 
       <Button style={{placeSelf:"Flex-Start",justifySelf:"Flex-End"}} gridArea="mode" w="50px" variant="ghost" onClick={toggleColorMode}>
           {colorMode === "light" ? <FiMoon size="80px"/> : <FiSun size="80px"/>}

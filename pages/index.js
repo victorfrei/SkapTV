@@ -16,14 +16,26 @@ import {
 
 import NavBar from '../components/navbar';
 import Video from '../components/video';
-
-
-  
-
+import {useRouter} from 'next/router';
+import {useEffect} from 'react'
+import Axios from "axios";
 
 
 export default function home(){
     
+const router = useRouter();
+
+  useEffect(()=>{
+    console.log(localStorage.getItem("PublicKey"))
+    Axios.post("/api/verify",{key:localStorage.getItem("PublicKey")})
+    .then(()=>{
+        console.log("Login Sucesso!");
+      })
+      .catch(()=>{
+        console.clear();
+        router.replace("/login");
+      })
+  })
 
   const { colorMode, toggleColorMode } = useColorMode()
 
@@ -39,7 +51,6 @@ export default function home(){
 
       <Head>
       <title>Skap</title>
-      <meta name="google-site-verification" content="t7gqm6tCrsdg3FUMNOKoxzUBTchYObfQB0CeZiw-9W4" />
       </Head>
 
 
@@ -179,4 +190,5 @@ export default function home(){
     </Grid>
     )
     
+
 }

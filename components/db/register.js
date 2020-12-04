@@ -2,9 +2,9 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import sg from 'sendgrid-mail';
-
-
+import aws from 'aws-sdk';
+aws.config.update({region: 'sa-east-1'});
+aws.config.update({accessKeyId:process.env.AKID,secretAccessKey:process.env.SAKEY});
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
@@ -35,12 +35,46 @@ if(nick != null){
   return  {err:1,msg:"O email já foi usado!"};
 }
 
-const number = Math.random(100000,999999);
+
+
+
+
+const number = Math.floor(Math.random(0.1,1) * 1000000)
+const ses = new aws.SES();
+
+
+var params = {
+  Destination: {
+   ToAddresses: [
+      Email,
+   ]
+  }, 
+  Message: {
+   Body: {
+     
+    html: {
+     Charset: "UTF-8", 
+     Data: <h3>Confirme sua conta no skap: <a>192.168.0.26:3000/{number}</a></h3>
+    }
+   }, 
+   Subject: {
+    Charset: "UTF-8", 
+    Data: "Verificação Skap"
+   },
+  },
+  Source:"noreply@skap.tv",
+ };
+
+ 
+ ses.sendEmail(params, function(err, data) {
+   if (err) console.log(err, err.stack); // an error occurred
+   else     console.log(data);           // successful response
+  
+ });
 
 const HashPass = bcrypt.hashSync(Pass,12)
-const log = await user.create({Nick:Nick,Email:Email,Pass:HashPass,Date:Date.now});
-return log;
-// const token = jwt.sign({exp:60*60,data:{id:_id,profile:"img"} }, process.env.privateKey);
-      // return token;
+await user.create({Nick:Nick,Email:Email,Pass:HashPass,Date:Date.now,EmailVerificado:false});
+const token = jwt.sign({data:{nick:Nick,profile:"img"} }, process.env.privateKey,{exp:60*60});
+return token;
 
 }
