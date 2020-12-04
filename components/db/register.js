@@ -74,7 +74,7 @@ var params = {
 
 const HashPass = bcrypt.hashSync(Pass,12)
 await user.create({Nick:Nick,Email:Email,Pass:HashPass,Date:Date.now,EmailVerificado:false});
-const token = jwt.sign({data:{nick:Nick,profile:"img"} }, process.env.privateKey,{exp:60*60});
+const token = jwt.sign({data:{nick:Nick,profile:"img"} }, process.env.privateKey,{expiresIn:3600});
 return token;
 
 }
