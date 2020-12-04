@@ -1,6 +1,7 @@
 import { Avatar,Image, Badge, Box,Grid,Heading, GridItem,Input, InputGroup, InputLeftElement, useColorMode, MenuButton } from "@chakra-ui/react";
 import React from "react";
 import { FiSearch,FiBell,FiPlusCircle } from "react-icons/fi";
+import Head from 'next/head';
 
 import {
   Menu,
@@ -28,13 +29,18 @@ export default function home(){
 
 
     return (
-      
+     
         <Grid
         h="100vh"
         templateColumns="200px 1fr 60px"
         templateRows="50px 1fr"
         templateAreas={['"search search  profile""content content content"','"search search  profile""content content content"','"navbar search  profile""navbar content content"']}
         >
+
+      <Head>
+      <meta name="google-site-verification" content="t7gqm6tCrsdg3FUMNOKoxzUBTchYObfQB0CeZiw-9W4" />
+      </Head>
+
 
         <GridItem position="fixed"  widht="100%" height="100%" id="navbar"
         gridArea="navbar"
