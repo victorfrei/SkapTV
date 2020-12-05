@@ -2,6 +2,7 @@ import { Avatar,Image, Badge, Box,Grid,Heading, GridItem,Input, InputGroup, Inpu
 import React from "react";
 import { FiSearch,FiBell,FiPlusCircle } from "react-icons/fi";
 import Head from 'next/head';
+import jwt from 'jsonwebtoken';
 
 import {
   Menu,
@@ -21,25 +22,38 @@ import {useEffect} from 'react'
 import Axios from "axios";
 
 
-export default function home(){
+
+
+
+
+
+export default function home(props){
     
 const router = useRouter();
+const { colorMode, toggleColorMode } = useColorMode()
+let user;
 
- return useEffect(()=>{
-    let dataGlob;
+if(typeof window !== "undefined") {
+
+  user = jwt.decode(localStorage.getItem("PublicKey"));
+  console.log(user);
+
+  }
+
+ useEffect(()=>{
+  
+
     Axios.post("/api/verify",{key:localStorage.getItem("PublicKey")==null?"0001":localStorage.getItem("PublicKey")})
     .then((data)=>{
-      dataGlob = data;
-        console.log("Login Sucesso!");
+      console.log("Login Sucesso!");
       })
       .catch(()=>{
         console.clear();
         router.replace("/login");
       })
-  
+    })
 
-  const { colorMode, toggleColorMode } = useColorMode()
- 
+  
 
     return (
      
@@ -103,11 +117,11 @@ const router = useRouter();
 
         <Menu>
           <MenuButton>
-          <Avatar  cursor="pointer" size="sm" name={dataGlob.Nick} src="#" />
+          <Avatar  cursor="pointer" size="sm" name={user.data.Nick}src={user.data.Profile} />
           </MenuButton>
         <MenuList>
           <Flex alignItems="center" flexDirection="column">
-          <Avatar  cursor="pointer" size="lg" name={dataGlob.Nick} src="#" />
+          <Avatar  cursor="pointer" size="lg" name={user.data.Nick} src={user.data.Profile} />
           <Box ml="3">
           
           <Text fontWeight="bold">
@@ -191,5 +205,5 @@ const router = useRouter();
     </Grid>
     )
     
-  })
+  
 }
