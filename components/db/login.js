@@ -1,7 +1,7 @@
 
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+//import bcrypt from 'bcrypt';
 
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;

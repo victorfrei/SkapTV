@@ -1,8 +1,8 @@
 import { Avatar,Image, Badge, Box,Grid,Heading, GridItem,Input, InputGroup, InputLeftElement, useColorMode, MenuButton } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { FiSearch,FiBell,FiPlusCircle } from "react-icons/fi";
 import Head from 'next/head';
-import jwt from 'jsonwebtoken';
+
 
 import {
   Menu,
@@ -27,35 +27,32 @@ import Axios from "axios";
 
 
 
-export default function home(props){
-    
+export default function home(){
+
 const router = useRouter();
 const { colorMode, toggleColorMode } = useColorMode()
-let user;
-
-if(typeof window !== "undefined") {
-
-  user = jwt.decode(localStorage.getItem("PublicKey"));
-  console.log(user);
-
-  }
-
+const {nick,setnick} = useState("unknow");
+const {profile,setprofile} = useState("#");
+ 
+  
  useEffect(()=>{
   
 
-    Axios.post("/api/verify",{key:localStorage.getItem("PublicKey")==null?"0001":localStorage.getItem("PublicKey")})
-    .then((data)=>{
+    Axios.post("/api/verify",{key:localStorage.getItem("PublicKey")==null?"0001":localStorage.getItem("PublicKey")},(data)=>{
+   
+      if(data.status == 200){
+      console.log(data);
+      setnick(data.data.Nick);
+      setprofile(data.data.profile);
       console.log("Login Sucesso!");
-      })
-      .catch(()=>{
+      }else if(data.status == 401){
         console.clear();
         router.replace("/login");
-      })
-    })
+      }
+         })
+        });
 
-  
-
-    return (
+return (
      
         <Grid
         h="100vh"
@@ -64,10 +61,10 @@ if(typeof window !== "undefined") {
         templateAreas={['"search search  profile""content content content"','"search search  profile""content content content"','"navbar search  profile""navbar content content"']}
         >
 
-      <Head>
+      
+<Head>
       <title>Skap</title>
       </Head>
-
 
         <GridItem position="fixed"  widht="100%" height="100%" id="navbar"
         gridArea="navbar"
@@ -117,11 +114,11 @@ if(typeof window !== "undefined") {
 
         <Menu>
           <MenuButton>
-          <Avatar  cursor="pointer" size="sm" name={user.data.Nick}src={user.data.Profile} />
+          <Avatar  cursor="pointer" size="sm" name={nick}src={profile} />
           </MenuButton>
         <MenuList>
           <Flex alignItems="center" flexDirection="column">
-          <Avatar  cursor="pointer" size="lg" name={user.data.Nick} src={user.data.Profile} />
+          <Avatar  cursor="pointer" size="lg" name={nick} src={profile} />
           <Box ml="3">
           
           <Text fontWeight="bold">
@@ -204,6 +201,5 @@ if(typeof window !== "undefined") {
 
     </Grid>
     )
-    
-  
+
 }
