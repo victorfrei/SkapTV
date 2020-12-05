@@ -1,4 +1,4 @@
-import { Avatar,Image, Badge, Box,Grid,Heading, GridItem,Input, InputGroup, InputLeftElement, useColorMode, MenuButton } from "@chakra-ui/react";
+import { Avatar,toast,Image, Badge, Box,Grid,Heading, GridItem,Input, InputGroup, InputLeftElement, useColorMode, MenuButton } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FiSearch,FiBell,FiPlusCircle } from "react-icons/fi";
 import Head from 'next/head';

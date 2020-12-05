@@ -1,6 +1,6 @@
 // import Head from 'next/head'
 
-import {Grid, Flex, Link, Button, Text, Tooltip } from '@chakra-ui/react'
+import {Grid, Flex, Link, Button,toast, Text, Tooltip } from '@chakra-ui/react'
 import Divider from '../components/Divider'
 import Input from '../components/Input'
 import {useColorModeValue,useColorMode} from '@chakra-ui/react';
