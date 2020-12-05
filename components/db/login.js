@@ -30,7 +30,7 @@ console.log(pack);
         return "Login Denied!";
       }else{
       const {_id,Nickname} = pack;
-      console.log(_id);
+      
       let token = jwt.sign({data:{Nick:Nickname,profile:"img"} }, process.env.privateKey,{expiresIn:3600});
       return token;
       }

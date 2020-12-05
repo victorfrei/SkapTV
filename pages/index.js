@@ -25,20 +25,21 @@ export default function home(){
     
 const router = useRouter();
 
-  useEffect(()=>{
-    console.log(localStorage.getItem("PublicKey"))
-    Axios.post("/api/verify",{key:localStorage.getItem("PublicKey")})
-    .then(()=>{
+ return useEffect(()=>{
+    let dataGlob;
+    Axios.post("/api/verify",{key:localStorage.getItem("PublicKey")==null?"0001":localStorage.getItem("PublicKey")})
+    .then((data)=>{
+      dataGlob = data;
         console.log("Login Sucesso!");
       })
       .catch(()=>{
         console.clear();
         router.replace("/login");
       })
-  })
+  
 
   const { colorMode, toggleColorMode } = useColorMode()
-
+ 
 
     return (
      
@@ -102,11 +103,11 @@ const router = useRouter();
 
         <Menu>
           <MenuButton>
-          <Avatar  cursor="pointer" size="sm" name="Victor Frei" src="#" />
+          <Avatar  cursor="pointer" size="sm" name={dataGlob.Nick} src="#" />
           </MenuButton>
         <MenuList>
           <Flex alignItems="center" flexDirection="column">
-          <Avatar  cursor="pointer" size="lg" name="Victor Frei" src="#" />
+          <Avatar  cursor="pointer" size="lg" name={dataGlob.Nick} src="#" />
           <Box ml="3">
           
           <Text fontWeight="bold">
@@ -190,5 +191,5 @@ const router = useRouter();
     </Grid>
     )
     
-
+  })
 }
