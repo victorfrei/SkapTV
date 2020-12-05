@@ -35,6 +35,18 @@ const {nick,setnick} = useState("unknow");
 const {profile,setprofile} = useState("#");
  
   
+
+const alert = (data,status,title,duration) =>{
+  toast({
+    title: title,
+    description: data,
+    status: status,
+    duration: duration,
+    isClosable: false
+  })}
+
+
+
  useEffect(()=>{
   
 
@@ -44,7 +56,6 @@ const {profile,setprofile} = useState("#");
       console.log(data);
       setnick(data.data.Nick);
       setprofile(data.data.profile);
-      console.log("Login Sucesso!");
       }else if(data.status == 401){
         console.clear();
         router.replace("/login");

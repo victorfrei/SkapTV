@@ -1,7 +1,7 @@
 
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
-//import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt';
 
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
@@ -25,13 +25,15 @@ export default async function login({Nick,Password}){
 const user = conn.model("User",userSchema);
 
   const pack =await user.findOne({Nick});
-console.log(pack);
+      console.log(pack);
       if(pack==null){
         return "Login Denied!";
       }else{
-      
-      
+      if(bcrypt.compareSync(Password,pack.Pass)){
       let token = jwt.sign({data:{Nick:pack.Nick,profile:"#"} }, process.env.privateKey,{expiresIn:3600});
       return token;
+      }else{
+        return "Login Denied!";
+      }
       }
 }

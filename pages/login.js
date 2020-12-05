@@ -16,6 +16,18 @@ export default function Home() {
   let login;
   const router = useRouter();
 
+
+
+  const fre = (data,status) =>{
+    toast({
+      title: "ATENÇÃO",
+      description: data,
+      status: status,
+      duration: 9000,
+      isClosable: true
+    })}
+
+
  useEffect(()=>{
     let Login = document.getElementById("Login"); 
     let Nick = document.getElementById("nick");
@@ -29,11 +41,13 @@ export default function Home() {
     Axios.post("/api/login",{Nick,Pass})
     .then((docs)=>{
       if(docs.data != "Login Denied!"){
+      fre("Login Feito Com Sucesso!!","success");
       localStorage.setItem("PublicKey",docs.data);
       router.replace("/");
       }
     })
     .catch((err)=>{
+      fre("Senha ou Nickname incorreto!!","error");
       console.log(err);      
     })
   }
