@@ -32,6 +32,7 @@ const toast = useToast();
         description: data,
         status: status,
         duration: 9000,
+        position:"top",
         isClosable: false
       })}
 
