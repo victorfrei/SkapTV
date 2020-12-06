@@ -48,7 +48,7 @@ const toast = useToast();
         setTimeout(()=>{},2000);
         router.replace("/login");
       }else{
-        fre("Login Feito Com Sucesso!!","success","Sucesso");
+        fre("Login Feito Com Sucesso!!","success","");
         localStorage.setItem("PublicKey",docs.data.token);
         setTimeout(()=>{},2000);
         router.replace("/");
