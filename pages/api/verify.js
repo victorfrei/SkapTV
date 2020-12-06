@@ -9,7 +9,7 @@ export default async function handler(req,res){
                 res.json({valid:true,values:jwt.decode(req.body.key)});
                } catch(err) {
                 res.statusCode = 200
-                res.json({valid:false}) 
+                res.json({valid:false,msg:"O login expirou!"}) 
               }
             
                        

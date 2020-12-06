@@ -36,20 +36,14 @@ const [nick,setNick] = useState();
   const [profile,setProfile] = useState("#");
 
  
-const alert = (data,title,duration,closable) =>{
-  toast({
-    title: title,
-    render: () => (
-      <Box borderRadius="full" color="white" p={3} bg="#313aa1">
-        <Flex alignItems="center">
-        <Avatar src="#" size="md" margin="0 40px"></Avatar>{data}
-        </Flex>
-      </Box>
-    ),
-    duration: duration,
-    position:"top",
-    isClosable: closable
-  })}
+const alertW = (data,duration,closable) =>{
+    toast({
+       description:data,
+      status:"warning",
+      duration: duration,
+      position:"top",
+      isClosable: closable
+    })}
 
   
 useEffect(()=>{
@@ -62,10 +56,11 @@ useEffect(()=>{
     if(resp.data.valid == true){
       setNick(resp.data.values.data.Nick);
       setProfile(resp.data.values.data.profile);
-      alert(`${resp.data.values.data.Nick}`,"",3000,false);
       console.clear();
     }else {
       console.clear();
+      alertW(resp.data.msg,8000,true);
+      setTimeout(()=>{},1000);
       router.replace("/login");
     }
     })
