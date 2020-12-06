@@ -20,7 +20,7 @@ import Video from '../components/video';
 import {useRouter} from 'next/router';
 import {useEffect} from 'react'
 import Axios from "axios";
-
+import logout from '../components/logout';
 
 
 
@@ -33,7 +33,7 @@ const toast = useToast();
 const router = useRouter();
 const { colorMode, toggleColorMode } = useColorMode()
 const [nick,setNick] = useState();
-  const [profile,setProfile] = useState("#");
+const [profile,setProfile] = useState("#");
 
  
 const alertW = (data,duration,closable) =>{
@@ -45,9 +45,16 @@ const alertW = (data,duration,closable) =>{
       isClosable: closable
     })}
 
+
+
+
+
+
   
 useEffect(()=>{
   
+    
+      
     Axios.post("/api/verify",{key:localStorage.getItem("PublicKey")==null?"0001":localStorage.getItem("PublicKey")})
       
     .then((resp)=>{
@@ -64,7 +71,11 @@ useEffect(()=>{
       router.replace("/login");
     }
     })
+
+  
 },router.pathname);
+
+
 
 return (
      
@@ -158,7 +169,7 @@ return (
         <MenuItem onClick={toggleColorMode} >Mudar Para {colorMode=="light"?"Dark":"Light"} Mode</MenuItem>
         <MenuItem >Configurações</MenuItem>
         <MenuItem >Ajuda</MenuItem>
-        <MenuItem >Sair</MenuItem>
+        <MenuItem onClick= {logout}>Sair</MenuItem>
         </MenuGroup>
         </MenuList>
         </Menu>
@@ -172,16 +183,6 @@ return (
     flexWrap="wrap"
    width="100%"
      >
-        <Box zIndex="1">
-       
-        </Box>
-        <Flex>
-        <Image margin="20px 0 0 50px" w={["0","0","50%"]} h="320px" src="/main/2.webp"></Image>
-        <Flex alignItems="center" width="50%" flexDirection="column">
-        <Heading>Olá, victorfrei</Heading>
-        </Flex>
-        </Flex>
-        
         <Text margin="10px 0 0 10px" >Recomendados:</Text>
         
         <br/>
