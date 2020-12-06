@@ -1,4 +1,4 @@
-import { Avatar,useToast,Image, Badge, Box,Grid,Heading, GridItem,Input, InputGroup, InputLeftElement, useColorMode, MenuButton } from "@chakra-ui/react";
+import { Avatar,useToast,Link,Image, Badge, Box,Grid,Heading, GridItem,Input, InputGroup, InputLeftElement, useColorMode, MenuButton } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FiSearch,FiBell,FiPlusCircle } from "react-icons/fi";
 import Head from 'next/head';
@@ -32,21 +32,26 @@ export default function home(){
 const toast = useToast();
 const router = useRouter();
 const { colorMode, toggleColorMode } = useColorMode()
+const [nick,setNick] = useState();
+  const [profile,setProfile] = useState("#");
 
  
-const alert = (data,status,title,duration) =>{
+const alert = (data,title,duration,closable) =>{
   toast({
     title: title,
-    description: data,
-    status: status,
+    render: () => (
+      <Box borderRadius="full" color="white" p={3} bg="#313aa1">
+        <Flex alignItems="center">
+        <Avatar src="#" size="md" margin="0 40px"></Avatar>{data}
+        </Flex>
+      </Box>
+    ),
     duration: duration,
-    position:"top-left",
-    isClosable: false
+    position:"top",
+    isClosable: closable
   })}
 
-  const {nick,setNick} = useState();
-  const {profile,setProfile} = useState("#");
-
+  
 useEffect(()=>{
   
     Axios.post("/api/verify",{key:localStorage.getItem("PublicKey")==null?"0001":localStorage.getItem("PublicKey")})
@@ -57,13 +62,14 @@ useEffect(()=>{
     if(resp.data.valid == true){
       setNick(resp.data.values.data.Nick);
       setProfile(resp.data.values.data.profile);
-      alert("Bem-vido(a) de volta!!","success",`Olá! ${resp.data.values.data.Nick}`);
+      alert(`${resp.data.values.data.Nick}`,"",3000,false);
+      console.clear();
     }else {
       console.clear();
       router.replace("/login");
     }
     })
-});
+},router.pathname);
 
 return (
      
@@ -148,8 +154,8 @@ return (
         <MenuDivider />
         <MenuGroup title="Perfil">
         <MenuDivider />
-        <MenuItem >Meu Canal</MenuItem>
-        <MenuItem  >Minha Conta</MenuItem>
+        <Link href={`/channel/${nick}`} ><MenuItem>Meu Canal</MenuItem></Link>
+        <Link href="/account" ><MenuItem>Minha Conta</MenuItem></Link>
         </MenuGroup>
         <MenuDivider />
         <MenuGroup title="Outros">
