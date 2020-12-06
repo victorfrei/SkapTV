@@ -1,4 +1,4 @@
-import { Avatar,toast,Image, Badge, Box,Grid,Heading, GridItem,Input, InputGroup, InputLeftElement, useColorMode, MenuButton } from "@chakra-ui/react";
+import { Avatar,useToast,Image, Badge, Box,Grid,Heading, GridItem,Input, InputGroup, InputLeftElement, useColorMode, MenuButton } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FiSearch,FiBell,FiPlusCircle } from "react-icons/fi";
 import Head from 'next/head';
@@ -29,39 +29,41 @@ import Axios from "axios";
 
 export default function home(){
 
+const toast = useToast();
 const router = useRouter();
 const { colorMode, toggleColorMode } = useColorMode()
-const {nick,setnick} = useState("unknow");
-const {profile,setprofile} = useState("#");
- 
-  
 
+ 
 const alert = (data,status,title,duration) =>{
   toast({
     title: title,
     description: data,
     status: status,
     duration: duration,
+    position:"top-left",
     isClosable: false
   })}
 
+  const {nick,setNick} = useState();
+  const {profile,setProfile} = useState("#");
 
-
- useEffect(()=>{
+useEffect(()=>{
   
-
-    Axios.post("/api/verify",{key:localStorage.getItem("PublicKey")==null?"0001":localStorage.getItem("PublicKey")},(data)=>{
-   
-      if(data.status == 200){
-      console.log(data);
-      setnick(data.data.Nick);
-      setprofile(data.data.profile);
-      }else if(data.status == 401){
-        console.clear();
-        router.replace("/login");
-      }
-         })
-        });
+    Axios.post("/api/verify",{key:localStorage.getItem("PublicKey")==null?"0001":localStorage.getItem("PublicKey")})
+      
+    .then((resp)=>{
+    console.log(resp);
+      
+    if(resp.data.valid == true){
+      setNick(resp.data.values.data.Nick);
+      setProfile(resp.data.values.data.profile);
+      alert("Bem-vido(a) de volta!!","success",`Olá! ${resp.data.values.data.Nick}`);
+    }else {
+      console.clear();
+      router.replace("/login");
+    }
+    })
+});
 
 return (
      
@@ -125,7 +127,7 @@ return (
 
         <Menu>
           <MenuButton>
-          <Avatar  cursor="pointer" size="sm" name={nick}src={profile} />
+          <Avatar  cursor="pointer" size="sm" name={nick} src={profile} />
           </MenuButton>
         <MenuList>
           <Flex alignItems="center" flexDirection="column">

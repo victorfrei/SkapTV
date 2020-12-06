@@ -15,7 +15,7 @@ const userSchema = new Schema({
 
 
 
-export default async function login({Nick,Password}){
+export default async function login({Nick,Pass}){
  
 
 
@@ -25,15 +25,14 @@ export default async function login({Nick,Password}){
 const user = conn.model("User",userSchema);
 
   const pack =await user.findOne({Nick});
-      console.log(pack);
       if(pack==null){
-        return "Login Denied!";
+        return {err: true, msg:"O nickname não foi encontrado!"};
       }else{
-      if(bcrypt.compareSync(Password,pack.Pass)){
+      if(bcrypt.compareSync(Pass,pack.Pass)){
       let token = jwt.sign({data:{Nick:pack.Nick,profile:"#"} }, process.env.privateKey,{expiresIn:3600});
-      return token;
+      return {err:false, token};
       }else{
-        return "Login Denied!";
+        return {err: true, msg:"A senha está incorreta!!"};
       }
       }
 }

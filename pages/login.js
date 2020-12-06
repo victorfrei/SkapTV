@@ -1,6 +1,6 @@
 // import Head from 'next/head'
 
-import {Grid, Flex, Link, Button,toast, Text, Tooltip } from '@chakra-ui/react'
+import {Grid, Flex, Link, Button,useToast, Text, Tooltip } from '@chakra-ui/react'
 import Divider from '../components/Divider'
 import Input from '../components/Input'
 import {useColorModeValue,useColorMode} from '@chakra-ui/react';
@@ -15,23 +15,25 @@ import {useRouter} from 'next/router';
 export default function Home() {
   let login;
   const router = useRouter();
+const toast = useToast();
 
 
-
-  const fre = (data,status) =>{
-    toast({
-      title: "ATENÇÃO",
-      description: data,
-      status: status,
-      duration: 9000,
-      isClosable: true
-    })}
+  
 
 
  useEffect(()=>{
     let Login = document.getElementById("Login"); 
     let Nick = document.getElementById("nick");
     let Pass = document.getElementById("senha");
+    
+    let fre = (data,status,title) =>{
+      toast({
+        title: title,
+        description: data,
+        status: status,
+        duration: 9000,
+        isClosable: false
+      })}
 
     Login.disabled = true;
 
@@ -40,19 +42,22 @@ export default function Home() {
         Pass = Pass.value;
     Axios.post("/api/login",{Nick,Pass})
     .then((docs)=>{
-      if(docs.data != "Login Denied!"){
-      fre("Login Feito Com Sucesso!!","success");
-      localStorage.setItem("PublicKey",docs.data);
-      router.replace("/");
+      if(docs.data.err){
+        fre(docs.data.msg,"warning","O login falhou!");
+        setTimeout(()=>{},2000);
+        router.replace("/login");
+      }else{
+        fre("Login Feito Com Sucesso!!","success","Sucesso");
+        localStorage.setItem("PublicKey",docs.data.token);
+        setTimeout(()=>{},2000);
+        router.replace("/");
       }
     })
-    .catch((err)=>{
-      fre("Senha ou Nickname incorreto!!","error");
-      console.log(err);      
-    })
-  }
+    }
 
     const inputchange = () =>{
+      Nick = document.getElementById("nick");
+      Pass = document.getElementById("senha");
       if(Nick.value =="" || Pass.value =="" ){
           Login.disabled = true;
         }else{
@@ -63,7 +68,7 @@ export default function Home() {
 
   Nick.addEventListener("change",inputchange);
   Pass.addEventListener("change",inputchange);
-  Login.addEventListener("click",login);
+  Login.onclick = login;
   
   });
 
