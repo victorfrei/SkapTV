@@ -78,7 +78,7 @@ return (
 
 
       <Button style={{placeSelf:"Flex-Start",justifySelf:"Flex-End"}} gridArea="mode" w="50px" variant="ghost" onClick={toggleColorMode}>
-          {colorMode === "light" ? <FiMoon size="80px"/> : <FiSun size="80px"/>}
+          {colorMode === "light" ? <FiSun size="80px"/>:<FiMoon size="80px"/>}
         </Button>
       <Flex 
         gridArea="form"

@@ -34,7 +34,7 @@ const router = useRouter();
 const { colorMode, toggleColorMode } = useColorMode()
 const [nick,setNick] = useState();
 const [profile,setProfile] = useState("#");
-
+const [plan,setPlan] = useState("Standard");
  
 const alertW = (data,duration,closable) =>{
     toast({
@@ -147,9 +147,9 @@ return (
           <Box ml="3">
           
           <Text fontWeight="bold">
-          victor frei
-          <Badge ml="1" colorScheme="yellow">
-            Premium
+          {nick}
+          <Badge ml="1"  colorScheme={plan=="Premium"?"yellow":"gray"}>
+          {plan}
           </Badge>
           </Text>
           

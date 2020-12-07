@@ -2,11 +2,11 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import aws from 'aws-sdk';
-aws.config.update({region: 'sa-east-1'});
-aws.config.update({accessKeyId:process.env.AKID,secretAccessKey:process.env.SAKEY});
+//import aws from 'aws-sdk';
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
+import nodemailer from 'nodemailer'
+
 
 const userSchema = new Schema({
     Id: ObjectId,
@@ -40,40 +40,30 @@ if(nick != null){
 
 
 const number = Math.floor(Math.random(0.1,1) * 1000000)
-const ses = new aws.SES();
 
 
-var params = {
-  Destination: {
-   ToAddresses: [
-      Email,
-   ]
-  }, 
-  Message: {
-   Body: {
-     
-    html: {
-     Charset: "UTF-8", 
-     Data: <h3>Confirme sua conta no skap: <a>192.168.0.26:3000/{number}</a></h3>
-    }
-   }, 
-   Subject: {
-    Charset: "UTF-8", 
-    Data: "Verificação Skap"
-   },
-  },
-  Source:"noreply@skap.tv",
- };
+const remetente = nodemailer.createTransport({
+  host:'smtp.zoho.com',
+  port:'465',
+  secure: true,
+  auth:{
+  user: 'support@skap.tv',
+  pass: process.env.mailpass 
+      }
+  })
 
+  var emailASerEnviado = {
+    from: 'support@skap.tv',
+    to: `${Email}`,
+    subject:"Verificação Skap",
+    text:  `Confirme sua conta no skap: https://192.168.0.26:3000/api/check/?verify=${number}`
+    };
  
- ses.sendEmail(params, function(err, data) {
-   if (err) console.log(err, err.stack); // an error occurred
-   else     console.log(data);           // successful response
-  
- });
+   remetente.sendMail(emailASerEnviado);
+ 
 
 const HashPass = bcrypt.hashSync(Pass,12)
-await user.create({Nick:Nick,Email:Email,Pass:HashPass,Date:Date.now,EmailVerificado:false});
+await user.create({Nick:Nick,Email:Email,Pass:HashPass,Date:Date.now,EmailVerificado:false,number:number});
 const token = jwt.sign({data:{nick:Nick,profile:"img"} }, process.env.privateKey,{expiresIn:3600});
 return token;
 
