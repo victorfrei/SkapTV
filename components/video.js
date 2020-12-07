@@ -11,10 +11,10 @@ export default function Video(props) {
       }
   
     return (
-      <Box margin="10px" zIndex="2" w="100%" maxW={["100%","18%"]} borderWidth="1px" borderColor="transparent" borderRadius="2xl" overflow="hidden">
-        <Image w="100%" h="140px" src={property.imgUrl} alt={property.videoAlt} />
+      <Box margin="10px" zIndex="2" w="100%" maxW={["100%","18%"]} borderWidth="1px" borderColor="transparent" overflow="hidden">
+        <Image w="100%" h="140px" borderRadius="2xl" src={property.imgUrl} alt={property.videoAlt} />
   
-        <Box p="2" backgroundColor="#232b2b" p="20px" >
+        <Box p="2" p="20px" >
           <Box d="flex" flexDirection="column" alignItems="baseline">
               
           <Box
