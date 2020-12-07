@@ -22,43 +22,56 @@ export default function Home() {
       description: data,
       status: status,
       duration: 9000,
+      position:"top",
       isClosable: true
     })}
 
   let register;
   useEffect(()=>{
-   
     let Register = document.getElementById("register");
-   
+
+    
+    
    register= ()=>{
-      let Nick = document.getElementById("user");
-      let Email = document.getElementById("email");
-      let Pass = document.getElementById("senha");
       
+    let Nick = document.getElementById("user");
+    let Email = document.getElementById("email");
+    let Pass = document.getElementById("senha");
+    let confirm = document.getElementById("senhaconfirm");
 
+    if(Pass.value==confirm.value){
 
-
-
+      
       Nick = Nick.value;
       Email = Email.value;
       Pass = Pass.value;
 
+
+      if(Pass.value == "" && Email.value =="" && Nick.value==""){
+        console.log("campos vazios!!");
+      }else{
+        
      Axios.post("/api/register",{Nick,Email,Pass})
       .then((data)=>{
         if(data.data.err){
         fre(data.data.msg,"warning");
         }else{
+          fre("Conta feita com sucesso!!","success");
           localStorage.setItem("PublicKey",data.data);
+          setTimeout(()=>{},4000);
           router.replace("/");
         }
       });
+   
+    }
+  }else{
+    fre("As senhas não coincidem!","warning")
+   } 
+  }
 
-     }
-
-    
 Register.onclick = register;
 
-})
+});
 
 
 return (

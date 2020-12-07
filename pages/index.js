@@ -32,7 +32,7 @@ export default function home(){
 const toast = useToast();
 const router = useRouter();
 const { colorMode, toggleColorMode } = useColorMode()
-const [nick,setNick] = useState();
+const [nick,setNick] = useState("Nome");
 const [profile,setProfile] = useState("#");
 const [plan,setPlan] = useState("Standard");
  
@@ -63,7 +63,8 @@ useEffect(()=>{
     if(resp.data.valid == true){
       setNick(resp.data.values.data.Nick);
       setProfile(resp.data.values.data.profile);
-      console.clear();
+      setPlan("Standard");
+      //console.clear();
     }else {
       console.clear();
       alertW(resp.data.msg,8000,true);

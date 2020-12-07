@@ -13,7 +13,9 @@ const userSchema = new Schema({
     Nick: String,
     Email: String,
     Pass: String,
-    date: {type:Date,default:Date.now}
+    date: {type:Date,default:Date.now},
+    EmailVerificado: Boolean,
+    Number: Int32Array
   });
 
 
@@ -63,8 +65,8 @@ const remetente = nodemailer.createTransport({
  
 
 const HashPass = bcrypt.hashSync(Pass,12)
-await user.create({Nick:Nick,Email:Email,Pass:HashPass,Date:Date.now,EmailVerificado:false,number:number});
-const token = jwt.sign({data:{nick:Nick,profile:"img"} }, process.env.privateKey,{expiresIn:3600});
+await user.create({Nick:Nick,Email:Email,Pass:HashPass,Date:Date.now,EmailVerificado:false,Number:number});
+const token = jwt.sign({data:{Nick,profile:"img"} }, process.env.privateKey,{expiresIn:3600});
 return token;
 
 }
