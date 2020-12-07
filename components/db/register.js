@@ -15,7 +15,7 @@ const userSchema = new Schema({
     Pass: String,
     date: {type:Date,default:Date.now},
     EmailVerificado: Boolean,
-    Number: Int32Array
+    Number: Number
   });
 
 
