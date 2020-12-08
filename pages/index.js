@@ -197,13 +197,13 @@ return (
               <ModalCloseButton />
               <ModalBody>
                 <Flex justifyContent="center" alignItems="center" direction="column">
-                <Avatar id="Avatar" src="#" name={nick} size="2xl" marginBottom="40px"></Avatar>
+                <Avatar id="Avatar" src="https://via.placeholder.com/128" name={nick} size="2xl" marginBottom="40px"></Avatar>
                 <input type="file" onChange={(e)=>{
 
                 const blob = new Blob([e.target.files[0]],{type:"image/png"})
                 console.log(e.target.files[0]);
                 console.log(blob)
-                const avatar = document.getElementById("Avatar");
+                const avatar = document.querySelector("#Avatar img");
                 avatar.setAttribute("src",URL.createObjectURL(blob));
               }}></input>
                
