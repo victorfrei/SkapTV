@@ -1,4 +1,4 @@
-import { Avatar,useToast,Link,Image, Badge, Box,Grid,Heading, GridItem,Input, InputGroup, InputLeftElement, useColorMode, MenuButton } from "@chakra-ui/react";
+import { Avatar,useToast,Link, Badge,Button, Box,Grid, GridItem,Input, InputGroup, InputLeftElement, useColorMode, MenuButton } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FiSearch,FiBell,FiPlusCircle } from "react-icons/fi";
 import Head from 'next/head';
@@ -12,15 +12,27 @@ import {
  MenuDivider,
  Flex,
  Text,
+ 
+} from "@chakra-ui/react"
 
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
 } from "@chakra-ui/react"
 
 import NavBar from '../components/navbar';
 import Video from '../components/video';
 import {useRouter} from 'next/router';
-import {useEffect} from 'react'
+import {useEffect} from 'react';
+import {useDisclosure} from '@chakra-ui/react';
 import Axios from "axios";
 import logout from '../components/logout';
+import { type } from "os";
 
 
 
@@ -35,7 +47,10 @@ const { colorMode, toggleColorMode } = useColorMode()
 const [nick,setNick] = useState("Nome");
 const [profile,setProfile] = useState("#");
 const [plan,setPlan] = useState("Standard");
- 
+const { isOpen, onOpen, onClose } = useDisclosure();
+
+
+
 const alertW = (data,duration,closable) =>{
     toast({
        description:data,
@@ -44,8 +59,6 @@ const alertW = (data,duration,closable) =>{
       position:"top",
       isClosable: closable
     })}
-
-
 
 
 
@@ -86,6 +99,7 @@ return (
         templateRows="50px 1fr"
         templateAreas={['"search search  profile""content content content"','"search search  profile""content content content"','"navbar search  profile""navbar content content"']}
         >
+
 
       
 <Head>
@@ -140,11 +154,11 @@ return (
 
         <Menu>
           <MenuButton>
-          <Avatar  cursor="pointer" size="sm" name={nick} src={profile} />
+          <Avatar cursor="pointer" size="sm" name={nick} src={profile} />
           </MenuButton>
         <MenuList>
           <Flex alignItems="center" flexDirection="column">
-          <Avatar  cursor="pointer" size="lg" name={nick} src={profile} />
+          <Avatar onClick={onOpen} cursor="pointer" size="lg" name={nick} src={profile} />
           <Box ml="3">
           
           <Text fontWeight="bold">
@@ -157,7 +171,7 @@ return (
           </Box>
           </Flex>
           
-        
+                 
         <MenuDivider />
         <MenuGroup title="Perfil">
         <MenuDivider />
@@ -175,6 +189,32 @@ return (
         </MenuList>
         </Menu>
 
+
+        <Modal onClose={onClose} size="md" isOpen={isOpen}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Mudar Avatar</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <Flex justifyContent="center" alignItems="center" direction="column">
+                <Avatar id="Avatar" src="#" name={nick} size="2xl" marginBottom="40px"></Avatar>
+                <input type="file" onChange={(e)=>{
+
+                const blob = new Blob([e.target.files[0]],{type:"image/png"})
+                console.log(e.target.files[0]);
+                console.log(blob)
+                const avatar = document.getElementById("Avatar");
+                avatar.setAttribute("src",URL.createObjectURL(blob));
+              }}></input>
+               
+                </Flex>
+              </ModalBody>
+              <ModalFooter>
+                <Button marginRight="20px">Confirmar</Button>
+                <Button onClick={onClose}>Fechar</Button>
+              </ModalFooter>
+            </ModalContent>
+         </Modal>
     
     </GridItem>
     
@@ -187,6 +227,9 @@ return (
         <Text margin="10px 0 0 10px" >Recomendados:</Text>
         
         <br/>
+
+         
+
          <Video img="/imgs/js.png" alt="javascript" likes="50" views="1000" title="Javascript Básico" ></Video>
          <Video img="/imgs/css.jpg" alt="javascript" likes="50" views="1000" title="CSS Básico" ></Video>
          <Video img="/imgs/java.jpg" alt="javascript" likes="50" views="1000" title="Java Básico" ></Video>
