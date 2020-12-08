@@ -200,7 +200,7 @@ return (
                 <Avatar id="Avatar" src="https://via.placeholder.com/128" name={nick} size="2xl" marginBottom="40px"></Avatar>
                 <input type="file" onChange={(e)=>{
 
-                const blob = new Blob([e.target.files[0]],{type:"image/png"})
+                const blob = new Blob([e.target.files[0]],{type:"video/mp4"})
                 console.log(e.target.files[0]);
                 console.log(blob)
                 const avatar = document.querySelector("#Avatar img");
