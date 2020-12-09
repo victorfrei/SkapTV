@@ -72,13 +72,6 @@ AWS.config ={credentials:{accessKeyId:process.env.AKID,secretAccessKey:process.e
 
 new AWS.S3().putObject({
   Key: `${Nick}/`,
-  Bucket: `users-skap`,
-},function(err,data){
-  console.log(data);
-  console.log(err);
-});
-new AWS.S3().putObject({
-  Key: `${Nick}/`,
   Bucket: `vid-skap`,
 },function(err,data){
   console.log(data);

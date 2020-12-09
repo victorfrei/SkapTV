@@ -62,7 +62,7 @@ const alertW = (data,duration,closable) =>{
       status:status,
       duration: duration,
       position:"top",
-      isClosable: closable
+      isClosable: closable,
     })
   return 0;
   }

@@ -10,6 +10,7 @@ const userSchema = new Schema({
     Nick: String,
     Email: String,
     Pass: String,
+    Profile: String,
     date: {type:Date,default:Date.now}
   });
 
@@ -28,8 +29,9 @@ const user = conn.model("User",userSchema);
       if(pack==null){
         return {err: true, msg:"O Email não foi encontrado!"};
       }else{
+      const {Nick,Profile} = pack;
       if(bcrypt.compareSync(Pass,pack.Pass)){
-      let token = jwt.sign({data:{Nick:pack.Nick,profile:"#"} }, process.env.privateKey,{expiresIn:3600});
+      let token = jwt.sign({data:{Nick:Nick,Profile:Profile} }, process.env.privateKey,{expiresIn:3600});
       return {err:false, token};
       }else{
         return {err: true, msg:"A senha está incorreta!!"};
