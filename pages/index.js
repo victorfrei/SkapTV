@@ -1,4 +1,4 @@
-import { Avatar,useToast,Link, Badge,Button, Box,Grid, GridItem,Input, InputGroup, InputLeftElement, useColorMode, MenuButton } from "@chakra-ui/react";
+import { Avatar,Alert,AlertIcon,useToast,Link, Badge,Button, Box,Grid, GridItem,Input, InputGroup, InputLeftElement, useColorMode, MenuButton } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { FiSearch,FiBell,FiPlusCircle } from "react-icons/fi";
 import Head from 'next/head';
@@ -32,11 +32,6 @@ import {useEffect} from 'react';
 import {useDisclosure} from '@chakra-ui/react';
 import Axios from "axios";
 import logout from '../components/logout';
-import { type } from "os";
-
-
-
-
 
 
 export default function home(){
@@ -48,8 +43,7 @@ const [nick,setNick] = useState("Nome");
 const [profile,setProfile] = useState("#");
 const [plan,setPlan] = useState("Standard");
 const { isOpen, onOpen, onClose } = useDisclosure();
-
-
+const [profileblob,setProfileblob] = useState("#");
 
 const alertW = (data,duration,closable) =>{
     toast({
@@ -58,24 +52,37 @@ const alertW = (data,duration,closable) =>{
       duration: duration,
       position:"top",
       isClosable: closable
-    })}
+    })
+  return 0;
+  }
 
+  const alert = (data,duration,closable,status) =>{
+    toast({
+       description:data,
+      status:status,
+      duration: duration,
+      position:"top",
+      isClosable: closable
+    })
+  return 0;
+  }
 
-
+    
 
   
 useEffect(()=>{
   
-    
+  
       
     Axios.post("/api/verify",{key:localStorage.getItem("PublicKey")==null?"0001":localStorage.getItem("PublicKey")})
       
     .then((resp)=>{
     console.log(resp);
-      
+    
+
     if(resp.data.valid == true){
       setNick(resp.data.values.data.Nick);
-      setProfile(resp.data.values.data.profile);
+      setProfile(resp.data.values.data.Profile);
       setPlan("Standard");
       //console.clear();
     }else {
@@ -197,21 +204,44 @@ return (
               <ModalCloseButton />
               <ModalBody>
                 <Flex justifyContent="center" alignItems="center" direction="column">
-                <Avatar id="Avatar" src="https://via.placeholder.com/128" name={nick} size="2xl" marginBottom="40px"></Avatar>
-                <input type="file" onChange={(e)=>{
-
-                const blob = new Blob([e.target.files[0]],{type:"video/mp4"})
-                console.log(e.target.files[0]);
-                console.log(blob)
-                const avatar = document.querySelector("#Avatar img");
-                avatar.setAttribute("src",URL.createObjectURL(blob));
+                <Avatar src={profile == "#" ? "https://via.placeholder.com/128": profile} name={nick} size="2xl" marginBottom="40px"></Avatar>
+                <input type="file" accept="image/*" onChange={(e)=>{
+                  const file = new FileReader();
+                  file.onloadend= ()=>{
+                      setProfileblob(file.result);
+                      setProfile(file.result);
+                  }
+                  file.readAsDataURL(e.target.files[0]);
+                  
               }}></input>
-               
+               <Alert marginTop="20px" status="warning">
+              <AlertIcon />
+                O avatar pode ter até no Max. 1MB
+              </Alert>
                 </Flex>
               </ModalBody>
               <ModalFooter>
-                <Button marginRight="20px">Confirmar</Button>
-                <Button onClick={onClose}>Fechar</Button>
+                <Button marginRight="20px" onClick={()=>{
+                  Axios.post("/api/changeimage",{token:localStorage.getItem("PublicKey"), Profile:profileblob})
+                  .then((data)=>{
+                    if(data.status== 200){
+                      localStorage.setItem("PublicKey",data.data)
+                      alert("Avatar alterado!",2000,true,"success");
+                    }
+                    })
+                   .catch((data)=>{
+                     if(data){
+                      alertW("A imagem é maior que 1MB!!",2000,true);
+                     }
+                    })
+                  
+                  
+                  onClose();
+                }}>Confirmar</Button>
+                <Button onClick={()=>{
+                  setProfile("#")
+                  onClose();
+                  }}>Cancelar</Button>
               </ModalFooter>
             </ModalContent>
          </Modal>

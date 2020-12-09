@@ -1,31 +1,25 @@
 // import Head from 'next/head'
 
-import {Grid, Flex, Link, Button,useToast, Text, Tooltip } from '@chakra-ui/react'
+import {Grid, Flex, Link, Button,useToast, Text} from '@chakra-ui/react'
 import Divider from '../components/Divider'
 import Input from '../components/Input'
 import {useColorModeValue,useColorMode} from '@chakra-ui/react';
-import {SiGoogle} from 'react-icons/si';
+//import {SiGoogle} from 'react-icons/si';
 import {FiUser,FiSun,FiMoon} from 'react-icons/fi';
-import { useEffect } from 'react';
+import { useState } from 'react';
 import Axios from 'axios';
 import {useRouter} from 'next/router';
 
 
 
 export default function Home() {
-  let login;
   const router = useRouter();
-const toast = useToast();
-
-
+  const toast = useToast();
+  let [Email , setEmail] = useState("");
+  const [Pass,setPass] = useState("");
+  const color = useColorModeValue("white","gray.300");
+  const { colorMode, toggleColorMode } = useColorMode()
   
-
-
- useEffect(()=>{
-    let Login = document.getElementById("Login"); 
-    let Nick = document.getElementById("nick");
-    let Pass = document.getElementById("senha");
-    
     let fre = (data,status,title) =>{
       toast({
         title: title,
@@ -36,15 +30,20 @@ const toast = useToast();
         isClosable: false
       })}
 
-    Login.disabled = true;
+   
 
-    login = () => {
-        Nick = Nick.value;
-        Pass = Pass.value;
-    Axios.post("/api/login",{Nick,Pass})
+function Login(){
+        
+   if(Email =="" && Pass==""){
+
+    fre("Não há dados inseridos!","warning","O login Falhou!");
+
+   }else{
+    Email = Email.toLowerCase();
+    Axios.post("/api/login",{Email ,Pass})
     .then((docs)=>{
       if(docs.data.err){
-        fre(docs.data.msg,"warning","O login falhou!");
+        fre(docs.data.msg,"error","O login falhou!");
         setTimeout(()=>{},2000);
         router.replace("/login");
       }else{
@@ -54,32 +53,11 @@ const toast = useToast();
         router.replace("/");
       }
     })
-    }
-
-    const inputchange = () =>{
-      Nick = document.getElementById("nick");
-      Pass = document.getElementById("senha");
-      if(Nick.value =="" || Pass.value =="" ){
-          Login.disabled = true;
-        }else{
-          Login.disabled = false;
-        }
-    }
+   }
+}
 
 
-  Nick.addEventListener("change",inputchange);
-  Pass.addEventListener("change",inputchange);
-  Login.onclick = login;
-  
-  });
-
-  const color = useColorModeValue("white","gray.300");
-  const { colorMode, toggleColorMode } = useColorMode()
-
-  
- 
-
-  return (
+ return (
     <Grid
       as="main"
       height="100vh"
@@ -95,6 +73,7 @@ const toast = useToast();
           {colorMode === "light" ? <FiSun size="80px"/>:<FiMoon size="80px"/>}
         </Button>
       <Flex 
+        as="form"
         gridArea="form"
         width="100%"
         backgroundColor={useColorModeValue("gray.700","gray.700")}
@@ -103,16 +82,20 @@ const toast = useToast();
         alignItems="stretch"
         padding={16}
       >
-       
-        <Input
-        id="nick"
-          placeholder="nickname"
+      <Input
+          onChange={(e)=>{
+            setEmail(e.target.value);
+          }}
+          placeholder="Email"
           
         />
 
         <Input
-        id="senha"
+          onChange={(e)=>{
+            setPass(e.target.value);
+          }}
           placeholder="Senha"
+          autoComplete="Senha"
           type="password"
           marginTop={2}
         />
@@ -127,19 +110,20 @@ const toast = useToast();
         >
           Esqueci minha senha
         </Link>
-    <Tooltip hasArrow closeDelay={200} placement="right" label="Digite o nickname e senha para logar!">
         <Button
-        id="Login"
+        
           leftIcon={<FiUser/>}
           backgroundColor="red.500"
           height="50px"
           borderRadius="sm"
           marginTop={6}
+          onClick={()=>{
+            Login();
+          }}
           _hover={{ backgroundColor: 'red.600' }}
         >
           ENTRAR
         </Button>
-        </Tooltip>
         <Text
           textAlign="center"
           fontSize="sm"
@@ -158,7 +142,7 @@ const toast = useToast();
         </Text>
 
         <Divider />
-
+{/* 
         <Flex alignItems="center">
           <Text fontSize="sm" color={color}>Ou</Text>
           <Button
@@ -173,7 +157,7 @@ const toast = useToast();
             Entre com a Google
           </Button>
           
-        </Flex>
+        </Flex> */}
       </Flex>
     </Grid>
   )

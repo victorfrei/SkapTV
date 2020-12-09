@@ -15,7 +15,7 @@ const userSchema = new Schema({
 
 
 
-export default async function login({Nick,Pass}){
+export default async function login({Email,Pass}){
  
 
 
@@ -24,9 +24,9 @@ export default async function login({Nick,Pass}){
  
 const user = conn.model("User",userSchema);
 
-  const pack =await user.findOne({Nick});
+  const pack =await user.findOne({Email});
       if(pack==null){
-        return {err: true, msg:"O nickname não foi encontrado!"};
+        return {err: true, msg:"O Email não foi encontrado!"};
       }else{
       if(bcrypt.compareSync(Pass,pack.Pass)){
       let token = jwt.sign({data:{Nick:pack.Nick,profile:"#"} }, process.env.privateKey,{expiresIn:3600});

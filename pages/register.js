@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import {Grid, Flex, Link, Button, Text, useToast} from '@chakra-ui/react'
+import React, {useState } from 'react';
+import {Grid, Flex, Link, Button, Text, useToast,Alert,AlertIcon} from '@chakra-ui/react'
 import Divider from '../components/Divider'
 import Input from '../components/Input'
 import {useColorModeValue,useColorMode} from '@chakra-ui/react';
-import {SiGoogle} from 'react-icons/si';
+//import {SiGoogle} from 'react-icons/si';
 import {FiUser,FiSun,FiMoon} from 'react-icons/fi';
 import {useRouter} from 'next/router'
 
@@ -15,10 +15,14 @@ export default function Home() {
   const { colorMode, toggleColorMode } = useColorMode()
   const toast = useToast();
   const router = useRouter();
+  let [Nick,setNick] = useState("");
+  let [Email,setEmail] = useState("");
+  const [Pass,setPass] = useState("");
+  const [confirm,setconfirm] = useState("");
+
 
   const fre = (data,status) =>{
     toast({
-      title: "ATENÇÃO",
       description: data,
       status: status,
       duration: 9000,
@@ -26,35 +30,20 @@ export default function Home() {
       isClosable: true
     })}
 
-  let register;
-  useEffect(()=>{
-    let Register = document.getElementById("register");
-
-    
-    
-   register= ()=>{
+ 
+ function Registrar(){
       
-    let Nick = document.getElementById("user");
-    let Email = document.getElementById("email");
-    let Pass = document.getElementById("senha");
-    let confirm = document.getElementById("senhaconfirm");
-
-    if(Pass.value==confirm.value){
-
-      
-      Nick = Nick.value;
-      Email = Email.value;
-      Pass = Pass.value;
-
-
-      if(Pass.value == "" && Email.value =="" && Nick.value==""){
-        console.log("campos vazios!!");
+    if(Pass == "" && Email =="" && Nick==""){
+        fre("Não há dados!!","warning");
       }else{
-        
+        if(Pass == confirm){
+          Nick = Nick.toLowerCase();
+          Email = Email.toLowerCase();
+          fre("Criando conta...","info")
      Axios.post("/api/register",{Nick,Email,Pass})
       .then((data)=>{
         if(data.data.err){
-        fre(data.data.msg,"warning");
+        fre(data.data.msg,"error");
         }else{
           fre("Conta feita com sucesso!!","success");
           localStorage.setItem("PublicKey",data.data);
@@ -62,16 +51,14 @@ export default function Home() {
           router.replace("/");
         }
       });
+    }else{
+      fre("As senhas não são iguais!","error")
+    }
    
     }
-  }else{
-    fre("As senhas não coincidem!","warning")
-   } 
-  }
+   }
 
-Register.onclick = register;
 
-});
 
 
 return (
@@ -94,6 +81,7 @@ return (
           {colorMode === "light" ? <FiSun size="80px"/>:<FiMoon size="80px"/>}
         </Button>
       <Flex 
+        as="form"
         gridArea="form"
         width="100%"
         backgroundColor={useColorModeValue("gray.700","gray.700")}
@@ -102,40 +90,49 @@ return (
         alignItems="stretch"
         padding={12}
       >
+        <Alert status="warning" m="10px 0">
+        <AlertIcon/>
+        Não será possivel alterar o nick depois!
+        </Alert>
 
         <Input
-          id="user"
-          placeholder="nickname"
+          placeholder="Nickname"
+          onChange={(e)=>{setNick(e.target.value)}}
         />
-
+        
         <Input
-        id="email"
           placeholder="Email"
           marginTop={2}
+          onChange={(e)=>{setEmail(e.target.value)}}
         />
 
         <Input
-          id="senha"
           placeholder="Senha"
           type="password"
-          
+          onChange={(e)=>{setPass(e.target.value)}}
+          autoComplete="senha"
           marginTop={2}
         />
         <Input
           id="senhaconfirm"
           placeholder="Confirme sua senha"
           type="password"
+          autoComplete="senha"
+          onChange={(e)=>{setconfirm(e.target.value)}}
           marginTop={2}
         />
 
 
         <Button
-          id="register"
           leftIcon={<FiUser/>}
           backgroundColor="red.500"
           height="50px"
           borderRadius="sm"
           marginTop={6}
+          
+          onClick={(e)=>{
+            Registrar();
+          }}
           _hover={{ backgroundColor: 'red.600' }}
         >
           Registrar
@@ -160,7 +157,7 @@ return (
 
         <Divider />
 
-        <Flex alignItems="center" >
+        {/* <Flex alignItems="center" >
           <Text fontSize="sm" color={color}>Ou</Text>
            <Button
             leftIcon={<SiGoogle/>}
@@ -174,7 +171,7 @@ return (
             Cadastrar com a Google
           </Button>
           
-        </Flex>
+        </Flex> */}
       </Flex>
     </Grid>
   )
