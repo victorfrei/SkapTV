@@ -25,7 +25,7 @@ const {data:{Nick}} = jwt.decode(req.body.Token);
 const {Number} = await user.findOne({Nick});
 
  if(Number == req.body.Number){
-    user.findOneAndUpdate({Nick,Email},{EmailVerificado:true});
+    user.findOneAndUpdate({Nick},{EmailVerificado:true});
     resp.send(`${data.data.Nick} seu Email foi verificado com sucesso! Sua senha secreta é: ${data.data.Number} Guardi-a
     pois ela será requisitada quando você for fazer alguma modificação em sua conta ou transações bancarias. Para evitar o uso indevido do seu cartões de creditos(crianças,hackers...) e para sua maior segurança. 
     `);
