@@ -58,7 +58,12 @@ const remetente = nodemailer.createTransport({
     from: 'support@skap.tv',
     to: `${Email}`,
     subject:"Verificação Skap",
-    text:  `Confirme sua conta no skap: https://skap.tv/api/check/?verify=${number}`
+    text:  `Passos para verificar:
+    1- Acesse sua conta
+    2- Aperte no link abaixo com sua conta logada no skap
+    3- Pronto! A verificação ocorrerar automaticamente.
+    
+    Confirme sua conta no skap: https://skap.tv/check/?verify=${number}`,
     };
  
    remetente.sendMail(emailASerEnviado);

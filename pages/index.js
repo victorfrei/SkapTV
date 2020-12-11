@@ -1,5 +1,5 @@
 import { Avatar,Alert,AlertIcon,useToast,Link, Badge,Button, Box,Grid, GridItem,Input, InputGroup, InputLeftElement, useColorMode, MenuButton } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useState} from "react";
 import { FiSearch,FiBell,FiPlusCircle } from "react-icons/fi";
 import Head from 'next/head';
 
@@ -23,6 +23,16 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Heading
+} from "@chakra-ui/react"
+import {
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
 } from "@chakra-ui/react"
 
 import NavBar from '../components/navbar';
@@ -42,8 +52,14 @@ const { colorMode, toggleColorMode } = useColorMode()
 const [nick,setNick] = useState("Nome");
 const [profile,setProfile] = useState("#");
 const [plan,setPlan] = useState("Standard");
-const { isOpen, onOpen, onClose } = useDisclosure();
 const [profileblob,setProfileblob] = useState("#");
+const { isOpen, onOpen, onClose } = useDisclosure()
+const account = useDisclosure()
+ 
+
+
+
+
 
 const alertW = (data,duration,closable) =>{
     toast({
@@ -77,7 +93,7 @@ useEffect(()=>{
     Axios.post("/api/verify",{key:localStorage.getItem("PublicKey")==null?"0001":localStorage.getItem("PublicKey")})
       
     .then((resp)=>{
-    console.log(resp);
+    
     
 
     if(resp.data.valid == true){
@@ -106,7 +122,34 @@ return (
         templateRows="50px 1fr"
         templateAreas={['"search search  profile""content content content"','"search search  profile""content content content"','"navbar search  profile""navbar content content"']}
         >
+  
+      <Drawer
+        isOpen={account.isOpen}
+        placement="right"
+        onClose={account.onToggle}
+        >
+        <DrawerOverlay>
+          <DrawerContent>
+            <DrawerCloseButton />
+            <DrawerHeader>Sua Conta</DrawerHeader>
 
+            <DrawerBody>
+              <Avatar src={profile}></Avatar>
+              <Heading as="h6" size="xs" colorScheme="gray.200">Seu Saldo</Heading>
+              <Heading as="h5" size="md" colorScheme="gray.700">Valor</Heading>
+              <Box>
+              <Heading as="h6" size="xs" colorScheme="gray.200">Seu Cartões</Heading>
+              <Heading as="h6" size="xs" colorScheme="gray.200">Cartões aqui</Heading>
+              </Box>
+            </DrawerBody>
+
+            <DrawerFooter>
+              <Link href="/account"><Button bg="blue">Acessar Pagina Completa</Button></Link>
+            </DrawerFooter>
+          </DrawerContent>
+        </DrawerOverlay>
+      </Drawer>
+  
 
       
 <Head>
@@ -183,12 +226,12 @@ return (
         <MenuGroup title="Perfil">
         <MenuDivider />
         <Link href={`/channel/${nick}`} ><MenuItem>Meu Canal</MenuItem></Link>
-        <Link href="/account" ><MenuItem>Minha Conta</MenuItem></Link>
+        <MenuItem onClick={account.onOpen} >Minha Conta</MenuItem>
         </MenuGroup>
         <MenuDivider />
         <MenuGroup title="Outros">
         <MenuDivider />
-        <MenuItem onClick={toggleColorMode} >Mudar Para {colorMode=="light"?"Dark":"Light"} Mode</MenuItem>
+        <MenuItem onClick={toggleColorMode}>Mudar Para {colorMode=="light"?"Dark":"Light"} Mode</MenuItem>
         <MenuItem >Configurações</MenuItem>
         <MenuItem >Ajuda</MenuItem>
         <MenuItem onClick= {logout}>Sair</MenuItem>
@@ -239,7 +282,6 @@ return (
                   onClose();
                 }}>Confirmar</Button>
                 <Button onClick={()=>{
-                  setProfile("#")
                   onClose();
                   }}>Cancelar</Button>
               </ModalFooter>
