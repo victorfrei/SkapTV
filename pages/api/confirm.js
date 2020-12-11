@@ -22,7 +22,7 @@ const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.e
  if(req.body.Token !=null||"0001"){
 jwt.verify(req.body.Token,process.env.privateKey);
 const {data:{Nick}} = jwt.decode(req.body.Token);
-const {Number} = await user.findOne(Nick);
+const {Number} = await user.findOne({Nick});
 
  if(Number == req.body.Number){
     user.findOneAndUpdate({Nick,Email},{EmailVerificado:true});
