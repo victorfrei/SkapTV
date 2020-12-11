@@ -79,15 +79,13 @@ new AWS.S3().putObject({
   Key: `${Nick}/`,
   Bucket: `vid-skap`,
 },function(err,data){
-  console.log(data);
-  console.log(err);
+  
 });
 new AWS.S3().putObject({
   Key: `${Nick}/`,
   Bucket: `channels-skap`,
 },function(err,data){
-  console.log(data);
-  console.log(err);
+  
 });
 return token;
 
