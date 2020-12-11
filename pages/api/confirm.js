@@ -27,12 +27,12 @@ const {Number} = await user.findOne({Nick});
 
  if(Number == req.body.Number){
     user.findOneAndUpdate({Nick},{EmailVerificado:true});
-    resp.send(`${Nick.toUpperCase()} seu Email foi verificado com sucesso! Sua senha secreta é: ${Number}.
+    resp.send(`${Nick.toUpperCase()} seu email foi verificado com sucesso! Sua senha secreta é: ${Number}.
     Guardi-a pois ela será requisitada quando você for fazer alguma modificação em sua conta ou transações bancarias.
     Para evitar o uso indevido do seus cartões de creditos(crianças,hackers...) e para sua maior segurança. 
     `);
  }else{
-     resp.send("Não foi possivel verificar seu Email!!");
+     resp.send("Não foi possivel verificar seu email!!");
  }
  }else{
      resp.send("É necessario está logado para confirmar o email! Se preferir tenter acessar pelo computador.");
