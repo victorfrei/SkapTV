@@ -11,7 +11,7 @@ export default function check(){
 
     const alert = (data,duration,closable,status) =>{
         toast({
-           description:data,
+          description:data,
           status:status,
           duration: duration,
           position:"top",
@@ -25,10 +25,10 @@ useEffect(()=>{
     Axios.post("/api/confirm",{Number:number,Token:localStorage.getItem("PublicKey")})
     .then((data)=>{
       if(data.data.User == null){
-       alert(`${data.data}`,4000,false,"warning");
+       alert(`${data.data}`,30000,true,"error");
       setTimeout(() => {
           router.replace("/");
-      }, 3000);
+      }, 4000);
        
       }
     

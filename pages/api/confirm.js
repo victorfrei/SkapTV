@@ -22,12 +22,14 @@ const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.e
  if(req.body.Token !=null||"0001"){
 jwt.verify(req.body.Token,process.env.privateKey);
 const {data:{Nick}} = jwt.decode(req.body.Token);
+console.log(Nick)
 const {Number} = await user.findOne({Nick});
 
  if(Number == req.body.Number){
     user.findOneAndUpdate({Nick},{EmailVerificado:true});
-    resp.send(`${data.data.Nick} seu Email foi verificado com sucesso! Sua senha secreta é: ${data.data.Number} Guardi-a
-    pois ela será requisitada quando você for fazer alguma modificação em sua conta ou transações bancarias. Para evitar o uso indevido do seu cartões de creditos(crianças,hackers...) e para sua maior segurança. 
+    resp.send(`${Nick.toUpperCase()} seu Email foi verificado com sucesso! Sua senha secreta é: ${Number}.
+    Guardi-a pois ela será requisitada quando você for fazer alguma modificação em sua conta ou transações bancarias.
+    Para evitar o uso indevido do seus cartões de creditos(crianças,hackers...) e para sua maior segurança. 
     `);
  }else{
      resp.send("Não foi possivel verificar seu Email!!");
