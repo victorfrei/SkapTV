@@ -2,3 +2,30 @@
 a{
     text-decoration: none !important;
 }
+
+.chakra-ui-light{
+    background-color: #8e78c7 !important;
+}
+
+.chakra-ui-dark{
+    background-color: #090613 !important;
+}
+
+::-webkit-scrollbar-thumb {
+   border: 1px solid rgba(255,255,255,0.3);
+   background-color: #091613;
+   border-radius: 40px;
+}
+
+::-webkit-scrollbar{
+    width: 10px;
+}
+
+.Skap_Text_Video{
+    display: -webkit-box;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}

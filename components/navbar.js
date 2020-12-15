@@ -1,37 +1,111 @@
-import {Box,Button,Text,Divider,Flex,Image,useColorMode, Link} from '@chakra-ui/react';
 
 
-export default function navbar(){
 
-    const {colorMode} = useColorMode();
+export default function Navmenu(){
 
-    return(
-        <Box maxW={["0","0","50%"]}  height="100%" borderRight="1px solid" borderColor={colorMode=="light"?"#ecebdf":"#403737"} overflow="hidden">
-               
-        <Flex alignItems="center" width="-webkit-fill-available" flexDirection="column">
+return <Box
+        as={Flex}
+        zIndex="1"
+        alignItems="center"
+        margin=" 0 auto"
+        borderBottomRadius="20px"
+        gridArea="navmenu"
+        w="100%"
+        h="50px"
+        bg="#091613"
+        position="fixed"
+        justifyContent="flex-end"
+        >
+  <Button border="none" w="120px" h="40px" backgroundColor="#6D5DD3" _hover={{bg:"#313aa1"}} borderRadius="10px">Upload Video</Button>
+    
+    <Menu>
+          <MenuButton>
+          <Avatar cursor="pointer"  size="sm" name={nick} src={profile} margin=" 0 20px 0 20px" />
+          </MenuButton>
+          <MenuList bg="#091613" margin="10px 20px 0 0">
+          <Flex alignItems="center" flexDirection="column">
+          <Avatar onClick={onOpen} cursor="pointer" size="lg" name={nick} src={profile} />
+          <Box ml="3">
+          
+          <Text fontWeight="bold">
+          {nick}
+          <Badge ml="1"  colorScheme={plan=="Premium"?"yellow":"gray"}>
+          {plan}
+          </Badge>
+          </Text>
+          
+          </Box>
+          </Flex>
+          
+                 
+        <MenuDivider />
+        <MenuGroup title="Perfil">
+        <MenuDivider />
+        <Link href={`/channel/${nick}`} ><MenuItem>Meu Canal</MenuItem></Link>
+        <MenuItem onClick={account.onOpen} >Minha Conta</MenuItem>
+        </MenuGroup>
+        <MenuDivider />
+        <MenuGroup title="Outros">
+        <MenuDivider />
+        <MenuItem onClick={toggleColorMode}>Mudar Para {colorMode=="light"?"Dark":"Light"} Mode</MenuItem>
+        <MenuItem >Configurações</MenuItem>
+        <MenuItem >Ajuda</MenuItem>
+        <MenuItem onClick= {logout}>Sair</MenuItem>
+        </MenuGroup>
+        </MenuList>
+        </Menu>
 
-        <Image src={colorMode=="light"?"/icons/logo/white.png":"/icons/logo/dark.png"} borderRadius="50px" maxW="400px" alt="Logo"/>
-        <Text marginTop="30px" marginLeft="-100px">
-            Menu
-        </Text>
-        
-        <Link href="/" w="90%" _hover={{textDecoration:"none"}}><Button _hover={{bg:"#6D5DD3"}}  margin="10px" variant="outline"  borderRadius="10px" border="none" w="90%" >Inicio</Button></Link>
-        <Link href="/trending" w="90%" _hover={{textDecoration:"none"}} ><Button _hover={{bg:"#6D5DD3"}} margin="10px" variant="outline" border="none" borderRadius="10px" w="90%">Em Alta</Button></Link>
-        <Link href="/profile/subs" w="90%" _hover={{textDecoration:"none"}}><Button _hover={{bg:"#6D5DD3"}} margin="10px" variant="outline" border="none" borderRadius="10px" w="90%">Inscrições</Button></Link>
 
-        <Divider/>
+    <Modal onClose={onClose} size="md" isOpen={isOpen}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>Mudar Avatar</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <Flex justifyContent="center" alignItems="center" direction="column">
+                <Avatar src={profile == "#" ? "https://via.placeholder.com/128": profile} name={nick} size="2xl" marginBottom="40px"></Avatar>
+                <input type="file" accept="image/*" onChange={(e)=>{
+                  const file = new FileReader();
+                  file.onloadend= ()=>{
+                      setProfileblob(file.result);
+                      setProfile(file.result);
+                  }
+                  file.readAsDataURL(e.target.files[0]);
+                  
+              }}></input>
+               <Alert marginTop="20px" status="warning">
+              <AlertIcon />
+                O avatar pode ter até no Max. 1MB
+              </Alert>
+                </Flex>
+              </ModalBody>
+              <ModalFooter>
+                <Button marginRight="20px" onClick={()=>{
+                  Axios.post("/api/changeimage",{token:localStorage.getItem("PublicKey"), Profile:profileblob})
+                  .then((data)=>{
+                    if(data.status== 200){
+                      localStorage.setItem("PublicKey",data.data)
+                      alert("Avatar alterado!",2000,true,"success");
+                    }
+                    })
+                   .catch((data)=>{
+                     if(data){
+                      alertW("A imagem é maior que 1MB!!",2000,true);
+                     }
+                    })
+                  
+                  
+                  onClose();
+                }}>Confirmar</Button>
+                <Button onClick={()=>{
+                  onClose();
+                  }}>Cancelar</Button>
+              </ModalFooter>
+            </ModalContent>
+         </Modal>
+    
+    
+    </Box>
 
-        <Link href="/profile/history" w="90%" _hover={{textDecoration:"none"}}><Button _hover={{bg:"#6D5DD3"}} margin="10px" variant="outline" borderRadius="10px" border="none" w="90%">Histórico</Button></Link>
-        <Link href="/profile/liked" w="90%" _hover={{textDecoration:"none"}}><Button _hover={{bg:"#6D5DD3"}} margin="10px" variant="outline" borderRadius="10px" border="none" w="90%">Videos Curtidos</Button></Link>
-        
 
-
-        <Button margin="150px 50px 50px 50px" border="none" w="90%" backgroundColor="#6D5DD3" _hover={{bg:"#313aa1"}} borderRadius="10px">Upload Video</Button>
-        </Flex>
-               
-        
-       
-        </Box>
-        
-    )
-}
+                }

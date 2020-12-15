@@ -92,11 +92,11 @@ return (
       >
         <Alert status="warning" m="10px 0">
         <AlertIcon/>
-        Não será possivel alterar o nick depois!
+        Não será possivel alterar o nome do canal depois do cadastro!
         </Alert>
 
         <Input
-          placeholder="Nickname"
+          placeholder="Nome do Canal"
           onChange={(e)=>{setNick(e.target.value)}}
         />
         
