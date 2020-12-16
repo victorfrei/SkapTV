@@ -12,7 +12,7 @@ import {
   } from "@chakra-ui/react";
   import { Radio, RadioGroup,Flex,Text,Stack,Input } from "@chakra-ui/react"
   import React, {useState} from 'react';
-
+  import Axios from 'axios';
 
 export default function ReturnFocus() {
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -64,7 +64,12 @@ export default function ReturnFocus() {
               <Input h="200px"></Input>
               <Text>Categoria</Text>
               <Input></Input>
-              <Button variant="ghost" bg={"blue.400"} mt="150px" h="50px" color="black" _hover={{bg:"blue.900",color:"white"}}>Enviar</Button>
+              <Button variant="ghost" bg={"blue.400"} mt="150px" onClick={()=>{
+                  Axios.post("/api/upload",{data:{name:"teste",vid:video}})
+                  .then(data=>{
+                      console.log("ok "+data)
+                  })
+                  }} h="50px" color="black" _hover={{bg:"blue.900",color:"white"}}>Enviar</Button>
               </Box>
               </Flex>
                        

@@ -9,10 +9,10 @@ export default function upload(req,resp){
         ACL:"public-read",
         Bucket:"vid-skap",
         Key:`${req.body.data.name}/${bcrypt.hashSync(req.body.data.name,14)}`,
-        Body = "Olá mundo"
+        Body: req.Body.data.vid
     }
 
-    const options={partSize= 10 * 1024^3}
+    const options={partSize: 10 * 1024^3}
 
 
     S3.upload(params,options,(err,data)=>{
