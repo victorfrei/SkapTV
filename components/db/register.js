@@ -2,7 +2,6 @@
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import AWS from 'aws-sdk';
 const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 import nodemailer from 'nodemailer'
@@ -73,20 +72,8 @@ const HashPass = bcrypt.hashSync(Pass,12)
 await user.create({Nick:Nick,Email:Email,Pass:HashPass,profile:"#",Date:Date.now,EmailVerificado:false,Number:number});
 const token = jwt.sign({data:{Nick,profile:"#"} }, process.env.privateKey,{expiresIn:3600});
 
-AWS.config ={credentials:{accessKeyId:process.env.AKID,secretAccessKey:process.env.SAKEY}};
 
-new AWS.S3().putObject({
-  Key: `${Nick}/`,
-  Bucket: `vid-skap`,
-},function(err,data){
-  
-});
-new AWS.S3().putObject({
-  Key: `${Nick}/`,
-  Bucket: `channels-skap`,
-},function(err,data){
-  
-});
+
 return token;
 
 }

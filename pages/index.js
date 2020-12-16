@@ -40,7 +40,7 @@ import {useEffect} from 'react';
 import {useDisclosure} from '@chakra-ui/react';
 import Axios from "axios";
 import logout from '../components/logout';
-
+import ModalComponent from '../components/modal';
 
 export default function home(){
 
@@ -108,7 +108,7 @@ useEffect(()=>{
     })
 
   
-},router.pathname);
+},[router.pathname]);
 
 
 
@@ -168,7 +168,8 @@ return (
         position="fixed"
         justifyContent="flex-end"
         >
-  <Button border="none" w="120px" h="40px" backgroundColor="#6D5DD3" _hover={{bg:"#313aa1"}} borderRadius="10px">Upload Video</Button>
+  <ModalComponent ></ModalComponent>
+  
     
     <Menu>
           <MenuButton>
