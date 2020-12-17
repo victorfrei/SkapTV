@@ -68,7 +68,10 @@ export default function ReturnFocus(props) {
               <Text>Categoria</Text>
               <Input></Input>
               <Button variant="ghost" bg={"blue.400"} mt="150px" onClick={()=>{
-                  AWS.config.loadFromPath("/_aws/config.json");
+                 AWS.config.region = 'us-east-1'; // Region
+                 AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                     IdentityPoolId: 'us-east-1:7b6ee8c8-3d33-4e1e-81ac-6d9a51b41028',
+                 });
                  
                   const S3 = new AWS.S3({region:"sa-east-1"});
                   const params={
