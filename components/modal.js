@@ -68,8 +68,8 @@ export default function ReturnFocus(props) {
               <Text>Categoria</Text>
               <Input></Input>
               <Button variant="ghost" bg={"blue.400"} mt="150px" onClick={()=>{
-                  //AWS.config={credentials:{accessKeyId:process.env.AWS_ACCESS_KEY_ID,secretAccessKey:process.env.AWS_SECRET_ACCESS_KEY},region:"sa-east-1"};
-                  //console.log(AWS.config.accessKeyId);
+                  AWS.config.loadFromPath("/_aws/config.json");
+                 
                   const S3 = new AWS.S3({region:"sa-east-1"});
                   const params={
                       ACL:"public-read",
