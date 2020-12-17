@@ -168,7 +168,7 @@ return (
         position="fixed"
         justifyContent="flex-end"
         >
-  <ModalComponent ></ModalComponent>
+  <ModalComponent name={nick} ></ModalComponent>
   
     
     <Menu>

@@ -13,8 +13,11 @@ import {
   import { Radio, RadioGroup,Flex,Text,Stack,Input } from "@chakra-ui/react"
   import React, {useState} from 'react';
   import Axios from 'axios';
-
-export default function ReturnFocus() {
+  import AWS from 'aws-sdk'
+    
+             
+             
+export default function ReturnFocus(props) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const finalRef = React.useRef()
     const [video,setvideo] = useState()
@@ -65,11 +68,21 @@ export default function ReturnFocus() {
               <Text>Categoria</Text>
               <Input></Input>
               <Button variant="ghost" bg={"blue.400"} mt="150px" onClick={()=>{
-                  Axios.post("/api/upload",{data:{name:"teste",vid:video}})
-                  .then(data=>{
-                      console.log("ok "+data)
-                  })
-                  }} h="50px" color="black" _hover={{bg:"blue.900",color:"white"}}>Enviar</Button>
+                  //AWS.config={credentials:{accessKeyId:process.env.AWS_ACCESS_KEY_ID,secretAccessKey:process.env.AWS_SECRET_ACCESS_KEY},region:"sa-east-1"};
+                  //console.log(AWS.config.accessKeyId);
+                  const S3 = new AWS.S3({region:"sa-east-1"});
+                  const params={
+                      ACL:"public-read",
+                      Bucket:"vid-skap",
+                      Key:`${props.name}/test}`,
+                      Body: video
+                  }
+              
+                  const options={partSize: 10 * 1024*1024*1024}
+                 S3.upload(params,options,(err,data)=>{
+                    console.log("err "+err+" data "+data);
+                 })
+            }} h="50px" color="black" _hover={{bg:"blue.900",color:"white"}}>Enviar</Button>
               </Box>
               </Flex>
                        
