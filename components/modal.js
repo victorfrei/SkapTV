@@ -77,13 +77,17 @@ export default function ReturnFocus(props) {
                   const params={
                       ACL:"public-read",
                       Bucket:"vid-skap",
-                      Key:`${props.name}/test}`,
-                      Body: video
+                      Key:`${props.name}/test`,
+                      Body: video,
+                      //Metadados
+                      ContentType:"Video/*",
+                      ContentLanguage:"Portuguese"
                   }
               
                   const options={partSize: 10 * 1024*1024*1024}
                  S3.upload(params,options,(err,data)=>{
-                    console.log("err "+err+" data "+data);
+
+                    console.log("err "+err+" data "+JSON.stringify(data));
                  })
             }} h="50px" color="black" _hover={{bg:"blue.900",color:"white"}}>Enviar</Button>
               </Box>
