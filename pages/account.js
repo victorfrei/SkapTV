@@ -35,7 +35,7 @@ useEffect(()=>{
         router.replace("/login");
         }
     })
-},router.pathname);
+},[router.pathname]);
 
 
     return <>
