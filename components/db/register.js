@@ -70,7 +70,7 @@ const remetente = nodemailer.createTransport({
      console.log("ok "+ data);
    })
    .catch(err=>{
-     console.log("err "+ err);
+     console.error("err "+ err);
    })
  
 
