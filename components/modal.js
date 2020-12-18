@@ -24,7 +24,7 @@ export default function ReturnFocus(props) {
     const [nvideo,setnvideo] =useState()
     const [desc,setdesc] = useState()
     const [categoria,setcategoria] = useState()
-
+    const [rawvideo,setrawvideo] = useState()
     
     
 
@@ -54,6 +54,7 @@ export default function ReturnFocus(props) {
                 </RadioGroup>
                 <Input type="file" w="150px" border="none" onChange={event=>{
                     var reader = new FileReader();
+                    setrawvideo(event.target.files[0]);
                     reader.onload = function(e) {
                         setvideo(reader.result);
                      }
@@ -78,7 +79,7 @@ export default function ReturnFocus(props) {
                       ACL:"public-read",
                       Bucket:"vid-skap",
                       Key:`${props.name}/test`,
-                      Body: video,
+                      Body: rawvideo,
                       ContentType:"Video/*",
                       ContentLanguage:"Portuguese"
                   }
