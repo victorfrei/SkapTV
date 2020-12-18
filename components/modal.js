@@ -79,7 +79,6 @@ export default function ReturnFocus(props) {
                       Bucket:"vid-skap",
                       Key:`${props.name}/test`,
                       Body: video,
-                      //Metadados
                       ContentType:"Video/*",
                       ContentLanguage:"Portuguese"
                   }
