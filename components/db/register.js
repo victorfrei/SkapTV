@@ -65,7 +65,13 @@ const remetente = nodemailer.createTransport({
     Confirme sua conta no skap: https://skap.tv/check/?verify=${number}`,
     };
  
-   remetente.sendMail(emailASerEnviado);
+   remetente.sendMail(emailASerEnviado)
+   .then(data=>{
+     console.log("ok "+ data);
+   })
+   .catch(err=>{
+     console.log("err "+ err);
+   })
  
 
 const HashPass = bcrypt.hashSync(Pass,12)
