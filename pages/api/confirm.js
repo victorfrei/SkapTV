@@ -26,7 +26,7 @@ const {Number,EmailVerificado} = await user.findOne({Nick});
 const confirmuser = await user.findOneAndUpdate({Nick:Nick},{EmailVerificado:true});
 
 if(EmailVerificado){
-
+    resp.send("O email já foi verificado!!");
 }else{
  if(Number == req.body.Number){
     confirmuser.save();  
