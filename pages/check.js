@@ -25,7 +25,7 @@ useEffect(()=>{
     Axios.post("/api/confirm",{Number:number,Token:localStorage.getItem("PublicKey")})
     .then((data)=>{
       if(data.data.User == null){
-       alert(`${data.data}`,30000,true,"error");
+       alert(`${data.data}`,30000,true,"warning");
       setTimeout(() => {
           router.replace("/");
       }, 4000);
