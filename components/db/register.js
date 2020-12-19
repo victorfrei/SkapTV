@@ -22,14 +22,14 @@ const userSchema = new Schema({
 
 
 export default async function login({Nick,Email,Pass}){
-console.error("1");
+
 const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.env.R_PASS}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`,{useNewUrlParser: true,
  useUnifiedTopology: true});
  
 const user = conn.model("User",userSchema);
 const nick = await user.findOne({Nick}, null);
 const email = await user.findOne({Email}, null);
-console.error("2");
+
 if(nick != null){
   return {err:1,msg:"O nick já foi usado!"};
 }else if(email != null){
@@ -37,10 +37,10 @@ if(nick != null){
 }
 
 
-console.error("3");
 
 
-const number = Math.floor(Math.random() * 1000000)
+
+const number = Math.floor(Math.random() * 100000)
 
 
 const remetente = nodemailer.createTransport({
@@ -62,24 +62,24 @@ const remetente = nodemailer.createTransport({
     2- Aperte no link abaixo com sua conta logada no skap
     3- Pronto! A verificação ocorrerar automaticamente.
     
-    Confirme sua conta no skap: https://skap.tv/api/confirm/?verify=${number}`,
+    Confirme sua conta no skap: https://skap.tv/check/?verify=${number}`,
     };
  
    await remetente.sendMail(emailASerEnviado)
    .then(data=>{
-    console.error("4");
+    
      console.error("ok "+ data);
    })
    .catch(err=>{
-    console.error("5");
+    
      console.error("err "+ err);
    })
  
-   console.error("6");
+   
 const HashPass = bcrypt.hashSync(Pass,12)
 await user.create({Nick:Nick,Email:Email,Pass:HashPass,profile:"#",Date:Date.now,EmailVerificado:false,Number:number});
 const token = jwt.sign({data:{Nick,profile:"#"} }, process.env.privateKey,{expiresIn:3600});
-console.error("7");
+
 
 
 return token;

@@ -17,7 +17,7 @@ export default async function confirm(req,resp){
 const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.env.R_PASS}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`,{useNewUrlParser: true,
  useUnifiedTopology: true});
 
- const user = conn.model("User",userSchema);
+ const user = conn.model("users",userSchema);
 
 if(req.body.Token!=null && req.body.Token!="0001"){
 jwt.verify(req.body.Token,process.env.privateKey);
@@ -25,7 +25,8 @@ const {data:{Nick}} = jwt.decode(req.body.Token);
 const {Number} = await user.findOne({Nick});
 
  if(Number == req.body.Number){
-    user.findOneAndUpdate({Nick:Nick},{EmailVerificado:true});
+    const finded = user.findOneAndUpdate({Nick:Nick},{EmailVerificado:true});
+    
     resp.send(`${Nick.toUpperCase()} seu email foi verificado com sucesso! Sua senha secreta é: ${Number}.
     Guardi-a pois ela será requisitada quando você for fazer alguma modificação em sua conta ou transações bancarias.
     Para evitar o uso indevido do seus cartões de creditos(crianças,hackers...) e para sua maior segurança. 
