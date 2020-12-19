@@ -78,7 +78,7 @@ export default function ReturnFocus(props) {
                      IdentityPoolId: 'us-east-1:7b6ee8c8-3d33-4e1e-81ac-6d9a51b41028',
                  });
                  
-                 Axios.post("/api/uploadvideo",{update:false,name:props.name,nvideo:nvideo,desc:desc,categoria:categoria})
+                 Axios.post("/api/uploadvideo",{Update:false,name:props.name,nvideo:nvideo,desc:desc,categoria:categoria})
                  .then(data=>{
                   toast({
                     title: nvideo,
@@ -102,12 +102,12 @@ export default function ReturnFocus(props) {
                   
                  S3.upload(params,options,(err,data)=>{
                    if(data){
-
-                  Axios.post("/api/uploadvideo",{update:true,name:props.name,url:data.Location})
+                    console.log(data)
+                  Axios.post("/api/uploadvideo",{Update:true,name:data.Key.split("/")[1],url:data.Location})
                   .then(data=>{
                    toast({
                      title: nvideo,
-                     description: "O upload começou. Não feche essa guia até o upload finalizar!",
+                     description: "Upload Finalizado!",
                      status: "success",
                      position:"bottom-right" ,
                      duration: 10000,
