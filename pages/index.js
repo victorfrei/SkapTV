@@ -272,13 +272,19 @@ return (
       justifyContent="center"
      >
         <Box as={Flex} justifyContent="space-between" bg="black" w="100%">
-          <Avatar></Avatar>
-          <Text></Text>
+          <Flex alignItems="center" m="20px">
+          <Avatar size="xl"></Avatar>
+          <Heading ml="20px">Nome do canal Aqui</Heading>
+          </Flex>
+          <Flex flexDirection="column" justifyContent="center">
           <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-          <Button>Visitar</Button>
-          <Button>Assistir</Button>        
+          <Flex  w='100%'>
+          <Button m="10px">Visitar</Button>
+          <Button m="10px">Assistir</Button>  
+          </Flex>      
+          </Flex>
         </Box>
-        <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center">
+        <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
         <Heading size={4}>Recomendados</Heading>
         <Divider/>
         <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
