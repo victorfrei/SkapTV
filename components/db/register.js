@@ -65,7 +65,7 @@ const remetente = nodemailer.createTransport({
     Confirme sua conta no skap: https://skap.tv/api/confirm/?verify=${number}`,
     };
  
-   remetente.sendMail(emailASerEnviado)
+   await remetente.sendMail(emailASerEnviado)
    .then(data=>{
     console.error("4");
      console.error("ok "+ data);
