@@ -23,12 +23,14 @@ if(req.body.Token!="null" && req.body.Token!="0001"){
 jwt.verify(req.body.Token,process.env.privateKey);
 const {data:{Nick}} = jwt.decode(req.body.Token);
 const {Number,EmailVerificado} = await user.findOne({Nick});
-const confirmuser = await user.findOneAndUpdate({Nick:Nick},{EmailVerificado:true});
+
 
 if(EmailVerificado){
     resp.send("O email já foi verificado!!");
 }else{
+
  if(Number == req.body.Number){
+    const confirmuser = await user.findOneAndUpdate({Nick:Nick},{EmailVerificado:true});
     confirmuser.save();  
     resp.send(`${Nick.toUpperCase()} seu email foi verificado com sucesso! Sua senha secreta é: ${Number}.
     Guardi-a pois ela será requisitada quando você for fazer alguma modificação em sua conta ou transações bancarias.
