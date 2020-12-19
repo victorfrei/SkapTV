@@ -19,7 +19,7 @@ const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.e
 
  const user = conn.model("users",userSchema);
 
-if(req.body.Token!=null && req.body.Token!="0001"){
+if(req.body.Token!="null" && req.body.Token!="0001"){
 jwt.verify(req.body.Token,process.env.privateKey);
 const {data:{Nick}} = jwt.decode(req.body.Token);
 const {Number,EmailVerificado} = await user.findOne({Nick});
