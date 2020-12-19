@@ -1,4 +1,4 @@
-import { Avatar,Alert,AlertIcon,useToast,Link, Badge,Button, Box,Grid, GridItem,useColorMode, MenuButton } from "@chakra-ui/react";
+import { Avatar,Alert,AlertIcon,useToast,Link, Badge,Button, Box,Grid, GridItem,useColorMode, MenuButton, Divider } from "@chakra-ui/react";
 import React, { useState} from "react";
 import Head from 'next/head';
 
@@ -32,6 +32,7 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  Stack
 } from "@chakra-ui/react"
 
 import Thumbnail from '../components/thumbnail';
@@ -270,18 +271,67 @@ return (
       width="100%"
       justifyContent="center"
      >
-        
-        
-        <Thumbnail link="/login" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/login" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/login" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail><Thumbnail link="/login" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/login" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/login" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/login" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/login" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Box as={Flex} justifyContent="space-between" bg="black" w="100%">
+          <Avatar></Avatar>
+          <Text></Text>
+          <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+          <Button>Visitar</Button>
+          <Button>Assistir</Button>        
+        </Box>
+        <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center">
+        <Heading size={4}>Recomendados</Heading>
+        <Divider/>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        </Box>
+        <Flex w='100%' alignItems="center" mb="30px">
+          <Divider/>
+          <Button w="20%">Mostrar Mais</Button>
+          <Divider/>
+        </Flex>          
 
+        <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center">
+        <Heading size={4}>Em Alta</Heading>
+        <Divider/>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        </Box>
+        <Flex w='100%' alignItems="center" mb="30px">
+          <Divider/>
+          <Button w="20%">Mostrar Mais</Button>
+          <Divider/>
+        </Flex>
 
-         
+        <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center">
+        
+        <Heading size={4}>Categorias</Heading>
+        <Divider/>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        </Box>
+        <Flex w='100%' alignItems="center" mb="30px">
+          <Divider/>
+          <Button w="20%">Mostrar Mais</Button>
+          <Divider/>
+        </Flex>
 
      </GridItem>   
 
