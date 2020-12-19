@@ -36,6 +36,6 @@ const confirmuser = await user.findOneAndUpdate({Nick:Nick},{EmailVerificado:tru
      resp.send("Não foi possivel verificar seu email!!");
  }
  }else{
-     resp.send(<a href="/login">É necessario está logado para confirmar o email! Se preferir tenter acessar pelo computador.</a>);
+     resp.send("É necessario está logado para confirmar o email! Se preferir tenter acessar pelo computador.");
  }
 }
