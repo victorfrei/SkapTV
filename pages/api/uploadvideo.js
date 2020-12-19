@@ -61,7 +61,7 @@ if(req.method=="POST"){
     
     
     const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.env.R_PASS}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`,{useNewUrlParser: true,
-     useUnifiedTopology: true});
+     useUnifiedTopology: true,useFindAndModify:false});
      
     const videos = conn.model("Videos",videoSchema);
     const user= await videos.findOneAndUpdate({_id:req.body.name.split(".")[0]},{Url:req.body.url});
