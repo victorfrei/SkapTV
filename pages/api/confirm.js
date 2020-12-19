@@ -34,6 +34,6 @@ const {Number} = await user.findOne({Nick});
      resp.send("Não foi possivel verificar seu email!!");
  }
  }else{
-     resp.send("É necessario está logado para confirmar o email! Se preferir tenter acessar pelo computador.");
+     resp.send(<a href="/login">É necessario está logado para confirmar o email! Se preferir tenter acessar pelo computador.</a>);
  }
 }
