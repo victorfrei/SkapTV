@@ -15,7 +15,7 @@ export default async function confirm(req,resp){
       });
 
 const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.env.R_PASS}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`,{useNewUrlParser: true,
- useUnifiedTopology: true});
+ useUnifiedTopology: true,useFindAndModify:false});
 
  const user = conn.model("users",userSchema);
 
