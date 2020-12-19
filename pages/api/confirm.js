@@ -23,7 +23,7 @@ if(req.body.Token!=null && req.body.Token!="0001"){
 jwt.verify(req.body.Token,process.env.privateKey);
 const {data:{Nick}} = jwt.decode(req.body.Token);
 const {Number} = await user.findOne({Nick});
-const confirmuser = user.findOneAndUpdate({Nick:Nick},{EmailVerificado:true});
+const confirmuser = await user.findOneAndUpdate({Nick:Nick},{EmailVerificado:true});
 
  if(Number == req.body.Number){
     confirmuser.save();  
