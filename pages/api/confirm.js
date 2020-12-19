@@ -35,12 +35,15 @@ if(EmailVerificado){
     Para evitar o uso indevido do seus cartões de creditos(crianças,hackers...) e para sua maior segurança. 
     `);
 
- }else if(Number != req.body.Number && (Number!=null||Number!=undefined)){
-     resp.send("Não foi possivel verificar seu email!!");
  }else{
-     resp.send("É necessario está logado para confirmar o email! Se preferir tenter acessar pelo computador.");
- }
+     resp.send("Não foi possivel verificar seu email!!");
+ 
 }
+}
+
+
+}else{
+    resp.send("É necessario está logado para confirmar o email! Se preferir tenter acessar pelo computador.");
 }
 
 }
