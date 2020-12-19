@@ -45,11 +45,11 @@ const number = Math.floor(Math.random(0.1,1) * 1000000)
 
 const remetente = nodemailer.createTransport({
   host:'smtp.zoho.com',
-  port:'465',
+  port:'587',
   secure: true,
   auth:{
   user: 'support@skap.tv',
-  pass: process.env.mailpass 
+  pass: process.env.mailpass,
       }
   })
 
