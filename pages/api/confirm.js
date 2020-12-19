@@ -22,9 +22,12 @@ const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.e
 if(req.body.Token!=null && req.body.Token!="0001"){
 jwt.verify(req.body.Token,process.env.privateKey);
 const {data:{Nick}} = jwt.decode(req.body.Token);
-const {Number} = await user.findOne({Nick});
+const {Number,EmailVerificado} = await user.findOne({Nick});
 const confirmuser = await user.findOneAndUpdate({Nick:Nick},{EmailVerificado:true});
 
+if(EmailVerificado){
+
+}else{
  if(Number == req.body.Number){
     confirmuser.save();  
     resp.send(`${Nick.toUpperCase()} seu email foi verificado com sucesso! Sua senha secreta é: ${Number}.
@@ -32,10 +35,12 @@ const confirmuser = await user.findOneAndUpdate({Nick:Nick},{EmailVerificado:tru
     Para evitar o uso indevido do seus cartões de creditos(crianças,hackers...) e para sua maior segurança. 
     `);
 
- }else{
+ }else if(Number != req.body.Number && (Number!=null||Number!=undefined)){
      resp.send("Não foi possivel verificar seu email!!");
- }
  }else{
      resp.send("É necessario está logado para confirmar o email! Se preferir tenter acessar pelo computador.");
  }
+}
+}
+
 }
