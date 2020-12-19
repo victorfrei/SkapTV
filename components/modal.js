@@ -102,6 +102,7 @@ export default function ReturnFocus(props) {
                   
                  S3.upload(params,options,(err,data)=>{
                    if(data){
+
                   Axios.post("/api/uploadvideo",{update:true,name:props.name,url:data.Location})
                   .then(data=>{
                    toast({
@@ -113,7 +114,9 @@ export default function ReturnFocus(props) {
                      isClosable: true,
                    })
                   })
+                }
                     console.log("err "+err+" data "+JSON.stringify(data));
+               
                  }).on("httpUploadProgress",progress=>{
                    console.log(progress.loaded/progress.total*100)
                    setprogress(progress.loaded/progress.total*100)
