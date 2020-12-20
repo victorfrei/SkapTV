@@ -168,7 +168,7 @@
             <MenuDivider />
             <MenuGroup title="Perfil">
             <MenuDivider />
-            <Link href={`/channel/${nick}`} ><MenuItem>Meu Canal</MenuItem></Link>
+            <Link href={`/channels/${nick}`} ><MenuItem>Meu Canal</MenuItem></Link>
             <Link href="/account"><MenuItem>Minha Conta</MenuItem></Link>
             </MenuGroup>
             <MenuDivider />

@@ -57,6 +57,7 @@ const [profile,setProfile] = useState("#");
 const [plan,setPlan] = useState("Standard");
 const [profileblob,setProfileblob] = useState("#");
 const { isOpen, onOpen, onClose } = useDisclosure()
+const [ID,setID] = useState()
 const account = useDisclosure()
  
 
@@ -101,7 +102,7 @@ useEffect(()=>{
 
     if(resp.data.valid == true){
       setNick(resp.data.values.data.Nick);
-      setProfile(resp.data.values.data.Profile);
+      setID(resp.data.values.data.Id);
       setPlan("Standard");
       //console.clear();
     }else {
@@ -172,7 +173,7 @@ return (
         <MenuDivider />
         <MenuGroup title="Perfil">
         <MenuDivider />
-        <Link href={`/channel/${nick}`} ><MenuItem>Meu Canal</MenuItem></Link>
+        <Link href={`/channel/?id=${ID}`} ><MenuItem>Meu Canal</MenuItem></Link>
         <Link href="/account"><MenuItem>Minha Conta</MenuItem></Link>
         </MenuGroup>
         <MenuDivider />

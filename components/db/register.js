@@ -12,12 +12,22 @@ const userSchema = new Schema({
     Email: String,
     Pass: String,
     date: {type:Date,default:Date.now},
-    Profile: Object,
     EmailVerificado: Boolean,
     Number: Number
   });
 
-
+  const channelSchema = new Schema({
+    Id: ObjectId,
+    Subs: Number,
+    Follows: Number,
+    Owner: String,
+    Banner: String,
+    Avatar: String,
+    CreatedDate: {type:Date,default:Date.now},
+    Layout: {type:Number,default:1},
+    Verificado: Boolean,
+    Color: String
+  });
 
 
 
@@ -27,6 +37,7 @@ const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.e
  useUnifiedTopology: true});
  
 const user = conn.model("User",userSchema);
+const channel = conn.model("Channels",channelSchema);
 const nick = await user.findOne({Nick}, null);
 const email = await user.findOne({Email}, null);
 
@@ -77,8 +88,9 @@ const remetente = nodemailer.createTransport({
  
    
 const HashPass = bcrypt.hashSync(Pass,12)
-await user.create({Nick:Nick,Email:Email,Pass:HashPass,profile:"#",Date:Date.now,EmailVerificado:false,Number:number});
-const token = jwt.sign({data:{Nick,profile:"#"} }, process.env.privateKey,{expiresIn:3600});
+const usercreated = await user.create({Nick:Nick,Email:Email,Pass:HashPass,Date:Date.now,EmailVerificado:false,Number:number});
+await channel.create({_id:usercreated._id,Owner:Nick,Subs:0,Follows:0});
+const token = jwt.sign({data:{Nick,Id:usercreated._id} }, process.env.privateKey,{expiresIn:3600});
 
 
 

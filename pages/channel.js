@@ -53,10 +53,11 @@
     const [plan,setPlan] = useState("Standard");
     const [profileblob,setProfileblob] = useState("#");
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [channelinfo,setchannelinfo] = useState([]);
     
      
     
-    
+   
     
     
     
@@ -97,9 +98,15 @@
     
         if(resp.data.valid == true){
           setNick(resp.data.values.data.Nick);
-          setProfile(resp.data.values.data.Profile);
           setPlan("Standard");
-          //console.clear();
+
+          Axios.get(`/api/channels/${window.location.search.split("=")[1].toString()}`)
+          .then(data=>{
+            setchannelinfo(data);
+            console.log(data);
+            console.log(channelinfo);
+            
+          })
         }else {
           console.clear();
           alertW(resp.data.msg,8000,true);
@@ -109,6 +116,8 @@
         })
     
       
+
+        
     },[router.pathname]);
     
     
@@ -123,11 +132,10 @@
             >
              
           
-          
-    <Head>
-          <title>Skap-Channels</title>
-          
-    </Head>
+             <Head>
+            <title>Skap - Channel</title>
+            </Head>
+    
     
     <Box
             as={Flex}
@@ -168,7 +176,7 @@
             <MenuDivider />
             <MenuGroup title="Perfil">
             <MenuDivider />
-            <Link href={`/channel/${nick}`} ><MenuItem>Meu Canal</MenuItem></Link>
+            <Link href={router.pathname} _disabled ><MenuItem disabled>Meu Canal</MenuItem></Link>
             <Link href="/account"><MenuItem>Minha Conta</MenuItem></Link>
             </MenuGroup>
             <MenuDivider />
