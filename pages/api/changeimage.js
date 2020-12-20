@@ -23,6 +23,7 @@ export default async function changeimg(req,resp){
     const {Profile} = req.body;
     const userupdate = await user.findOneAndUpdate(jwt.decode(req.body.token).Nick,{Profile:Profile});
     const {Nick} = userupdate;
+    userupdate.save();
     resp.send(jwt.sign({data:{Nick,Profile}},process.env.privateKey,{expiresIn:18000}));
     resp.status = 200;
   

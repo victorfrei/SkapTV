@@ -41,7 +41,7 @@ useEffect(()=>{
     return <>
     <Grid>
     <Flex direction="column" alignItems="center" margin="20px">
-    <Avatar src={Profile} size="2xl" ></Avatar>
+    <Avatar src={Profile} name={Nick} size="2xl" ></Avatar>
     <Heading>{Nick}</Heading>
     </Flex>
     </Grid>

@@ -42,6 +42,10 @@ import {useDisclosure} from '@chakra-ui/react';
 import Axios from "axios";
 import logout from '../components/logout';
 import ModalComponent from '../components/modal';
+import Thumbnailske from '../components/thumbSke';
+import SpotLight from '../components/spotlight';
+import Buttons from '../components/buttons';
+import Channelspotlight from "../components/channelspotolight";
 
 export default function home(){
 
@@ -121,35 +125,8 @@ return (
         templateRows="50px 1fr"
         templateAreas={['"navmenu navmenu  navmenu""content content content"','"navmenu navmenu navmenu""content content content"','"navmenu navmenu navmenu""content content content"']}
         >
-          
-      <Drawer
-        isOpen={account.isOpen}
-        placement="right"
-        onClose={account.onToggle}
-        >
-        <DrawerOverlay>
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>Sua Conta</DrawerHeader>
-
-            <DrawerBody>
-              <Avatar src={profile}></Avatar>
-              <Heading as="h6" size="xs" colorScheme="gray.200">Seu Saldo</Heading>
-              <Heading as="h5" size="md" colorScheme="gray.700">Valor</Heading>
-              <Box>
-              <Heading as="h6" size="xs" colorScheme="gray.200">Seu Cartões</Heading>
-              <Heading as="h6" size="xs" colorScheme="gray.200">Cartões aqui</Heading>
-              </Box>
-            </DrawerBody>
-
-            <DrawerFooter>
-              <Link href="/account"><Button bg="blue">Acessar Pagina Completa</Button></Link>
-            </DrawerFooter>
-          </DrawerContent>
-        </DrawerOverlay>
-      </Drawer>
-  
-
+         
+      
       
 <Head>
       <title>Skap</title>
@@ -196,13 +173,13 @@ return (
         <MenuGroup title="Perfil">
         <MenuDivider />
         <Link href={`/channel/${nick}`} ><MenuItem>Meu Canal</MenuItem></Link>
-        <MenuItem onClick={account.onOpen} >Minha Conta</MenuItem>
+        <Link href="/account"><MenuItem>Minha Conta</MenuItem></Link>
         </MenuGroup>
         <MenuDivider />
         <MenuGroup title="Outros">
         <MenuDivider />
         <MenuItem onClick={toggleColorMode}>Mudar Para {colorMode=="light"?"Dark":"Light"} Mode</MenuItem>
-        <MenuItem >Configurações</MenuItem>
+        <Link href="/configuracoes"><MenuItem >Configurações</MenuItem></Link>
         <MenuItem >Ajuda</MenuItem>
         <MenuItem onClick= {logout}>Sair</MenuItem>
         </MenuGroup>
@@ -272,30 +249,32 @@ return (
       justifyContent="center"
      >
         <Box as={Flex} justifyContent="space-between" bg="black" w="100%">
-          <Flex alignItems="center" m="20px">
+          {/* <Flex alignItems="center" m="20px">
           <Avatar size="xl"></Avatar>
           <Heading ml="20px">Nome do canal Aqui</Heading>
-          </Flex>
-          <Flex flexDirection="column" justifyContent="center">
-          <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-          <Flex  w='100%'>
-          <Button m="10px">Visitar</Button>
-          <Button m="10px">Assistir</Button>  
-          </Flex>      
+          </Flex> */}
+          <Channelspotlight></Channelspotlight>
+          <Flex flexDirection="column">
+          <SpotLight></SpotLight>
+          {/* <Flex  w='100%' justifyContent="center">
+          <Button m="20px" bg={"gray.600"} _hover={{bg:"gray.900"}}>Visitar</Button>
+          <Button m="20px" bg={"blue.600"} _hover={{bg:"blue.900"}}>Assistir</Button>  
+          </Flex>       */}
+          <Buttons></Buttons>
           </Flex>
         </Box>
         <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
         <Heading size={4}>Recomendados</Heading>
         <Divider/>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        </Box>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>          
+       </Box>
         <Flex w='100%' alignItems="center" mb="30px">
           <Divider/>
           <Button w="20%">Mostrar Mais</Button>
@@ -305,14 +284,14 @@ return (
         <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center">
         <Heading size={4}>Em Alta</Heading>
         <Divider/>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
         </Box>
         <Flex w='100%' alignItems="center" mb="30px">
           <Divider/>
@@ -324,14 +303,14 @@ return (
         
         <Heading size={4}>Categorias</Heading>
         <Divider/>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
-        <Thumbnail link="/watch" img="\imgs\py.jpg" title="PC Baratinho para encarar Cyberpunk 2077: até onde é preciso ir? kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" category="Teste"></Thumbnail>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
+        <Thumbnailske></Thumbnailske>
         </Box>
         <Flex w='100%' alignItems="center" mb="30px">
           <Divider/>
