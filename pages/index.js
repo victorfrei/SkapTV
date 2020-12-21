@@ -1,4 +1,4 @@
-import { Avatar,Alert,AlertIcon,useToast,Link,Image, Badge,Button, Box,Grid, GridItem,useColorMode, MenuButton, Divider } from "@chakra-ui/react";
+import { Avatar,Alert,AlertIcon,useToast,Link,Image, Badge,Button, Box,Grid, GridItem,useColorMode, MenuButton, Divider, Input } from "@chakra-ui/react";
 import React, { useState} from "react";
 import Head from 'next/head';
 
@@ -129,7 +129,7 @@ return (
       <title>Skap</title>
       
 </Head>
-<Tabs w="100vw" variant="soft-rounded" align="center" colorScheme="blue">
+<Tabs w="100vw" variant="solid-rounded" align="center" colorScheme="blue">
 <Box
         as={Flex}
         zIndex="1"
@@ -145,13 +145,13 @@ return (
         >
   
   <Link href="/"><Image src={colorMode=="light"?"/icons/logo/lightlogo.svg":"/icons/logo/darklogo.svg"} w="80px" m="20px" mt="30px"></Image></Link>
-  <TabList mr="300px" color="whitesmoke">
+  <TabList color="whitesmoke">
     <Tab color="white" size={4}>Ínicio</Tab>
     <Tab color="white" size={4}>Em Alta</Tab>
     <Tab color="white" size={4}>Categorias</Tab>
     
   </TabList>
-  
+  <Input w="400px" type="search"></Input>
     
     <Menu>
           <MenuButton>
