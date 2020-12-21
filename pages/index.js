@@ -1,4 +1,4 @@
-import { Avatar,Alert,AlertIcon,useToast,Link, Badge,Button, Box,Grid, GridItem,useColorMode, MenuButton, Divider } from "@chakra-ui/react";
+import { Avatar,Alert,AlertIcon,useToast,Link,Image, Badge,Button, Box,Grid, GridItem,useColorMode, MenuButton, Divider } from "@chakra-ui/react";
 import React, { useState} from "react";
 import Head from 'next/head';
 
@@ -24,16 +24,6 @@ import {
   ModalCloseButton,
   Heading
 } from "@chakra-ui/react"
-import {
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  Stack
-} from "@chakra-ui/react"
 
 import Thumbnail from '../components/thumbnail';
 import {useRouter} from 'next/router';
@@ -46,6 +36,12 @@ import Thumbnailske from '../components/thumbSke';
 import SpotLight from '../components/spotlight';
 import Buttons from '../components/buttons';
 import Channelspotlight from "../components/channelspotolight";
+import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react"
+
+
+
+
+
 
 export default function home(){
 
@@ -133,7 +129,7 @@ return (
       <title>Skap</title>
       
 </Head>
-
+<Tabs w="100vw" variant="soft-rounded" align="center" colorScheme="blue">
 <Box
         as={Flex}
         zIndex="1"
@@ -145,9 +141,16 @@ return (
         h="50px"
         bg="#091613"
         position="fixed"
-        justifyContent="flex-end"
+        justifyContent="space-between"
         >
-  <ModalComponent name={nick} ></ModalComponent>
+  
+  <Link href="/"><Image src={colorMode=="light"?"/icons/logo/lightlogo.svg":"/icons/logo/darklogo.svg"} w="80px" m="20px" mt="30px"></Image></Link>
+  <TabList mr="300px" color="whitesmoke">
+    <Tab color="white" size={4}>Ínicio</Tab>
+    <Tab color="white" size={4}>Em Alta</Tab>
+    <Tab color="white" size={4}>Categorias</Tab>
+    
+  </TabList>
   
     
     <Menu>
@@ -249,6 +252,7 @@ return (
       flexWrap="wrap"
       width="100%"
       justifyContent="center"
+      mt="50px"
      >
         <Box as={Flex} justifyContent="space-between" bg="black" w="100%">
           {/* <Flex alignItems="center" m="20px">
@@ -265,9 +269,10 @@ return (
           <Buttons></Buttons>
           </Flex>
         </Box>
+        <TabPanels>
+        <TabPanel>
+        
         <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
-        <Heading size={4}>Recomendados</Heading>
-        <Divider/>
         <Thumbnailske></Thumbnailske>
         <Thumbnailske></Thumbnailske>
         <Thumbnailske></Thumbnailske>
@@ -277,15 +282,10 @@ return (
         <Thumbnailske></Thumbnailske>
         <Thumbnailske></Thumbnailske>          
        </Box>
-        <Flex w='100%' alignItems="center" mb="30px">
-          <Divider/>
-          <Button w="20%">Mostrar Mais</Button>
-          <Divider/>
-        </Flex>          
+       </TabPanel>         
 
-        <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center">
-        <Heading size={4}>Em Alta</Heading>
-        <Divider/>
+        <TabPanel>
+        <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
         <Thumbnailske></Thumbnailske>
         <Thumbnailske></Thumbnailske>
         <Thumbnailske></Thumbnailske>
@@ -295,16 +295,11 @@ return (
         <Thumbnailske></Thumbnailske>
         <Thumbnailske></Thumbnailske>
         </Box>
-        <Flex w='100%' alignItems="center" mb="30px">
-          <Divider/>
-          <Button w="20%">Mostrar Mais</Button>
-          <Divider/>
-        </Flex>
+        </TabPanel>
 
-        <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center">
+        <TabPanel>
+        <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
         
-        <Heading size={4}>Categorias</Heading>
-        <Divider/>
         <Thumbnailske></Thumbnailske>
         <Thumbnailske></Thumbnailske>
         <Thumbnailske></Thumbnailske>
@@ -314,14 +309,11 @@ return (
         <Thumbnailske></Thumbnailske>
         <Thumbnailske></Thumbnailske>
         </Box>
-        <Flex w='100%' alignItems="center" mb="30px">
-          <Divider/>
-          <Button w="20%">Mostrar Mais</Button>
-          <Divider/>
-        </Flex>
-
+        </TabPanel>
+        </TabPanels>
+        
      </GridItem>   
-
+     </Tabs>
 
     </Grid>
     )
