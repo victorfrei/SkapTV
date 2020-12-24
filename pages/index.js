@@ -1,10 +1,10 @@
 import {Box,Grid,GridItem,Flex} from "@chakra-ui/react";
-import React from "react";
+import React, { useState,useEffect } from "react";
 import Head from 'next/head';
 
 
+import Thumbnailske from '../components/temp_thumbnail';
 import Thumbnail from '../components/thumbnail';
-import Thumbnailske from '../components/thumbSke';
 import SpotLight from '../components/spotlight';
 import Buttons from '../components/buttons';
 import Channelspotlight from "../components/channelspotolight";
@@ -12,11 +12,28 @@ import { Tabs, TabPanels, TabPanel } from "@chakra-ui/react"
 import Navmenu from "../components/navmenu";
 
 
+export async function getStaticProps(){
+  
+  const call = await fetch("http://192.168.0.26:3000/api/listvideos")
+  return {props:{LV:await call.json()}}
+}
+
+export default function home(props){
+  const [isloaded,setisloaded] = useState(false);
+  const [Videos,setisvideos] = useState([]);
 
 
+useEffect(()=>{  
 
+ const videos = []
+  console.log(props.LV.length)
+  for(let x=0;x<props.LV.length;x++){
+  videos.push(<Thumbnail isloaded={true} user={props.LV[x].PostedBy} title={props.LV[x].Name} img={props.LV[x].Thumbnail} link={props.LV[x]._id}></Thumbnail>)
+  }
+  setisloaded(true);
+  setisvideos(videos);
 
-export default function home(){
+},[isloaded]);
 
 
 return (
@@ -65,41 +82,42 @@ return (
         <TabPanel>
         
         <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>          
+        {Videos}
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>        
        </Box>
        </TabPanel>         
 
         <TabPanel>
         <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+
         </Box>
         </TabPanel>
 
         <TabPanel>
         <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
-        
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
-        <Thumbnailske></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        <Thumbnailske isloaded={isloaded}></Thumbnailske>
         </Box>
         </TabPanel>
         </TabPanels>

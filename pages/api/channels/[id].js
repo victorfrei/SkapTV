@@ -36,7 +36,7 @@ const channelSchema = new Schema({
     });
 
   export default async function handler(req,resp){
-
+if(req.method=="POST"){
 const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.env.R_PASS}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`,{useNewUrlParser: true,
  useUnifiedTopology: true});
  
@@ -45,14 +45,16 @@ const videos = conn.model("videos",videoSchema);
 const channelfound = await channel.findOne({_id:mongoose.Types.ObjectId(req.query.id)})
 
 if(channelfound!=null){
-    const {Owner,Layout} = channelfound;
+    const {Owner} = channelfound;
     const videosfound = await videos.find({PostedBy:Owner});
     resp.send({Channel:channelfound,Videos:JSON.stringify(videosfound)});
 }else{
     resp.send("O canal não foi encontrado!");
 }
 
-
+}else{
+resp.status(405).end("Error");
+}
 
 
 }

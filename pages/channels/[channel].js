@@ -1,87 +1,74 @@
 
 
 
-    import { Avatar,Alert,AlertIcon,useToast,Link, Badge,Button, Box,Grid, GridItem,useColorMode, MenuButton, Divider } from "@chakra-ui/react";
+    import {Box,Grid, GridItem,useColorMode,} from "@chakra-ui/react";
     import React, { useState} from "react";
     import Head from 'next/head';
     
     
     import {
-      Menu,
-      MenuList,
-      MenuItem,
-      MenuGroup,
-     MenuDivider,
-     Flex,
-     Text,
-     
+      Flex,
     } from "@chakra-ui/react"
     
-    import {
-      Modal,
-      ModalOverlay,
-      ModalContent,
-      ModalHeader,
-      ModalFooter,
-      ModalBody,
-      ModalCloseButton,
-      Heading
-    } from "@chakra-ui/react"
-    
-    
-    import Thumbnail from '../components/thumbnail';
+      
     import {useRouter} from 'next/router';
     import {useEffect} from 'react';
-    import {useDisclosure} from '@chakra-ui/react';
     import Axios from "axios";
-    import logout from '../components/logout';
-    import ModalComponent from '../components/modal';
-    import Thumbnailske from '../components/thumbSke';
-    import Channelspotlight from "../components/channelspotolight";
-    import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react"
-import Navmenu from "../components/navmenu";
+    import Thumbnailske from '../../components/thumbnail';
+    import Channelspotlight from "../../components/channelspotolight";
+    import { Tabs, TabList, TabPanels, Tab, TabPanel, useToast } from "@chakra-ui/react"
+    import Navmenu from "../../components/navmenu";
 
 
 
 
     export default function channel(){
     const [channelinfo,setchannelinfo] = useState([]);
+    const [videos,setvideos] = useState([]);
+    const [isloaded,setisloaded] = useState(false);
     const router = useRouter();
-     
+    const toast = useToast();
     
+    const alert = (data,status,duration,closable) =>{
+      toast({
+         description:data,
+        status:status,
+        duration: duration,
+        position:"top",
+        isClosable: closable
+      })
+    return 0;
+    }
   
         
     
       
     useEffect(()=>{
       
-      
           
-        Axios.post("/api/verify",{key:localStorage.getItem("PublicKey")==null?"0001":localStorage.getItem("PublicKey")})
-          
-        .then((resp)=>{
-        
-        
-    
-        if(resp.data.valid == true){
-          setNick(resp.data.values.data.Nick);
-          setPlan("Standard");
-
-          Axios.get(`/api/channels/${window.location.search.split("=")[1].toString()}`)
+          if(window.location.search.split("=")[1]!=undefined){
+          Axios.post(`/api/channels/${window.location.search.split("=")[1].toString()}`)
           .then(data=>{
-            setchannelinfo(data);
+            if(data.data =="O canal não foi encontrado!"){
+              alert("O canal não foi encontrado!!","error",8000,true);
+              router.replace("/");
+            }else{
+            setchannelinfo(JSON.stringify(data.data.Channel));
+            setvideos(JSON.parse(data.data.Videos))
             console.log(data);
             console.log(channelinfo);
+            console.log(videos)
+            setTimeout(() => {
+              setisloaded(true);
+            }, 2000);
             
+            }
           })
-        }else {
-          console.clear();
-          alertW(resp.data.msg,8000,true);
-          setTimeout(()=>{},1000);
-          router.replace("/login");
+        }else{
+          alert("O canal não foi encontrado!!","error",8000,true);
+          router.replace("/");
         }
-        })
-    
+           
       
 
         
@@ -97,8 +84,7 @@ import Navmenu from "../components/navmenu";
             templateRows="50px 1fr"
             templateAreas={['"navmenu navmenu  navmenu""content content content"','"navmenu navmenu navmenu""content content content"','"navmenu navmenu navmenu""content content content"']}
             >
-             
-          
+            
              <Head>
             <title>Skap - Channel</title>
             </Head>
@@ -122,7 +108,7 @@ import Navmenu from "../components/navmenu";
               <Avatar size="xl"></Avatar>
               <Heading ml="20px">Nome do canal Aqui</Heading>
               </Flex> */}
-              <Channelspotlight></Channelspotlight>
+              <Channelspotlight isloaded={isloaded} name="testes" ></Channelspotlight>
             </Box>
 
             <Tabs variant="solid-rounded" m="20px" colorScheme="blue">
@@ -137,14 +123,14 @@ import Navmenu from "../components/navmenu";
                 <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="30px">
             
                 
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>          
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>          
                 </Box>
                 
             </TabPanel>
@@ -152,14 +138,14 @@ import Navmenu from "../components/navmenu";
                 <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="30px">
             
                 
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>
-                <Thumbnailske></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
+                <Thumbnailske isloaded={isloaded}></Thumbnailske>
                 </Box>
                 
             </TabPanel>

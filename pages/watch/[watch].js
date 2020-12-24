@@ -4,7 +4,7 @@ import {IconButton} from '@chakra-ui/react';
 import {FiPlay,FiPause,FiVolume1,FiVolume2,FiVolumeX} from 'react-icons/fi'
 import { Avatar,Alert,AlertIcon,Flex,Link,useColorMode,useToast, Badge,Button,useDisclosure,Text } from "@chakra-ui/react";
 import {useRouter} from 'next/router'
-import logout from '../components/logout';
+import logout from '../../components/logout';
 import Axios from 'axios';
 
   import {

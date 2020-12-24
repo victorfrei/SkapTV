@@ -45,6 +45,7 @@ if(req.method=="POST"){
         
     const videoSchema = new Schema({
         Id: ObjectId,
+        Thumbnail: String,
         Name: String,
         Description: String,
         Categoria:String,
