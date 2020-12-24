@@ -26,18 +26,18 @@ category -> categoria do vídeo
         </Box>
         <Flex margin="10px 20px 20px 5px" flexDirection="column" alignItems="flex-start">
         <SkeletonText isLoaded={props.isloaded} startColor="#6D5DD3" endColor="black.800" w="100%">
-        <Text className="Skap_Text_Video" width="100%">{props.title}</Text>
+        <Text className="Skap_Text_Video" textAlign="start" width="100%">{props.title}</Text>
         </SkeletonText>
-        <Flex marginTop="10px" >
+        <Flex alignItems="center" >
           <SkeletonCircle isLoaded={props.isloaded} startColor="#6D5DD3" endColor="black.800" size="10" mr="10px">
           <Avatar size="md"></Avatar>
           </SkeletonCircle>
           <Flex flexDirection="column">
           <SkeletonText isLoaded={props.isloaded} startColor="#6D5DD3" endColor="black.800" w="50px" mt="10px" noOfLines={1} >
-          <Text className="Skap_Text_Video" width="100%" m="0 10px">{props.user}</Text>
+          <Text width="500%" textAlign="start" m="0 10px">{props.user}</Text>
           </SkeletonText>
           <SkeletonText isLoaded={props.isloaded} startColor="#6D5DD3" endColor="black.800" w="50px" mt="5px" noOfLines={1} >
-          <Text className="Skap_Text_Video" width="100%" m="0 10px">{props.category}</Text>
+          <Text width="500%" textAlign="start" m="0 10px">{props.category}</Text>
           </SkeletonText>
           </Flex>
         </Flex>

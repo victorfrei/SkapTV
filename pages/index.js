@@ -28,7 +28,7 @@ useEffect(()=>{
  const videos = []
   console.log(props.LV.length)
   for(let x=0;x<props.LV.length;x++){
-  videos.push(<Thumbnail isloaded={true} user={props.LV[x].PostedBy} title={props.LV[x].Name} img={props.LV[x].Thumbnail} link={props.LV[x]._id}></Thumbnail>)
+  videos.push(<Thumbnail isloaded={true} user={props.LV[x].PostedBy} title={props.LV[x].Name} img={props.LV[x].Thumbnail} link={`watch/${props.LV[x]._id}`} category="Testes"></Thumbnail>)
   }
   setisloaded(true);
   setisvideos(videos);
