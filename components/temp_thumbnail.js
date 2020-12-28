@@ -14,7 +14,7 @@ isloaded -> verifica se o conteúdo foi carregado
  */
 
     return (
-      <Box w="250px" h="300px" margin="20px" >
+      <Box  hidden={props.isloaded} w="250px" h="300px" margin="20px" >
         <Box>
         <Skeleton isLoaded={props.isloaded} startColor="#6D5DD3" endColor="black.800" height="140px" borderRadius="10px">
         </Skeleton>
