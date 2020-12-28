@@ -16,7 +16,7 @@ import { Tabs, TabList, TabPanels, Tab, TabPanel, useToast } from "@chakra-ui/re
 import Navmenu from "../../components/navmenu";
 
 export async function getStaticPaths() {
-  return {paths:[{params:{channel:""}}],
+  return {paths:[],
   fallback:true
 }
 }

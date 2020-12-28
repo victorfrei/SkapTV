@@ -14,7 +14,7 @@ import Navmenu from "../components/navmenu";
 
 export async function getStaticProps(){
   
-  const call = await fetch("http://192.168.0.26:3000/api/listvideos")
+  const call = await fetch("skap.tv/api/listvideos")
   return {props:{LV:await call.json()}}
 }
 

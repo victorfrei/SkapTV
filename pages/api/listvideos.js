@@ -29,5 +29,5 @@ export default async function listvideo(req,resp){
     const homevideos = await videos.find().sort({Razao:-1});
   
     resp.send(homevideos);
-    conn.close()
+    
 }
