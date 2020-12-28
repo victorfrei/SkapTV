@@ -14,7 +14,7 @@ import Navmenu from "../components/navmenu";
 
 export async function getStaticProps(){
   
-  const call = await fetch("https://skap.tv/api/listvideos")
+  const call = await Axios.get("https://skap.tv/api/listvideos")
   return {props:{LV:await call.json()}}
 }
 
