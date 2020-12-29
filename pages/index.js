@@ -15,8 +15,9 @@ import Navmenu from "../components/navmenu";
 export async function getStaticProps(){
   
   const call = await fetch("https://skap.tv/api/listvideos")
-  return {props:{LV:await call.json()}}
-}
+  return {props:{LV:await call.json()},revalidate: 5}
+ 
+};
 
 export default function home(props){
   const [isloaded,setisloaded] = useState(false);
