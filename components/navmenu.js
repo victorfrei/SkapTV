@@ -83,7 +83,7 @@ return(
         >
   
   <Link href="/"><Image src={colorMode=="light"?"/icons/logo/lightlogo.svg":"/icons/logo/darklogo.svg"} w="80px" m="20px" mt="30px"></Image></Link>
-  <TabList color="whitesmoke" hidden={!props.navmenu}>
+  <TabList ml="-200px" color="whitesmoke" hidden={!props.navmenu}>
     <Tab color="white" size={4}>Ínicio</Tab>
     <Tab color="white" size={4}>Em Alta</Tab>
     <Tab color="white" size={4}>Categorias</Tab>
