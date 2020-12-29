@@ -64,7 +64,7 @@ return (
       justifyContent="center"
       mt="50px"
      >
-        <Box as={Flex} justifyContent="space-between" bg="black" mt="20px" w="100%">
+        <Box as={Flex} justifyContent="space-between" bg={<img src="/icons/bannertest.jpg"></img>} mt="20px" w="100%">
           {/* <Flex alignItems="center" m="20px">
           <Avatar size="xl"></Avatar>
           <Heading ml="20px">Nome do canal Aqui</Heading>
