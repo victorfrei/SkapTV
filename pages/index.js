@@ -95,6 +95,7 @@ return (
        </TabPanel>         
 
         <TabPanel>
+        {Videos}
         <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
         <Thumbnailske isloaded={isloaded}></Thumbnailske>
         <Thumbnailske isloaded={isloaded}></Thumbnailske>
@@ -109,6 +110,7 @@ return (
         </TabPanel>
 
         <TabPanel>
+        {Videos}
         <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
         <Thumbnailske isloaded={isloaded}></Thumbnailske>
         <Thumbnailske isloaded={isloaded}></Thumbnailske>
