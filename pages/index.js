@@ -64,19 +64,19 @@ return (
       justifyContent="center"
       mt="50px"
      >
-        <Box as={Flex} justifyContent="space-between" bg="black" w="100%">
+        <Box as={Flex} justifyContent="space-between" bg="black" mt="20px" w="100%">
           {/* <Flex alignItems="center" m="20px">
           <Avatar size="xl"></Avatar>
           <Heading ml="20px">Nome do canal Aqui</Heading>
           </Flex> */}
-          <Channelspotlight></Channelspotlight>
+          <Channelspotlight isloaded={isloaded} name="Skap"></Channelspotlight>
           <Flex flexDirection="column">
-          <SpotLight></SpotLight>
+          <SpotLight isloaded={isloaded}></SpotLight>
           {/* <Flex  w='100%' justifyContent="center">
           <Button m="20px" bg={"gray.600"} _hover={{bg:"gray.900"}}>Visitar</Button>
           <Button m="20px" bg={"blue.600"} _hover={{bg:"blue.900"}}>Assistir</Button>  
           </Flex>       */}
-          <Buttons></Buttons>
+          <Buttons isloaded={isloaded}></Buttons>
           </Flex>
         </Box>
         <TabPanels>
