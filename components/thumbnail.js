@@ -21,7 +21,7 @@ category -> categoria do vídeo
       <Box w="250px" h="300px" margin="20px" >
         <Box>
         <Skeleton isLoaded={props.isloaded} startColor="#6D5DD3" endColor="black.800" height="140px" borderRadius="10px">
-        <Link href={props.link}><Image src={props.img} borderRadius="10px" alt={props.title} w="100%" h="140px"></Image></Link>
+        <Link href={props.link}><Image onMouseEnter={e=>{e.target.src =`https://image.mux.com/${props.img}/animated.gif?fps=30&width=500`}} onMouseLeave={e=>{e.target.src =`https://image.mux.com/${props.img}/thumbnail.png?width=500&fit_mode=pad&time=5`}} src={`https://image.mux.com/${props.img}/thumbnail.png?width=500&fit_mode=pad&time=5`} borderRadius="10px" alt={props.title} w="100%" h="140px"></Image></Link>
         </Skeleton>
         </Box>
         <Flex margin="10px 20px 20px 5px" flexDirection="column" alignItems="flex-start">
