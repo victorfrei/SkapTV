@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import Thumbnail from '../../components/thumbnail'
+import Thumbnail from '../../../components/thumbnail'
 
 
-export default async function listvideo(req,resp){
-
+export default async function listvideos(req,resp){
+if(req.query.auth=="adhjsdsadvashdasbdhiu2981hj32uer902323fn2jhfg2u3hb2f23duh3"){
     const Schema = mongoose.Schema;
     const ObjectId = Schema.ObjectId;
         
@@ -29,5 +29,7 @@ export default async function listvideo(req,resp){
     const homevideos = await videos.find().sort({Razao:-1});
   
     resp.send(homevideos);
-    
+}else{
+    resp.send("Access Denied!!").Status(401);
+}
 }
