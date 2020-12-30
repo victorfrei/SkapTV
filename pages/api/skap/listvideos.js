@@ -30,6 +30,6 @@ if(req.query.auth=="adhjsdsadvashdasbdhiu2981hj32uer902323fn2jhfg2u3hb2f23duh3")
   
     resp.send(homevideos);
 }else{
-    resp.send("Access Denied!!").Status(401);
+    resp.send("Access Denied!!");
 }
 }
