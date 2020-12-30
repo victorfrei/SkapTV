@@ -40,7 +40,7 @@ function Login(){
 
    }else{
     Email = Email.toLowerCase();
-    Axios.post("/api/login",{Email ,Pass})
+    Axios.post(`/api/skap/login?auth=${process.env.Auth}`,{Email ,Pass})
     .then((docs)=>{
       if(docs.data.err){
         fre(docs.data.msg,"error","O login falhou!");

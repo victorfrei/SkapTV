@@ -40,7 +40,7 @@ export default function Home() {
           Nick = Nick.toLowerCase();
           Email = Email.toLowerCase();
           fre("Criando conta...","info")
-     Axios.post("/api/register",{Nick,Email,Pass})
+     Axios.post(`/api/skap/register?auth=${process.env.Auth}`,{Nick,Email,Pass})
       .then((data)=>{
         if(data.data.err){
         fre(data.data.msg,"error");

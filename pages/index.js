@@ -12,12 +12,12 @@ import { Tabs, TabPanels, TabPanel } from "@chakra-ui/react"
 import Navmenu from "../components/navmenu";
 
 
-// export async function getStaticProps(){
+export async function getStaticProps(){
   
-//   const call = await fetch(`https://skap.tv/api/skap/listvideos?auth=${process.env.Auth}`)
-//   return {props:{LV:await call.json()},revalidate: 5}
+  const call = await fetch(`https://skap.tv/api/skap/listvideos?auth=${process.env.Auth}`)
+  return {props:{LV:await call.json()},revalidate: 5}
  
-// };
+};
 
 export default function home(props){
   const [isloaded,setisloaded] = useState(false);
