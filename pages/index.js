@@ -12,12 +12,12 @@ import { Tabs, TabPanels, TabPanel } from "@chakra-ui/react"
 import Navmenu from "../components/navmenu";
 
 
-export async function getStaticProps(){
+// export async function getStaticProps(){
   
-  const call = await fetch(`http://skap.tv/api/skap/listvideos?auth=${process.env.Auth}`)
-  return {props:{LV:await call.json()},revalidate: 5}
+//   const call = await fetch(`http://skap.tv/api/skap/listvideos?auth=${process.env.Auth}`)
+//   return {props:{LV:await call.json()},revalidate: 5}
  
-};
+// };
 
 export default function home(props){
   const [isloaded,setisloaded] = useState(false);
@@ -92,8 +92,9 @@ return (
        </TabPanel>         
 
         <TabPanel>
-        {Videos}
+        
         <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
+        {Videos}
         <Thumbnailske isloaded={isloaded}></Thumbnailske>
         <Thumbnailske isloaded={isloaded}></Thumbnailske>
         <Thumbnailske isloaded={isloaded}></Thumbnailske>
@@ -107,8 +108,9 @@ return (
         </TabPanel>
 
         <TabPanel>
-        {Videos}
+        
         <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
+        {Videos}
         <Thumbnailske isloaded={isloaded}></Thumbnailske>
         <Thumbnailske isloaded={isloaded}></Thumbnailske>
         <Thumbnailske isloaded={isloaded}></Thumbnailske>
