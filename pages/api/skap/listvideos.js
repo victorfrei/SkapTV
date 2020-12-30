@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-import Thumbnail from '../../../components/thumbnail'
-
+import jwt from 'jsonwebtoken';
 
 export default async function listvideos(req,resp){
 if(req.query.auth=="adhjsdsadvashdasbdhiu2981hj32uer902323fn2jhfg2u3hb2f23duh3"){
