@@ -13,7 +13,7 @@ export default function Channelspotlight(props) {
 
     return (
       
-        <Flex alignItems="center" m="20px">
+        <Flex alignItems="center" m="20px" >
             <SkeletonCircle isLoaded={props.isloaded} startColor="#6D5DD3" endColor="black.800" m="20px" size={36}>
             <Avatar size="2xl" m="20px" name={props.name} src={props.src}></Avatar>
             </SkeletonCircle>

@@ -8,7 +8,7 @@ a{
 }
 
 .chakra-ui-light{
-    background-color: #8e78c7 !important;
+    background-color: #f5f5f5 !important;
 }
 
 .chakra-ui-dark{
@@ -25,11 +25,3 @@ a{
     width: 10px;
 }
 
-.Skap_Text_Video{
-    display: -webkit-box;
-    text-overflow:ellipsis;
-    overflow:hidden;
-    white-space:normal;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-}

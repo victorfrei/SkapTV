@@ -48,10 +48,6 @@ return (
          
       
       
-<Head>
-      <title>Skap</title>
-      
-</Head>
 <Tabs w="100vw" variant="solid-rounded" align="center" colorScheme="blue">
 <Navmenu navmenu={true}></Navmenu>
 
@@ -64,7 +60,7 @@ return (
       justifyContent="center"
       mt="50px"
      >
-        <Box as={Flex} justifyContent="space-between" backgroundImage='url("/icons/bannertest.jpg")' backgroundSize="cover" backgroundRepeat="no-repeat"  backgroundPosition="center" w="100%">
+        <Box as={Flex} justifyContent="space-between" borderRadius="50px" m="10px 20px" backgroundImage='url("/icons/bannertest.jpg")' backgroundSize="cover" backgroundRepeat="no-repeat"  backgroundPosition="center" w="100%">
           {/* <Flex alignItems="center" m="20px">
           <Avatar size="xl"></Avatar>
           <Heading ml="20px">Nome do canal Aqui</Heading>
