@@ -19,7 +19,7 @@
     "i": "^0.3.6",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.18",
-    "next": "9.5.2",
+    "next": "9.5.4",
     "nodemailer": "^6.4.16",
     "react": "16.13.1",
     "react-dom": "16.13.1",
