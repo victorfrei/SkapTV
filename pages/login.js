@@ -10,9 +10,12 @@ import { useState } from 'react';
 import Axios from 'axios';
 import {useRouter} from 'next/router';
 
+export async function getStaticProps(){
+  return {props:{auth:process.env.Auth}}
+}
 
 
-export default function Home() {
+export default function Login(props) {
   const router = useRouter();
   const toast = useToast();
   let [Email , setEmail] = useState("");
@@ -30,7 +33,9 @@ export default function Home() {
         isClosable: false
       })}
 
-   
+  
+      
+
 
 function Login(){
         
@@ -40,7 +45,8 @@ function Login(){
 
    }else{
     Email = Email.toLowerCase();
-    Axios.post(`/api/skap/login?auth=${process.env.Auth}`,{Email ,Pass})
+  
+    Axios.post(`/api/skap/login?auth=${props.auth}`,{Email ,Pass})
     .then((docs)=>{
       if(docs.data.err){
         fre(docs.data.msg,"error","O login falhou!");
@@ -53,7 +59,11 @@ function Login(){
         router.replace("/");
       }
     })
-   }
+    .catch(()=>{
+      fre("A autenticação falhou!!","error","Autenticação")
+    })
+  
+  }
 }
 
 

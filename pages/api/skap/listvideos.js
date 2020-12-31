@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
 export default async function listvideos(req,resp){
-if(req.query.auth=="adhjsdsadvashdasbdhiu2981hj32uer902323fn2jhfg2u3hb2f23duh3"){
+if(req.query.auth=="sd!aod$87AS21%9UAnASHajad,.~s/amsldpasd[asç[´da´pdaldásdasd"){
     const Schema = mongoose.Schema;
     const ObjectId = Schema.ObjectId;
         

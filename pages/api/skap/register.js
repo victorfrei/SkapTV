@@ -7,11 +7,13 @@ export default async function handler(req, res) {
     res.statusCode = 200
     res.send(await Db(req.body));
     }else{
-      res.send("Access Denied!!")
       res.statusCode = 401;
+      res.send("Access Denied!!")
+      
     }
   }else{
+    res.statusCode = 401;
     res.send("Access Denied!!")
-      res.statusCode = 401;
+     
   }
   }

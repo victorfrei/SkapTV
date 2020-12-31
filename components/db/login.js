@@ -30,7 +30,7 @@ const user = conn.model("User",userSchema);
       }else{
       const {Nick} = pack;
       if(bcrypt.compareSync(Pass,pack.Pass)){
-      let token = jwt.sign({data:{Nick:Nick,Id:pack._id,Email:pack.Email} }, process.env.privateKey,{expiresIn:3600});
+      let token = jwt.sign({data:{Nick:Nick,Id:pack._id,Email:pack.Email} }, process.env.privateKey,{expiresIn:18000});
       return {err:false, token};
       }else{
         return {err: true, msg:"A senha está incorreta!!"};

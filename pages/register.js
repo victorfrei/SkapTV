@@ -9,7 +9,15 @@ import {useRouter} from 'next/router'
 
 import Axios from 'axios';
 
-export default function Home() {
+
+
+export async function getStaticProps(){
+  return {props:{auth:process.env.Auth}}
+}
+
+
+
+export default function Register(props) {
 
   const color = useColorModeValue("white","gray.300");
   const { colorMode, toggleColorMode } = useColorMode()
@@ -31,7 +39,7 @@ export default function Home() {
     })}
 
  
- function Registrar(){
+ async function Registrar(){
       
     if(Pass == "" && Email =="" && Nick==""){
         fre("Não há dados!!","warning");
@@ -40,7 +48,7 @@ export default function Home() {
           Nick = Nick.toLowerCase();
           Email = Email.toLowerCase();
           fre("Criando conta...","info")
-     Axios.post(`/api/skap/register?auth=${process.env.Auth}`,{Nick,Email,Pass})
+     await Axios.post(`/api/skap/register?auth=${props.Auth}`,{Nick,Email,Pass})
       .then((data)=>{
         if(data.data.err){
         fre(data.data.msg,"error");

@@ -90,7 +90,7 @@ const remetente = nodemailer.createTransport({
 const HashPass = bcrypt.hashSync(Pass,12)
 const usercreated = await user.create({Nick:Nick,Email:Email,Pass:HashPass,Date:Date.now,EmailVerificado:false,Number:number});
 await channel.create({_id:usercreated._id,Owner:Nick,Subs:0,Follows:0});
-const token = jwt.sign({data:{Nick,Id:usercreated._id} }, process.env.privateKey,{expiresIn:3600});
+const token = jwt.sign({data:{Nick,Id:usercreated._id} }, process.env.privateKey,{expiresIn:18000});
 
 
 
