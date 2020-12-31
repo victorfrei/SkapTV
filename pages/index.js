@@ -10,14 +10,13 @@ import Buttons from '../components/buttons';
 import Channelspotlight from "../components/channelspotolight";
 import { Tabs, TabPanels, TabPanel } from "@chakra-ui/react"
 import Navmenu from "../components/navmenu";
-var ip = '<!--#echo var="REMOTE_ADDR"-->';
-console.log(ip);
-export async function getStaticProps(){
+
+// export async function getStaticProps(){
   
-  const call = await fetch(`https://skap.tv/api/skap/listvideos?auth=${process.env.Auth_Secret}`)
-  return {props:{LV:await call.json()},revalidate: 5}
+//   const call = await fetch(`https://192.168.0.26:3000/api/skap/listvideos?auth=${process.env.Auth_Secret}`)
+//   return {props:{LV:await call.json()},revalidate: 5}
  
-};
+// };
 
 export default function home(props){
   const [isloaded,setisloaded] = useState(false);
