@@ -43,6 +43,7 @@ return <Box
         <MenuDivider />
         <Link href={`/channel/${nick}`} ><MenuItem>Meu Canal</MenuItem></Link>
         <MenuItem onClick={account.onOpen} >Minha Conta</MenuItem>
+        <Link href="studio.skap.tv"><MenuItem >Fazer Upload</MenuItem></Link>
         </MenuGroup>
         <MenuDivider />
         <MenuGroup title="Outros">
