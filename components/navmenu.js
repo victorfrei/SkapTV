@@ -117,7 +117,7 @@ return(
         <MenuDivider />
         <Link href={`/channel/?id=${ID}`} ><MenuItem>Meu Canal</MenuItem></Link>
         <Link href="/account"><MenuItem>Minha Conta</MenuItem></Link>
-        <Link href="https://www.studio.skap.tv" isExternal><MenuItem >Fazer Upload</MenuItem></Link>
+        <Link href="https://studio.skap.tv" isExternal><MenuItem >Fazer Upload</MenuItem></Link>
         </MenuGroup>
         <MenuDivider />
         <MenuGroup title="Outros">
