@@ -7,8 +7,8 @@ function MyApp({ Component, pageProps }) {
     <>
     <Head>
       <title>Skap Streaming</title>
-      </Head>
       <script data-ad-client="ca-pub-5207306970891415" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      </Head>
     <ChakraProvider>
       <Component {...pageProps} />
     </ChakraProvider>
