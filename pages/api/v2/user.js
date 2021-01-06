@@ -86,7 +86,7 @@ if(req.query.type == "1"){ //login
               from: '"👻 Support Skap 👻" <support@skap.tv>', // sender address
               to: req.body.Email, // list of receivers
               subject: "Confirmação de Conta", // Subject line
-              html: `<b>Confirme sua conta!!</b><br><br><a>https://www.skap.tv/api/v2/confirm?auth=${createuser._id}</a><br><br><br>Para ajuda mande mensagem para o suporte em: support@skap.tv<br><br>Atensiosamente, SkapTV.`,
+              html: `<b>Confirme sua conta!!</b><br><br><a>https://skap.tv/api/v2/confirm?auth=${createuser._id}</a><br><br><br>Para ajuda mande mensagem para o suporte em: support@skap.tv<br><br>Atensiosamente, SkapTV.`,
               
             });
            resp.send(data);
