@@ -10,11 +10,6 @@ import { useState } from 'react';
 import Axios from 'axios';
 import {useRouter} from 'next/router';
 
-export async function getStaticProps(){
-  return {props:{auth:process.env.Auth}}
-}
-
-
 export default function Login(props) {
   const router = useRouter();
   const toast = useToast();
@@ -46,21 +41,13 @@ function Login(){
    }else{
     Email = Email.toLowerCase();
   
-    Axios.post(`/api/skap/login?auth=${props.auth}`,{Email ,Pass})
-    .then((docs)=>{
-      if(docs.data.err){
-        fre(docs.data.msg,"error","O login falhou!");
-        setTimeout(()=>{},2000);
-        router.replace("/login");
-      }else{
-        fre("Login Feito Com Sucesso!!","success","");
-        localStorage.setItem("PublicKey",docs.data.token);
-        setTimeout(()=>{},2000);
-        router.replace("/");
-      }
+    Axios.post(`/api/v2/user?type=1`,{Email ,Pass})
+    .then(()=>{
+     fre("",'success','Login Feito com Sucesso');
     })
-    .catch(()=>{
-      fre("A autenticação falhou!!","error","Autenticação")
+    .catch((err)=>{
+      console.log(err);
+      fre("Error durante o login!! A senha ou o email pode está incorreto!",'error','Error');
     })
   
   }

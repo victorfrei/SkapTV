@@ -11,12 +11,6 @@ import Axios from 'axios';
 
 
 
-export async function getStaticProps(){
-  return {props:{auth:process.env.Auth}}
-}
-
-
-
 export default function Register(props) {
 
   const color = useColorModeValue("white","gray.300");
@@ -48,22 +42,12 @@ export default function Register(props) {
           Nick = Nick.toLowerCase();
           Email = Email.toLowerCase();
           fre("Criando conta...","info")
-     await Axios.post(`/api/skap/register?auth=${props.Auth}`,{Nick,Email,Pass})
+     await Axios.post(`/api/v2/user?type=2`,{Nick,Email,Pass})
       .then((data)=>{
-        if(data.data.err){
-        fre(data.data.msg,"error");
-        }else{
-          fre("Conta feita com sucesso!!","success");
-          localStorage.setItem("PublicKey",data.data);
-          setTimeout(()=>{},4000);
-          router.replace("/");
-        }
-      });
-    }else{
-      fre("As senhas não são iguais!","error")
-    }
-   
-    }
+      })
+      .catch((err)=>{
+
+      })
    }
 
 

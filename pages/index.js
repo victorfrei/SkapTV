@@ -42,7 +42,7 @@ return (
         h="100vh"
         templateColumns="200px 1fr 60px"
         templateRows="50px 1fr"
-        templateAreas={['"navmenu navmenu  navmenu""content content content"','"navmenu navmenu navmenu""content content content"','"navmenu navmenu navmenu""content content content"']}
+        templateAreas={['"navmenu navmenu navmenu""content content content"','"navmenu navmenu navmenu""content content content"','"navmenu navmenu navmenu""content content content"']}
         >
          
       
