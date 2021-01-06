@@ -75,8 +75,8 @@ if(req.query.type == "1"){ //login
               secure: false, // true for 465, false for other ports
               
               auth: {
-                user: "support@skap.tv", // generated ethereal user
-                pass: 'VictOR_159632478', // generated ethereal password
+                user: "support@skap.tv",
+                pass: process.env.mailpass, 
               },
             });
           
