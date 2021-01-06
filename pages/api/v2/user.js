@@ -28,7 +28,7 @@ if(req.method === "POST"){
 
 if(req.query.type == "1"){ //login
     
-        const conn = await mongoose.createConnection(`mongodb+srv://Login:${process.env.L_Pass}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
+        const conn = await mongoose.createConnection(`mongodb+srv://Login:${process.env.L_PASS}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
         const user = conn.model("users",Users);
         
         user.findOne({spS_Email:req.body.Email})
@@ -56,7 +56,7 @@ if(req.query.type == "1"){ //login
     })
     
 }else if(req.query.type == "2"){ //register
-    const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.env.R_Pass}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
+    const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.env.R_PASS}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
     const user = conn.model("users",Users);
     const salt = bcrypt.genSaltSync(12);
     const Hashpass = bcrypt.hashSync(req.body.Pass,salt);
