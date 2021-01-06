@@ -44,11 +44,12 @@ export default function Register(props) {
           fre("Criando conta...","info")
      await Axios.post(`/api/v2/user?type=2`,{Nick,Email,Pass})
       .then((data)=>{
+        console.log(data);
       })
-      .catch((err)=>{
-
-      })
+      
    }
+  }
+}
 
 
 
@@ -66,9 +67,6 @@ return (
       justifyItems="center"
     >
 
- 
-
-
       <Button style={{placeSelf:"Flex-Start",justifySelf:"Flex-End"}} gridArea="mode" w="50px" variant="ghost" onClick={toggleColorMode}>
           {colorMode === "light" ? <FiSun size="80px"/>:<FiMoon size="80px"/>}
         </Button>
@@ -82,13 +80,9 @@ return (
         alignItems="stretch"
         padding={12}
       >
-        <Alert status="warning" m="10px 0">
-        <AlertIcon/>
-        Não será possivel alterar o nome do canal depois do cadastro!
-        </Alert>
-
+      
         <Input
-          placeholder="Nome do Canal"
+          placeholder="Nickname"
           onChange={(e)=>{setNick(e.target.value)}}
         />
         
@@ -168,3 +162,4 @@ return (
     </Grid>
   )
 }
+

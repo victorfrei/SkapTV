@@ -42,12 +42,15 @@ function Login(){
     Email = Email.toLowerCase();
   
     Axios.post(`/api/v2/user?type=1`,{Email ,Pass})
-    .then(()=>{
-     fre("",'success','Login Feito com Sucesso');
-    })
-    .catch((err)=>{
-      console.log(err);
-      fre("Error durante o login!! A senha ou o email pode está incorreto!",'error','Error');
+    .then((data)=>{
+      console.log(data);
+      if(data.data.type==1){
+     fre("Login Feito com Sucesso",'success','');
+      }else if(data.data.type==2){
+        fre("Email ou Senha estão incorretos!",'warning','Requer Atenção');
+      }else if(data.data.type==3){
+        fre("É necessário verificar o email para logar!!",'warning','Requer Atenção');
+      }
     })
   
   }

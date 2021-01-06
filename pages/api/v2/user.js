@@ -1,18 +1,19 @@
 
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt'
+import nodemailer from 'nodemailer';
 
 const Users = new mongoose.Schema(
     {
-        spS_Name: String,
-        spS_Sobrenome:String,
         spS_Email:String,
         spS_Nick:String,
         spS_Pass:String,
         spS_Avatar:String,
-        spS_Premium:Boolean,
-        spS_Balance:Number,
-        spS_IdentidadeConfirmada:Boolean,
-        spS_HasChannel:Boolean
+        spS_Premium:{type:Boolean,default:false},
+        spS_Balance:{type:Number,default:0},
+        spS_IdentidadeConfirmada:{type:Boolean,default:false},
+        spS_HasChannel:{type:Boolean,default:false},
+        spS_Date:{type:Date,default:Date.now()}
 
     }
     )
@@ -20,45 +21,101 @@ const Users = new mongoose.Schema(
 
 
 export default async function User(req,resp){
-    mongoose.connect(`mongodb+srv://Register:${process.env.R_Pass}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
-    const user = mongoose.model("User",Users);
     
+
 if(req.method === "POST"){
     
 
-    if(req.query.type == "1"){ //login
+if(req.query.type == "1"){ //login
     
+        const conn = await mongoose.createConnection(`mongodb+srv://Login:${process.env.L_Pass}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
+        const user = conn.model("users",Users);
         
-        resp.send("ok")
-        // user.findOne({spS_Nick:req.body.Email,spS_Pass:req.body.Pass})
-        // .then((data)=>{
-        // if(data==null){
-        //     resp.statusCode = 504;
-        //     resp.send("Nothing Found!!");
-        //  }else{
-        //     resp.statusCode = 200;
-        //     resp.send("");
-        //  }
-    // })
+        user.findOne({spS_Email:req.body.Email})
+        .then((data)=>{
+        if(data==null){
+            resp.statusCode = 200;
+            conn.close();
+            resp.send({type:2}); 
+         }else{
+             if(data.spS_IdentidadeConfirmada==true){
+                if(bcrypt.compareSync(req.body.Pass,data.spS_Pass)){
+                resp.statusCode = 200;
+                conn.close();
+                resp.send({type:1})
+                }else{
+                    resp.send({type:2});
+                }
+             }else{
+                resp.statusCode = 200;
+                 conn.close();
+                 resp.send({type:3});
+             }
+            
+         }
+    })
     
-    // .catch((err)=>{
-    //     resp.statusCode = 204;
-    //     resp.send(err);
-    // })
-       
-       
-       }else if(req.query.type == "2"){ //register
-        console.log(req.body)
-        resp.send("ok");
+}else if(req.query.type == "2"){ //register
+    const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.env.R_Pass}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
+    const user = conn.model("users",Users);
+    const salt = bcrypt.genSaltSync(12);
+    const Hashpass = bcrypt.hashSync(req.body.Pass,salt);
+    const createuser = new user({
+        spS_Email:req.body.Email,
+        spS_Nick:req.body.Nick,
+        spS_Pass:Hashpass})
+
+        createuser.save()
+        .then((data)=>{
+            
+            
+            let transporter = nodemailer.createTransport({
+              host: "smtp.zoho.com",
+              port:   587,
+              secure: false, // true for 465, false for other ports
+              
+              auth: {
+                user: "support@skap.tv", // generated ethereal user
+                pass: 'VictOR_159632478', // generated ethereal password
+              },
+            });
+          
+            // send mail with defined transport object
+            let info = transporter.sendMail({
+        
+              from: '"👻 Support Skap 👻" <support@skap.tv>', // sender address
+              to: req.body.Email, // list of receivers
+              subject: "Confirmação de Conta", // Subject line
+              html: `<b>Confirme sua conta!!</b><br><br><a>https://www.skap.tv/api/v2/confirm?auth=${createuser._id}</a><br><br><br>Para ajuda mande mensagem para o suporte em: support@skap.tv<br><br>Atensiosamente, SkapTV.`,
+              
+            });
+           resp.send(data);
+          })
+          
+         
+        
+
+        .catch((err)=>{
+            console.log(err);
+            resp.send(err);
+        })
+
+
+
+
+
+
+
 
        }else{
-
-        resp.json({auth:"Not Allowed!",access:"Denied!",user:"Private"});
+        resp.statusCode = 504;
+        resp.json({auth:"Not Allowed!"});
 
        }
               
     }else{
-        resp.json({auth:"Not Allowed!",access:"Denied!",user:"Private"});
+        resp.statusCode = 504;
+        resp.json({auth:"Not Allowed!"});
     }
    
 }
