@@ -89,6 +89,7 @@ if(req.query.type == "1"){ //login
               html: `<b>Confirme sua conta!!</b><br><br><a>https://skap.tv/api/v2/confirm?auth=${createuser._id}</a><br><br><br>Para ajuda mande mensagem para o suporte em: support@skap.tv<br><br>Atensiosamente, SkapTV.`,
               
             });
+            info.catch((err)=>{console.error(err)})
            resp.send(data);
           })
           
