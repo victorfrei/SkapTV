@@ -1,8 +1,5 @@
 import {Box,Grid,GridItem,Flex} from "@chakra-ui/react";
 import React, { useState,useEffect } from "react";
-
-
-
 import Thumbnailske from '../components/temp_thumbnail';
 import Thumbnail from '../components/thumbnail';
 import SpotLight from '../components/spotlight';
@@ -10,19 +7,20 @@ import Buttons from '../components/buttons';
 import Channelspotlight from "../components/channelspotolight";
 import { Tabs, TabPanels, TabPanel } from "@chakra-ui/react"
 import Navmenu from "../components/navmenu";
+import { useRouter} from "next/router";
+
 
 export async function getStaticProps(){
   
   const call = await fetch(`https://skap.tv/api/skap/listvideos?auth=${process.env.Auth_Secret}`)
-  return {props:{LV:await call.json()},revalidate: 5}
+  return {props:{LV:await call.json(),revalidate: 5}}
  
 };
 
-export default function home(props){
+export default function Home(props){
   const [isloaded,setisloaded] = useState(false);
   const [Videos,setisvideos] = useState([]);
-
-
+  //const router = useRouter();
 useEffect(()=>{  
 
  const videos = []
@@ -32,7 +30,8 @@ useEffect(()=>{
   }
   setisloaded(true);
   setisvideos(videos);
-
+ 
+  
 },[isloaded]);
 
 
@@ -49,7 +48,7 @@ return (
       
 <Tabs w="100vw" variant="solid-rounded" align="center" colorScheme="blue">
 <Navmenu navmenu={true}></Navmenu>
-
+  
 
      <GridItem
       gridArea="content"
@@ -59,6 +58,7 @@ return (
       justifyContent="center"
       mt="50px"
      >
+       
         <Box as={Flex} justifyContent="space-between" borderRadius="50px" m="10px 20px" backgroundImage='url("/icons/bannertest.jpg")' backgroundSize="cover" backgroundRepeat="no-repeat"  backgroundPosition="center" w="100%">
           {/* <Flex alignItems="center" m="20px">
           <Avatar size="xl"></Avatar>

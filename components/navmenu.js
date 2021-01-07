@@ -102,8 +102,8 @@ return(
           
           <Text fontWeight="bold">
           {nick}
-          <Badge ml="1"  colorScheme={plan=="Premium"?"yellow":"gray"}>
-          {plan}
+          <Badge ml="1"  colorScheme={plan==true?"yellow":"gray"}>
+          {plan==true?"Premium":"Standard"}
           </Badge>
           </Text>
           

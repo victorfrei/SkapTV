@@ -45,8 +45,19 @@ export default function Register(props) {
      await Axios.post(`/api/v2/user?type=2`,{Nick,Email,Pass})
       .then((data)=>{
         console.log(data);
+        toast.closeAll();
+        fre("Conta criada!!","success");
+        fre("Confirme seu email para logar!","info");
+        router.replace("/login");
+      })
+      .catch(()=>{
+        toast.closeAll();
+        fre("O nick ou email já foram usados!","warning");
       })
       
+   }else{
+    toast.closeAll();
+    fre("As senhas não coincidem!","info");
    }
   }
 }

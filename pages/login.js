@@ -46,8 +46,10 @@ function Login(){
       console.log(data);
       if(data.data.type==1){
      fre("Login Feito com Sucesso",'success','');
+     localStorage.setItem("token",data.data.token)
+     router.replace("/");
       }else if(data.data.type==2){
-        fre("Email ou Senha estão incorretos!",'warning','Requer Atenção');
+        fre("Email ou Senha estão incorretos!",'info','Requer Atenção');
       }else if(data.data.type==3){
         fre("É necessário verificar o email para logar!!",'warning','Requer Atenção');
       }

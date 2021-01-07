@@ -2,13 +2,14 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt'
 import nodemailer from 'nodemailer';
+import jwt from 'jsonwebtoken';
 
 const Users = new mongoose.Schema(
     {
         spS_Email:String,
         spS_Nick:String,
         spS_Pass:String,
-        spS_Avatar:String,
+        spS_Avatar:{type:String,default:""},
         spS_Premium:{type:Boolean,default:false},
         spS_Balance:{type:Number,default:0},
         spS_IdentidadeConfirmada:{type:Boolean,default:false},
@@ -31,7 +32,7 @@ if(req.query.type == "1"){ //login
         const conn = await mongoose.createConnection(`mongodb+srv://Login:${process.env.L_PASS}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
         const user = conn.model("users",Users);
         
-        user.findOne({spS_Email:req.body.Email})
+       user.findOne({spS_Email:req.body.Email})
         .then((data)=>{
         if(data==null){
             resp.statusCode = 200;
@@ -42,7 +43,7 @@ if(req.query.type == "1"){ //login
                 if(bcrypt.compareSync(req.body.Pass,data.spS_Pass)){
                 resp.statusCode = 200;
                 conn.close();
-                resp.send({type:1})
+                resp.send({type:1,token:jwt.sign({auth:data._id,premium:data.spS_Premium,has_channel:data.spS_HasChannel,avatar:spS_Avatar,nick:spS_Nick},process.env.privatekey)})
                 }else{
                     resp.send({type:2});
                 }
@@ -93,11 +94,9 @@ if(req.query.type == "1"){ //login
            resp.send(data);
           })
           
-         
-        
-
-        .catch((err)=>{
+         .catch((err)=>{
             console.log(err);
+            resp.statusCode = 501
             resp.send(err);
         })
 
