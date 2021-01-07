@@ -43,7 +43,7 @@ if(req.query.type == "1"){ //login
                 if(bcrypt.compareSync(req.body.Pass,data.spS_Pass)){
                 resp.statusCode = 200;
                 conn.close();
-                resp.send({type:1,token:jwt.sign({auth:data._id,premium:data.spS_Premium,has_channel:data.spS_HasChannel,avatar:spS_Avatar,nick:spS_Nick},process.env.privatekey)})
+                resp.send({type:1,token:jwt.sign({auth:data._id,premium:data.spS_Premium,has_channel:data.spS_HasChannel,avatar:spS_Avatar,nick:spS_Nick},process.env.privatekey,{expiresIn:36000})})
                 }else{
                     resp.send({type:2});
                 }

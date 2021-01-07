@@ -24,7 +24,7 @@ import {
   ModalBody,
   ModalCloseButton,
  } from "@chakra-ui/react"
- import {useRouter} from 'next/router';
+ 
 
 
 
@@ -37,7 +37,7 @@ export default function Navmenu(props){
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [ID,setID] = useState()
     const toast = useToast();
-    const router = useRouter();
+    
 
 
 
