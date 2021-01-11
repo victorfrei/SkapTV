@@ -7,7 +7,7 @@ import Buttons from '../components/buttons';
 import Channelspotlight from "../components/channelspotolight";
 import { Tabs, TabPanels, TabPanel } from "@chakra-ui/react"
 import Navmenu from "../components/navmenu";
-import { useRouter} from "next/router";
+
 
 
 export async function getStaticProps(){
