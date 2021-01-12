@@ -23,6 +23,10 @@ export default function Studio(){
     const firstField = React.useRef()
     const [value, setValue] = React.useState("1")
     const [file, setfile] = React.useState("")
+    const [Nome, setNome] = React.useState("")
+    const [Desc, setDesc] = React.useState("")
+    const [Cat, setCat] = React.useState("Gaming")
+    const [Public, setpublic] = React.useState(true)
 return(
   <>
 <Tabs variant="soft-rounded" colorScheme="blue">
@@ -69,6 +73,7 @@ return(
                     <FormLabel htmlFor="videoname">Nome</FormLabel>
                     <Input
                       ref={firstField}
+                      onChange={(e)=>{setNome(e.target.value)}}
                       id="videoname"
                       placeholder="Nome do vídeo"
                     />
@@ -76,13 +81,13 @@ return(
   
                   <Box>
                     <FormLabel htmlFor="desc" >Description</FormLabel>
-                    <Textarea h="180px" resize="none" id="desc" />
+                    <Textarea h="180px" onChange={(e)=>{setDesc(e.target.value)}} resize="none" id="desc" />
                   </Box>
                 
 
                 <Box>
                     <FormLabel htmlFor="categoria">Categoria</FormLabel>
-                    <Select id="categoria" defaultValue="Gaming">
+                    <Select id="categoria" onChange={(e)=>{setCat(e.target.value)}} defaultValue="Gaming">
                       <option value="Gaming">Gaming</option>
                       <option value="Entreterimento">Entretenimento</option>
                       <option value="Educação">Educação</option>
@@ -112,9 +117,9 @@ return(
                   <FormLabel htmlFor="visibilidade">Visibilidade</FormLabel>
                   <RadioGroup onChange={setValue}  value={value}>
                   <Stack direction="row">
-                  <Radio id="visibilidade" value="1">Público</Radio>
-                  <Radio value="2">Privado</Radio>
-                  <Radio value="3">Não Listado</Radio>
+                  <Radio id="visibilidade" onSelect={(e)=>{setpublic(true)}} value="1">Público</Radio>
+                  <Radio value="2" onSelect={(e)=>{setpublic(false)}}>Privado</Radio>
+                  <Radio value="3" onSelect={(e)=>{setpublic(false)}}>Não Listado</Radio>
                   </Stack>
                   </RadioGroup>
                   </Box>
@@ -127,7 +132,7 @@ return(
                   Cancelar
                 </Button>
                 <Button colorScheme="blue" onClick={()=>{
-                    Axios.get("/api/v1/upload")
+                    Axios.get("/api/v1/upload?getlink=true")
                     .then((data)=>{
                         console.log(data);
                         
@@ -136,7 +141,7 @@ return(
                           // Normally this would be retrieved via an API request to an endpoint
                           // you control that would return an authenticated URL.
                           chunkSize: 5120,
-                          endpoint: data.data
+                          endpoint: data.data.url
                         });
                         
                         upload.on('error', err => {
@@ -147,11 +152,25 @@ return(
                           console.log(`So far we've uploaded ${progress.detail}% of this file.`);
                         });
 
-                        upload.on('success', (data) => console.log('We did it, everyone! '+ data));
+                        upload.on('success', () => {
+                        console.log('We did it, everyone! ')
+                        Axios.post("/api/v1/upload?getlink=false",{id:data.data.id})
+                          .then((data)=>{
+                            Axios.post(`/api/v1/db-upload?perm=true`,{
+                              spS_Nome:Nome,
+                              spS_Thumbnail: data.data.playback_ids[0].id,
+                              spS_Description:Desc,
+                              spS_Category:Cat,
+                              spS_PostedBy:"Alpha Preview",
+                              spS_Public:Public})
+                            
+                          })
+                          
                       })
                     
 
-                }}>Enviar</Button>
+                })
+              }}>Enviar</Button>
               </DrawerFooter>
             </DrawerContent>
           </DrawerOverlay>
