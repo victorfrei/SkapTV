@@ -1,6 +1,6 @@
 // import Head from 'next/head'
 
-import {Grid, Flex, Link, Button,useToast, Text} from '@chakra-ui/react'
+import {Grid, Flex, Tooltip, Button,useToast, Text} from '@chakra-ui/react'
 import Divider from '../components/Divider'
 import Input from '../components/Input'
 import {useColorModeValue,useColorMode} from '@chakra-ui/react';
@@ -61,16 +61,19 @@ return (
         >
           Logar
         </Button>
-
+        <Tooltip label="Você não precisará criar uma conta. Nós iremos fazer isso para você, simplemente digite seu EMAIL acima e a conta será criada automaticamente,
+        peço também que você mantenha seu EMAIL sempre SEGURO pois ele será o seu método de login, uma forma mais SEGURA e PRÁTICA de logar!" aria-label="Digite o email para criar uma conta">
         <Text
           textAlign="center"
           fontSize="sm"
           color={color}
           marginTop={6}
+          cursor="pointer"
         >
           Não tem uma conta? {" "}
           
         </Text>
+        </Tooltip>
     </form>
       
 
