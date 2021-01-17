@@ -67,9 +67,12 @@ export default function Navmenu(props){
       }
 
 
-console.log("sessao " +session);
+console.log("sessao " +session + "loading" + loading);
+return(<>
 
-return(
+
+{!loading &&
+ 
  <Box
         as={Flex}
         zIndex="1"
@@ -92,7 +95,7 @@ return(
     
   </TabList>
   <Input w="400px" type="search"></Input>
-  {session &&   
+  {session && <>  
     <Menu>
           <MenuButton>
           <Avatar cursor="pointer"  size="sm" name={session.user.name} src={session.user.image} margin=" 0 20px 0 20px" />
@@ -131,7 +134,7 @@ return(
         </MenuGroup>
         </MenuList>
         </Menu>
-  }
+  </>}
   {!session &&
   <Link href="/login" marginRight="25px"><Button borderRadius="15px" colorScheme="red">Logar</Button></Link>
   }
@@ -185,7 +188,13 @@ return(
        
     
    </Box>
-    )
+ 
+  
+}
 
-    
+{loading && 
+<div>loading</div>
+
+}
+</>)    
 }

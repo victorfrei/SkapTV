@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 
 export default async function listvideos(req,resp){
-if(req.query.auth=="sdaod87AS219UAnASHajadsamsldpasdasdapdaldsdasd"){
     const Schema = mongoose.Schema;
     const ObjectId = Schema.ObjectId;
         
@@ -28,7 +27,5 @@ if(req.query.auth=="sdaod87AS219UAnASHajadsamsldpasdasdapdaldsdasd"){
     const homevideos = await videos.find().sort({Razao:-1});
   
     resp.send(homevideos);
-}else{
-    resp.send("Access Denied!!");
-}
+
 }
