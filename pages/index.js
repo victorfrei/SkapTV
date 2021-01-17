@@ -7,7 +7,7 @@ import Buttons from '../components/buttons';
 import Channelspotlight from "../components/channelspotolight";
 import { Tabs, TabPanels, TabPanel } from "@chakra-ui/react"
 import Navmenu from "../components/navmenu";
-
+import { signIn, signOut, useSession } from 'next-auth/client'
 
 
 export async function getStaticProps(){
@@ -20,6 +20,7 @@ export async function getStaticProps(){
 export default function Home(props){
   const [isloaded,setisloaded] = useState(false);
   const [Videos,setisvideos] = useState([]);
+  const [ session, loading ] = useSession()
   //const router = useRouter();
 useEffect(()=>{  
 
@@ -44,7 +45,16 @@ return (
         templateAreas={['"navmenu navmenu navmenu""content content content"','"navmenu navmenu navmenu""content content content"','"navmenu navmenu navmenu""content content content"']}
         >
          
-      
+         <>
+    {!session && <>
+      Not signed in <br/>
+      <button onClick={signIn}>Sign in</button>
+    </>}
+    {session && <>
+      Signed in as {session.user.email} and avatar is {session.user.image} <br/>
+      <button onClick={signOut}>Sign out</button>
+    </>}
+  </>
       
 <Tabs w="100vw" variant="solid-rounded" align="center" colorScheme="blue">
 <Navmenu navmenu={true}></Navmenu>
