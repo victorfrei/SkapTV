@@ -1,4 +1,4 @@
-import {Box,Grid,GridItem,Flex} from "@chakra-ui/react";
+import {Box,Grid,GridItem,Flex,Link} from "@chakra-ui/react";
 import React, { useState,useEffect } from "react";
 import Thumbnailske from '../components/temp_thumbnail';
 import Thumbnail from '../components/thumbnail';
@@ -7,8 +7,8 @@ import Buttons from '../components/buttons';
 import Channelspotlight from "../components/channelspotolight";
 import { Tabs, TabPanels, TabPanel } from "@chakra-ui/react"
 import Navmenu from "../components/navmenu";
-import { signIn, signOut, useSession } from 'next-auth/client'
-
+import {useRouter} from 'next/router';
+import {useSession} from 'next-auth/client';
 
 export async function getStaticProps(){
   
@@ -17,12 +17,19 @@ export async function getStaticProps(){
  
 };
 
+
+
+ 
+
+
+
 export default function Home(props){
   const [isloaded,setisloaded] = useState(false);
   const [Videos,setisvideos] = useState([]);
-  const [ session, loading ] = useSession()
-  //const router = useRouter();
-useEffect(()=>{  
+  const router = useRouter();
+const [session,loading] = useSession();
+
+  useEffect(()=>{  
 
  const videos = []
   console.log(props.LV.length)
@@ -36,25 +43,17 @@ useEffect(()=>{
 },[isloaded]);
 
 
-return (
-     
+return (<>
+     {session && <>
         <Grid
+
         h="100vh"
         templateColumns="200px 1fr 60px"
         templateRows="50px 1fr"
         templateAreas={['"navmenu navmenu navmenu""content content content"','"navmenu navmenu navmenu""content content content"','"navmenu navmenu navmenu""content content content"']}
         >
          
-         <>
-    {!session && <>
-      Not signed in <br/>
-      <button onClick={signIn}>Sign in</button>
-    </>}
-    {session && <>
-      Signed in as {session.user.email} and avatar is {session.user.image} <br/>
-      <button onClick={signOut}>Sign out</button>
-    </>}
-  </>
+       
       
 <Tabs w="100vw" variant="solid-rounded" align="center" colorScheme="blue">
 <Navmenu navmenu={true}></Navmenu>
@@ -136,6 +135,23 @@ return (
      </Tabs>
 
     </Grid>
+    
+    </>}
+    
+    
+    
+    
+    {!session && <>
+    <Box justifyContent="center" w="100vw" h="100vh" display="flex" flexDirection="column" alignItems="center">
+    <div>Você deslogou!</div>
+    <Link href="/login"><div>Pagina de login</div></Link>
+    </Box>
+    </>}
+    </>
+
+
     )
+
+    
 
 }

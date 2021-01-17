@@ -3,7 +3,9 @@ import { useState } from "react";
 import { Avatar,useToast,Alert,AlertIcon,Link,Image, Badge,Button,useColorMode,useDisclosure, Box, MenuButton, Input } from "@chakra-ui/react";
 import Axios from "axios";
 import { TabList, Tab} from "@chakra-ui/react"
-import logout from '../components/logout';
+import {signOut, useSession} from 'next-auth/client'
+
+
 import {
   Menu,
   MenuList,
@@ -37,8 +39,8 @@ export default function Navmenu(props){
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [ID,setID] = useState()
     const toast = useToast();
-    
-
+    const [session,loading] = useSession()
+   
 
 
 
@@ -65,10 +67,10 @@ export default function Navmenu(props){
       }
 
 
-
+console.log("sessao " +session);
 
 return(
-<Box
+ <Box
         as={Flex}
         zIndex="1"
         alignItems="center"
@@ -93,15 +95,15 @@ return(
     
     <Menu>
           <MenuButton>
-          <Avatar cursor="pointer"  size="sm" name={nick} src={profile} margin=" 0 20px 0 20px" />
+          <Avatar cursor="pointer"  size="sm" name={session.user.name} src={session.user.image} margin=" 0 20px 0 20px" />
           </MenuButton>
           <MenuList bg="#091613" margin="10px 20px 0 0">
           <Flex alignItems="center" flexDirection="column">
-          <Avatar onClick={onOpen} cursor="pointer" size="lg" name={nick} src={profile} />
+          <Avatar onClick={onOpen} cursor="pointer" size="lg" name={session.user.name} src={session.user.image} />
           <Box ml="3">
           
           <Text fontWeight="bold">
-          {nick}
+          {session.user.name}
           <Badge ml="1"  colorScheme={plan==true?"yellow":"gray"}>
           {plan==true?"Premium":"Standard"}
           </Badge>
@@ -117,7 +119,7 @@ return(
         <MenuDivider />
         <Link href={`/channel/?id=${ID}`} ><MenuItem>Meu Canal</MenuItem></Link>
         <Link href="/account"><MenuItem>Minha Conta</MenuItem></Link>
-        <Link href="https://studio.skap.tv" isExternal><MenuItem >Fazer Upload</MenuItem></Link>
+        <Link href="/studio"><MenuItem >Fazer Upload</MenuItem></Link>
         </MenuGroup>
         <MenuDivider />
         <MenuGroup title="Outros">
@@ -125,7 +127,7 @@ return(
         <MenuItem onClick={toggleColorMode}>Mudar Para {colorMode=="light"?"Dark":"Light"} Mode</MenuItem>
         <Link href="/configuracoes"><MenuItem >Configurações</MenuItem></Link>
         <MenuItem >Ajuda</MenuItem>
-        <MenuItem onClick= {logout}>Sair</MenuItem>
+        <MenuItem onClick= {signOut}>Sair</MenuItem>
         </MenuGroup>
         </MenuList>
         </Menu>
@@ -178,8 +180,10 @@ return(
               </ModalFooter>
             </ModalContent>
          </Modal>
+       
     
-    
-    </Box>
+   </Box>
     )
+
+    
 }

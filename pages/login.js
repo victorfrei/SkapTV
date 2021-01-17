@@ -6,60 +6,17 @@ import Input from '../components/Input'
 import {useColorModeValue,useColorMode} from '@chakra-ui/react';
 //import {SiGoogle} from 'react-icons/si';
 import {FiUser,FiSun,FiMoon} from 'react-icons/fi';
-import { useState } from 'react';
-import Axios from 'axios';
-import {useRouter} from 'next/router';
+import {csrfToken} from 'next-auth/client';
 
-export default function Login(props) {
-  const router = useRouter();
+
+export default function Login({csrfToken}) {
+  
   const toast = useToast();
-  let [Email , setEmail] = useState("");
-  const [Pass,setPass] = useState("");
   const color = useColorModeValue("white","gray.300");
   const { colorMode, toggleColorMode } = useColorMode()
   
-    let fre = (data,status,title) =>{
-      toast({
-        title: title,
-        description: data,
-        status: status,
-        duration: 9000,
-        position:"top",
-        isClosable: false
-      })}
-
-  
-      
-
-
-function Login(){
-        
-   if(Email =="" && Pass==""){
-
-    fre("Não há dados inseridos!","warning","O login Falhou!");
-
-   }else{
-    Email = Email.toLowerCase();
-  
-    Axios.post(`/api/v2/user?type=1`,{Email ,Pass})
-    .then((data)=>{
-      console.log(data);
-      if(data.data.type==1){
-     fre("Login Feito com Sucesso",'success','');
-     localStorage.setItem("token",data.data.token)
-     router.replace("/");
-      }else if(data.data.type==2){
-        fre("Email ou Senha estão incorretos!",'info','Requer Atenção');
-      }else if(data.data.type==3){
-        fre("É necessário verificar o email para logar!!",'warning','Requer Atenção');
-      }
-    })
-  
-  }
-}
-
-
- return (
+    
+return (
     <Grid
       as="main"
       height="100vh"
@@ -84,39 +41,17 @@ function Login(){
         alignItems="stretch"
         padding={16}
       >
-      <Input
-          onChange={(e)=>{
-            setEmail(e.target.value);
-          }}
-          placeholder="Email"
-          
-        />
-
-        <Input
-          onChange={(e)=>{
-            setPass(e.target.value);
-          }}
-          placeholder="Senha"
-          autoComplete="Senha"
-          type="password"
-          marginTop={2}
-        />
-
-        <Link
-          alignSelf="flex-start"
-          marginTop={2}
-          fontSize="sm"
-          color="red.600"
-          fontWeight="bold"
-          _hover={{ color: 'red.400' }}
-        >
-          Esqueci minha senha
-        </Link>
-        <Button
-        
+      <form method='post' action='/api/auth/signin/email'>
+      <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
+      <label>Email</label>
+      <Input id="email" type="text" name='email'placeholder="Email"/>
+      
+      <Button
+          type="submit"
           leftIcon={<FiUser/>}
           backgroundColor="red.500"
           height="50px"
+          w="100%"
           borderRadius="sm"
           marginTop={6}
           onClick={()=>{
@@ -124,8 +59,9 @@ function Login(){
           }}
           _hover={{ backgroundColor: 'red.600' }}
         >
-          ENTRAR
+          Logar
         </Button>
+
         <Text
           textAlign="center"
           fontSize="sm"
@@ -133,35 +69,21 @@ function Login(){
           marginTop={6}
         >
           Não tem uma conta? {" "}
-          <Link
-            color="white.600"
-            fontWeight="bold"
-            href="/register"
-            _hover={{ color: 'white.500' }}
-          >
-            Registre-se
-          </Link>
+          
         </Text>
+    </form>
+      
 
         <Divider />
-{/* 
-        <Flex alignItems="center">
-          <Text fontSize="sm" color={color}>Ou</Text>
-          <Button
-            leftIcon={<SiGoogle/>}
-            height="50px"
-            flex="1"
-            backgroundColor={useColorModeValue("white.600","gray.600")} 
-            marginLeft={6}
-            borderRadius="sm"
-            _hover={{ backgroundColor: useColorModeValue("white.600","gray.600") }}
-          >
-            Entre com a Google
-          </Button>
-          
-        </Flex> */}
+
       </Flex>
     </Grid>
   )
  
+}
+
+Login.getInitialProps = async (context) => {
+  return {
+    csrfToken: await csrfToken(context)
+  }
 }
