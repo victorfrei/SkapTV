@@ -10,12 +10,12 @@ import Navmenu from "../components/navmenu";
 import {useRouter} from 'next/router';
 import {useSession} from 'next-auth/client';
 
-export async function getStaticProps(){
+// export async function getStaticProps(){
   
-  const call = await fetch(`https://skap.tv/api/skap/listvideos?`)
-  return {props:{LV:await call.json(),revalidate: 5}}
+//   const call = await fetch(`https://skap.tv/api/skap/listvideos?`)
+//   return {props:{LV:await call.json(),revalidate: 5}}
  
-};
+// };
 
 
 
