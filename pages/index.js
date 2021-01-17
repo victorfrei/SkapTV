@@ -29,18 +29,18 @@ export default function Home(props){
   const router = useRouter();
 const [session,loading] = useSession();
 
-  useEffect(()=>{  
+//   useEffect(()=>{  
 
- const videos = []
-  console.log(props.LV.length)
-  for(let x=0;x<props.LV.length;x++){
-  videos.push(<Thumbnail isloaded={true} user={props.LV[x].spS_PostedBy} title={props.LV[x].spS_Nome} img={props.LV[x].spS_Thumbnail} link={`watch/${props.LV[x]._id}`} category="Testes"></Thumbnail>)
-  }
-  setisloaded(true);
-  setisvideos(videos);
+//  const videos = []
+//   console.log(props.LV.length)
+//   for(let x=0;x<props.LV.length;x++){
+//   videos.push(<Thumbnail isloaded={true} user={props.LV[x].spS_PostedBy} title={props.LV[x].spS_Nome} img={props.LV[x].spS_Thumbnail} link={`watch/${props.LV[x]._id}`} category="Testes"></Thumbnail>)
+//   }
+//   setisloaded(true);
+//   setisvideos(videos);
  
   
-},[isloaded]);
+// },[isloaded]);
 
 
 return (<>
