@@ -92,7 +92,7 @@ return(
     
   </TabList>
   <Input w="400px" type="search"></Input>
-    
+  {session &&   
     <Menu>
           <MenuButton>
           <Avatar cursor="pointer"  size="sm" name={session.user.name} src={session.user.image} margin=" 0 20px 0 20px" />
@@ -131,8 +131,10 @@ return(
         </MenuGroup>
         </MenuList>
         </Menu>
-
-
+  }
+  {!session &&
+  <Link href="/login" marginRight="25px"><Button borderRadius="15px" colorScheme="red">Logar</Button></Link>
+  }
     <Modal onClose={onClose} size="md" isOpen={isOpen}>
             <ModalOverlay />
             <ModalContent>
