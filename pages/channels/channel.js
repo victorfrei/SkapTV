@@ -2,7 +2,7 @@
 
 
 import {Box,Grid, GridItem,} from "@chakra-ui/react";
-import React, {useState} from "react";
+import React from "react";
 import Head from 'next/head';
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
@@ -28,19 +28,10 @@ return 0;
 
 
 
-export default function channel(props){
-    const [isloaded,setisloaded] = useState(false);
-    
+export default function channel(){
+       
 
-    
-  
-setTimeout(() => {
-  if(props.infos!=null){
-  setisloaded(true)
-  }
-}, 2000);
-
-    // return (
+ // return (
          
     //         <Grid
     //         h="100vh"
