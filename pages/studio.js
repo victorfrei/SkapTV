@@ -1,4 +1,4 @@
-import {Grid,TabList, Tabs,Tab,Box,Flex, Input, Avatar,Heading,Button} from "@chakra-ui/react"
+import {Grid,TabList, Tabs,Tab,Box,Flex, Input, Avatar,Heading,Button, Text} from "@chakra-ui/react"
 import {
     Drawer,
     DrawerBody,
@@ -11,12 +11,14 @@ import {
     Stack,
     FormLabel,
     Select,
-    Textarea
+    Textarea,
+    Link
   } from "@chakra-ui/react"
 
   import { Radio, RadioGroup } from "@chakra-ui/react"
 import Axios from "axios"
 import * as UpChunk from '@mux/upchunk';
+import {useSession } from "next-auth/client";
 
 export default function Studio(){
     const { isOpen, onOpen, onClose } = useDisclosure()
@@ -27,14 +29,17 @@ export default function Studio(){
     const [Desc, setDesc] = React.useState("")
     const [Cat, setCat] = React.useState("Gaming")
     const [Public, setpublic] = React.useState(true)
+    const [session, loading] = useSession();
+
 return(
   <>
+  {session &&
 <Tabs variant="soft-rounded" colorScheme="blue">
 <Grid h="100vh" templateColumns="250px 1fr" templateRows="60px 1fr" templateAreas="'navbar menu''navbar content'">
 
 <Flex gridArea="navbar" flexDirection="column" borderRight="gray 1px solid" alignItems="center">
-  <Avatar m="30px" size="xl" name="nome"></Avatar>
-  <Heading>Nome</Heading>
+  <Avatar m="30px" size="xl" name={session.user.name} src={session.user.image}></Avatar>
+  <Heading>{session.user.name}</Heading>
 <TabList m="30px" p="20px" w="100%" flexDirection="column">
   <Tab>Meus Vídeos</Tab>
   <Tab>Com Estrela</Tab>
@@ -181,6 +186,18 @@ return(
 </Flex>
 </Grid>
 </Tabs>
+
+}
+{!session && <>
+  <Flex flexDirection="column" h="100vh" justifyContent="center" padding="5px" alignItems="center">
+  <Text fontSize="30px" margin="10px"><strong>Acesso Negado!</strong></Text>
+  <h3 fontSize="15px" margin="10px">Você necessita está logado para utilizar o studio.</h3>
+  <Link href="/login" margin="10px"><Button>Ir para página de login</Button></Link>
+  </Flex>
+
+
+</>
+}
 </>
 )
 }
