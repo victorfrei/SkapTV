@@ -1,9 +1,9 @@
 
 import { useState } from "react";
-import { Avatar,useToast,Alert,AlertIcon,Link,Image, Badge,Button,useColorMode,useDisclosure, Box, MenuButton, Input } from "@chakra-ui/react";
+import { Avatar,useToast,Alert,AlertIcon,Link,Image, Badge,Button,useColorMode,useDisclosure, Box, MenuButton, Input, useColorModeValue } from "@chakra-ui/react";
 import Axios from "axios";
 import { TabList, Tab} from "@chakra-ui/react"
-import {signOut, useSession} from 'next-auth/client'
+import {signIn, signOut, useSession} from 'next-auth/client'
 
 
 import {
@@ -26,6 +26,7 @@ import {
   ModalBody,
   ModalCloseButton,
  } from "@chakra-ui/react"
+import { Router } from "next/router";
  
 
 
@@ -67,7 +68,6 @@ export default function Navmenu(props){
       }
 
 
-console.log("sessao " +session + "loading" + loading);
 return(<>
 
 
@@ -82,7 +82,7 @@ return(<>
         gridArea="navmenu"
         w="100%"
         h="50px"
-        bg="#091613"
+        bg={useColorModeValue("#173840","#262626")}
         position="fixed"
         justifyContent="space-between"
         >
@@ -96,7 +96,7 @@ return(<>
   </TabList>
   <Input w="400px" type="search"></Input>
   {session && <>  
-    <Menu>
+    <Menu bg={useColorModeValue("#011c26","")}>
           <MenuButton>
           <Avatar cursor="pointer"  size="sm" name={session.user.name} src={session.user.image} margin=" 0 20px 0 20px" />
           </MenuButton>
@@ -130,13 +130,15 @@ return(<>
         <MenuItem onClick={toggleColorMode}>Mudar Para {colorMode=="light"?"Dark":"Light"} Mode</MenuItem>
         <Link href="/configuracoes"><MenuItem >Configurações</MenuItem></Link>
         <MenuItem >Ajuda</MenuItem>
-        <MenuItem onClick= {signOut}>Sair</MenuItem>
+        <MenuItem onClick= {()=>{signOut("/")}}>Sair</MenuItem>
         </MenuGroup>
         </MenuList>
         </Menu>
   </>}
   {!session &&
+  <Box>
   <Link href="/login" marginRight="25px"><Button borderRadius="15px" colorScheme="red">Logar</Button></Link>
+  </Box>
   }
     <Modal onClose={onClose} size="md" isOpen={isOpen}>
             <ModalOverlay />
