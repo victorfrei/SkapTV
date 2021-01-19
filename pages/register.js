@@ -54,7 +54,8 @@ return (
         </Button>
       <Flex 
         gridArea="form"
-        width="100%"
+        w="100%"
+        h={['100vh','90vh','90vh']}
         borderRadius="md"
         flexDir="column"
         alignItems="stretch"
