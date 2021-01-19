@@ -37,14 +37,14 @@ export default function Register({csrfToken}) {
   const router = useRouter();
 
   useEffect(()=>{
-   if(router.query.error){ 
+   if(router.query.error=='true'){ 
        
     toast({
-      title: "Register",
+      title: "Cadastro",
       description: router.query.sms,
       position: 'top',
-      status: "warning",
-      duration: 14000,
+      status: "error",
+      duration: 10000,
       isClosable: true,
     })
       

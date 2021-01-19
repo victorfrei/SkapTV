@@ -50,14 +50,19 @@ const options = {
     }),
     Providers.Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&response_type=code'
     }),
     Providers.Credentials({
       authorize: async (credentials) => 
       {
         console.log(credentials);
         if(credentials.name=="" || credentials.email=="" || credentials.pass==""){
-          Promise.reject(new Error("Sem dados!!"));
+          if(credentials.register=='true'){
+          return Promise.reject("/register?error=true&sms=Sem dados suficientes!");
+          }else{
+            return Promise.reject("/login?error=true&sms=Sem dados suficientes!");
+          }
         }else{
         if(credentials.register=='true'){
 
