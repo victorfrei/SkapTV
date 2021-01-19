@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Avatar,useToast,Alert,AlertIcon,Link,Image, Badge,Button,useColorMode,useDisclosure, Box, MenuButton, Input, useColorModeValue } from "@chakra-ui/react";
+import { Avatar,useToast,Alert,AlertIcon,Link,Image, Badge,Button,useColorMode,useDisclosure, Box, MenuButton, Input, useColorModeValue, Progress } from "@chakra-ui/react";
 import Axios from "axios";
 import { TabList, Tab} from "@chakra-ui/react"
 import {signIn, signOut, useSession} from 'next-auth/client'
@@ -98,20 +98,21 @@ return(<>
   {session && <>  
     <Menu bg={useColorModeValue("#011c26","")}>
           <MenuButton>
-          <Avatar cursor="pointer"  size="sm" name={session.user.name} src={session.user.image} margin=" 0 20px 0 20px" />
+          <Avatar border="2px solid red" cursor="pointer"  size="sm" name={session.user.name} src={session.user.image} margin=" 0 20px 0 20px" />
           </MenuButton>
           <MenuList bg="#091613" margin="10px 20px 0 0">
           <Flex alignItems="center" flexDirection="column">
-          <Avatar onClick={onOpen} cursor="pointer" size="lg" name={session.user.name} src={session.user.image} />
+          <Avatar border="2px solid red" onClick={onOpen} cursor="pointer" size="lg" name={session.user.name} src={session.user.image} />
           <Box ml="3">
-          
+          <Flex flexDirection="column"> 
           <Text fontWeight="bold">
           {session.user.name}
-          <Badge ml="1"  colorScheme={plan==true?"yellow":"gray"}>
+          </Text>
+          <Badge ml="1" colorScheme={plan==true?"yellow":"gray"}>
           {plan==true?"Premium":"Standard"}
           </Badge>
-          </Text>
           
+          </Flex>  
           </Box>
           </Flex>
           
@@ -120,7 +121,7 @@ return(<>
         <MenuDivider />
         <MenuGroup title="Perfil">
         <MenuDivider />
-        <Link href={`/channel/?id=${ID}`} ><MenuItem>Meu Canal</MenuItem></Link>
+        <Link href={`/${ID}`} ><MenuItem>Meu Canal</MenuItem></Link>
         <Link href="/account"><MenuItem>Minha Conta</MenuItem></Link>
         <Link href="/studio"><MenuItem >Fazer Upload</MenuItem></Link>
         </MenuGroup>
@@ -129,8 +130,8 @@ return(<>
         <MenuDivider />
         <MenuItem onClick={toggleColorMode}>Mudar Para {colorMode=="light"?"Dark":"Light"} Mode</MenuItem>
         <Link href="/configuracoes"><MenuItem >Configurações</MenuItem></Link>
-        <MenuItem >Ajuda</MenuItem>
-        <MenuItem onClick= {()=>{signOut("/")}}>Sair</MenuItem>
+        <Link href="/ajuda"><MenuItem >Ajuda</MenuItem></Link>
+        <Link href="/signout"><MenuItem>Sair</MenuItem></Link>
         </MenuGroup>
         </MenuList>
         </Menu>
@@ -147,7 +148,7 @@ return(<>
               <ModalCloseButton />
               <ModalBody>
                 <Flex justifyContent="center" alignItems="center" direction="column">
-                <Avatar src={profile == "#" ? "https://via.placeholder.com/128": profile} name={nick} size="2xl" marginBottom="40px"></Avatar>
+                <Avatar src={profile == "#" ? "https://via.placeholder.com/128": ""} name="" size="2xl" marginBottom="40px"></Avatar>
                 <input type="file" accept="image/*" onChange={(e)=>{
                   const file = new FileReader();
                   file.onloadend= ()=>{
@@ -195,7 +196,8 @@ return(<>
 }
 
 {loading && 
-<div>loading</div>
+
+  <Progress size="xs" isIndeterminate />
 
 }
 </>)    
