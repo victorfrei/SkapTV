@@ -7,8 +7,8 @@ import {useColorModeValue,useColorMode} from '@chakra-ui/react';
 import {FiUser,FiSun,FiMoon} from 'react-icons/fi';
 import {csrfToken} from 'next-auth/client';
 import { FaDiscord,FaFacebook,FaRegEye,FaRegEyeSlash,FaTwitch } from "react-icons/fa";
-import { useState } from 'react';
-
+import {useEffect, useState } from 'react';
+import {useRouter} from 'next/router';
 export default function Register({csrfToken}) {
   
   const toast = useToast();
@@ -17,6 +17,25 @@ export default function Register({csrfToken}) {
   const [icon,seticon] = useState(<FaRegEyeSlash color="black"/>);
   const [show,setshow] = useState(false)
   const [loading,setloading] = useState(false)
+  const router = useRouter();
+
+  useEffect(()=>{
+   if(router.query.error){ 
+       
+    toast({
+      title: "Register",
+      description: router.query.sms,
+      position: 'top',
+      status: "warning",
+      duration: 14000,
+      isClosable: true,
+    })
+      
+  }
+  
+  },[router.pathname])
+  
+
 
 return (
     <Grid
@@ -46,7 +65,7 @@ return (
       <form method='post' id="registerform" action='/api/auth/callback/credentials'>
       <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
       <input name="register" type="hidden" defaultValue={true}></input>
-      <label color="black" m="10px 0">Usuário</label>
+      <label color="black" m="10px 0">NickName</label>
       <Input id="name" bgColor="#f5f5f5" m="5px 0"  type="text" name='name' _placeholder={{color:"Gray"}} color="black" placeholder="Skap"/>
       <label color="black" m="10px 0">Email</label>
       <Input id="email" bgColor="#f5f5f5" m="5px 0"  type="email" name='email' _placeholder={{color:"Gray"}} color="black" placeholder="support@skap.tv"/>

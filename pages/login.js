@@ -8,7 +8,8 @@ import {useColorModeValue,useColorMode} from '@chakra-ui/react';
 import {FiUser,FiSun,FiMoon} from 'react-icons/fi';
 import {csrfToken} from 'next-auth/client';
 import { FaDiscord,FaFacebook,FaRegEye,FaRegEyeSlash,FaTwitch } from "react-icons/fa";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import {useRouter} from 'next/router';
 
 export default function Login({csrfToken}) {
   
@@ -19,6 +20,24 @@ export default function Login({csrfToken}) {
   const [icon,seticon] = useState(<FaRegEyeSlash color="black"/>);
   const [show,setshow] = useState(false)
   const [loading,setloading] = useState(false)
+  const router = useRouter();
+
+useEffect(()=>{
+ if(router.query.error){ 
+     
+  toast({
+    title: "Login",
+    description: router.query.sms,
+    position: 'top',
+    status: "warning",
+    duration: 14000,
+    isClosable: true,
+  })
+    
+}
+
+},[router.pathname])
+
 
 return (
     <Grid

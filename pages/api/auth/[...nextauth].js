@@ -15,8 +15,8 @@ const Users = new mongoose.Schema(
       Balance:{type:Number,default:0},
       IdentidadeConfirmada:{type:Boolean,default:false},
       HasChannel:{type:Boolean,default:false},
-      createdat:{type:Date,default:Date.now()},
-      updatedat:{type:Date,default:Date.now()}
+      createdAt:{type:Date,default:Date.now()},
+      updatedAt:{type:Date,default:Date.now()}
   }
   )
 
@@ -52,7 +52,9 @@ const options = {
       name: 'Credentials',
       authorize: async (credentials) => 
       {
-        if(credentials.register==true){
+        console.log(credentials);
+        if(credentials.register==='true'){
+
         const conn = await mongoose.createConnection(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
         const user = conn.model("users",Users);
         const findedemail = await user.findOne({email:credentials.email})
@@ -68,18 +70,33 @@ const options = {
               newuser.save();
               return Promise.resolve(newuser);
           }else{
-            return Promise.reject(`/register?error=true&sms=O usuário já foi usado!`);
+            return Promise.reject(`/register?error=true&sms=Nickname usado, utilize outro nickname!`);
           }
             
         }else{
-          return Promise.reject(`/register?error=true&sms=O email já foi usado!`);
+          return Promise.reject(`/register?error=true&sms=Email existente, digite outro email!`);
         }
         
          
         }else{
-        //const conn = await mongoose.createConnection(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
-        //const user = conn.model("users",Users);
-        return Promise.reject(new Error("not implemented yet!"));
+        const conn = await mongoose.createConnection(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
+        const user = conn.model("users",Users);
+        const findeduser = await user.findOne({email:credentials.email})
+        if(findeduser==null){
+          return Promise.reject("/login?error=true&sms=Email incorreto");
+        }else{
+          if(findeduser.pass==null||findeduser.pass==""){
+            return Promise.reject("/login?error=true&sms=Necessario criar uma senha para sua conta!")
+          }else{
+          const compare = bcrypt.compareSync(credentials.pass,findeduser.pass);
+          if(compare){  
+          return Promise.resolve(findeduser);
+          }else{
+            return Promise.reject("/login?error=true&sms=Email ou Senha incorretos!")
+          }
+        }
+        }
+
         }
         
         
