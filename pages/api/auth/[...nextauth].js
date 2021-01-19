@@ -52,7 +52,7 @@ const options = {
       name: 'Credentials',
       authorize: async (credentials) => 
       {
-        if(credentials.register){
+        if(credentials.register==true){
         const conn = await mongoose.createConnection(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
         const user = conn.model("users",Users);
         const findedemail = await user.findOne({email:credentials.email})
@@ -79,7 +79,7 @@ const options = {
         }else{
         //const conn = await mongoose.createConnection(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
         //const user = conn.model("users",Users);
-        return null;
+        return Promise.reject(new Error("not implemented yet!"));
         }
         
         

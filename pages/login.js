@@ -18,6 +18,8 @@ export default function Login({csrfToken}) {
   const [pass,setpass] = useState("password");
   const [icon,seticon] = useState(<FaRegEyeSlash color="black"/>);
   const [show,setshow] = useState(false)
+  const [loading,setloading] = useState(false)
+
 return (
     <Grid
       as="main"
@@ -43,7 +45,7 @@ return (
         padding={16}
       >
       
-      <form method='post' action='/api/auth/callback/credentials'>
+      <form method='post' id="loginform" action='/api/auth/callback/credentials'>
       <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
       <input name="register" type="hidden" defaultValue={false}></input>
       <label color="black" m="10px 0">Email</label>
@@ -58,14 +60,16 @@ return (
       </InputRightElement>
     </InputGroup>
       <Button
-          type="submit"
+          
           leftIcon={<FiUser/>}
           backgroundColor="red.500"
           height="50px"
           w="100%"
           borderRadius="sm"
           marginTop={6}
+          isLoading={loading}
           _hover={{ backgroundColor: 'red.600' }}
+          onClick={()=>{if(loading==false){setloading(true)}else{setloading(false)} document.getElementById('loginform').submit();}}
         >
           Logar 
         </Button>
