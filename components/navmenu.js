@@ -141,6 +141,7 @@ return(<>
   <Link href="/login" marginRight="25px"><Button borderRadius="15px" colorScheme="red">Logar</Button></Link>
   </Box>
   }
+  {session && <>
     <Modal onClose={onClose} size="md" isOpen={isOpen}>
             <ModalOverlay />
             <ModalContent>
@@ -148,7 +149,7 @@ return(<>
               <ModalCloseButton />
               <ModalBody>
                 <Flex justifyContent="center" alignItems="center" direction="column">
-                <Avatar src={profile == "#" ? "https://via.placeholder.com/128": ""} name="" size="2xl" marginBottom="40px"></Avatar>
+                <Avatar src={session.user.image} name={session.user.name} size="2xl" marginBottom="40px"></Avatar>
                 <input type="file" accept="image/*" onChange={(e)=>{
                   const file = new FileReader();
                   file.onloadend= ()=>{
@@ -188,9 +189,13 @@ return(<>
               </ModalFooter>
             </ModalContent>
          </Modal>
-       
     
+         </>
+      }
+
    </Box>
+
+   
  
   
 }

@@ -1,9 +1,31 @@
 import NextAuth from 'next-auth'
 import Providers from 'next-auth/providers'
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt'
+import nodemailer from 'nodemailer';
+
+
+const Users = new mongoose.Schema(
+  {
+      email:String,
+      name:String,
+      pass:String,
+      image:{type:String,default:""},
+      Premium:{type:Boolean,default:false},
+      Balance:{type:Number,default:0},
+      IdentidadeConfirmada:{type:Boolean,default:false},
+      HasChannel:{type:Boolean,default:false},
+      createdat:{type:Date,default:Date.now()},
+      updatedat:{type:Date,default:Date.now()}
+  }
+  )
+
+
+
 
 const options = {
   jwt:{
-  secret:'INp8sdkQayeMcoGAgFGoA61DsaKSJad8AsShd9aasnXJZkgz8PSnw',
+  secret: process.env.SECRET,
   },
   pages:{
     signIn: '/login',
@@ -30,8 +52,37 @@ const options = {
       name: 'Credentials',
       authorize: async (credentials) => 
       {
-        console.log(credentials)
-         return Promise.resolve(null);
+        if(credentials.register){
+        const conn = await mongoose.createConnection(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
+        const user = conn.model("users",Users);
+        const findedemail = await user.findOne({email:credentials.email})
+        const findedname = await user.findOne({name:credentials.name})
+        if(findedemail==null){
+          if(findedname==null){
+            console.log(process.env.SECRET);
+            const hash = bcrypt.hashSync(credentials.pass,bcrypt.genSaltSync(14))
+            const newuser = await new user({
+              email:credentials.email,
+              name:credentials.name,
+              pass:hash});
+              newuser.save();
+              return Promise.resolve(newuser);
+          }else{
+            return Promise.reject(`/register?error=true&sms=O usuário já foi usado!`);
+          }
+            
+        }else{
+          return Promise.reject(`/register?error=true&sms=O email já foi usado!`);
+        }
+        
+         
+        }else{
+        //const conn = await mongoose.createConnection(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
+        //const user = conn.model("users",Users);
+        return null;
+        }
+        
+        
       }
       
     })

@@ -4,20 +4,20 @@ import {Grid, Flex, Tooltip, Button,useToast, Text, InputGroup, InputRightElemen
 import Divider from '../components/Divider'
 import Input from '../components/Input'
 import {useColorModeValue,useColorMode} from '@chakra-ui/react';
-//import {SiGoogle} from 'react-icons/si';
 import {FiUser,FiSun,FiMoon} from 'react-icons/fi';
 import {csrfToken} from 'next-auth/client';
 import { FaDiscord,FaFacebook,FaRegEye,FaRegEyeSlash,FaTwitch } from "react-icons/fa";
 import { useState } from 'react';
 
-export default function Login({csrfToken}) {
+export default function Register({csrfToken}) {
   
   const toast = useToast();
-  const color = useColorModeValue("white","gray.300");
   const { colorMode, toggleColorMode } = useColorMode()
   const [pass,setpass] = useState("password");
   const [icon,seticon] = useState(<FaRegEyeSlash color="black"/>);
   const [show,setshow] = useState(false)
+  const [loading,setloading] = useState(false)
+
 return (
     <Grid
       as="main"
@@ -43,11 +43,13 @@ return (
         padding={16}
       >
       
-      <form method='post' action='/api/auth/callback/credentials'>
+      <form method='post' id="registerform" action='/api/auth/callback/credentials'>
       <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
-      <input name="register" type="hidden" defaultValue={false}></input>
+      <input name="register" type="hidden" defaultValue={true}></input>
+      <label color="black" m="10px 0">Usuário</label>
+      <Input id="name" bgColor="#f5f5f5" m="5px 0"  type="text" name='name' _placeholder={{color:"Gray"}} color="black" placeholder="Skap"/>
       <label color="black" m="10px 0">Email</label>
-      <Input id="email" bgColor="#f5f5f5" m="5px 0"  type="text" name='email' _placeholder={{color:"Gray"}} color="black" placeholder="support@skap.tv"/>
+      <Input id="email" bgColor="#f5f5f5" m="5px 0"  type="email" name='email' _placeholder={{color:"Gray"}} color="black" placeholder="support@skap.tv"/>
       <label color="black" m="10px 0">Senha</label>
       <InputGroup size="lg" m="5px 0">
       <Input id="pass" type={pass} bgColor="#f5f5f5" name='pass' color="black" _placeholder={{color:"Gray"}} placeholder="123456" />
@@ -66,16 +68,18 @@ return (
           borderRadius="sm"
           marginTop={6}
           _hover={{ backgroundColor: 'red.600' }}
+          isLoading={loading}
+          onClick={()=>{if(loading==false){setloading(true)}else{setloading(false)} document.getElementById('registerform').submit();}}
         >
-          Logar 
+          Registrar 
         </Button>
         <Text
           textAlign="center"
           fontSize="sm"
           marginTop={6}
-          
+         
         >
-          Não tem uma conta? <Link href="/register">Cadastrar</Link>
+         Já tem uma conta? <Link href="/login">Login</Link>
           
         </Text>
         
@@ -108,7 +112,7 @@ return (
  
 }
 
-Login.getInitialProps = async (context) => {
+Register.getInitialProps = async (context) => {
   return {
     csrfToken: await csrfToken(context)
   }
