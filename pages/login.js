@@ -55,7 +55,6 @@ return (
           {colorMode === "light" ? <FiSun size="80px"/>:<FiMoon size="80px"/>}
         </Button>
       <Flex 
-        as="form"
         gridArea="form"
         width="100%"
         borderRadius="md"
@@ -70,12 +69,12 @@ return (
       <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
       <input name="register" type="hidden" defaultValue={false}></input>
       <label color="black" m="10px 0">Email</label>
-      <Input id="email" bgColor="#f5f5f5" m="5px 0"  type="text" name='email' _placeholder={{color:"Gray"}} color="black" placeholder="support@skap.tv"/>
+      <Input id="email" autoComplete="on" bgColor="#f5f5f5" m="5px 0"  type="text" name='email' _placeholder={{color:"Gray"}} color="black" placeholder="support@skap.tv"/>
       <label color="black" m="10px 0">Senha</label>
       <InputGroup size="lg" m="5px 0">
-      <Input id="pass" type={pass} bgColor="#f5f5f5" name='pass' color="black" _placeholder={{color:"Gray"}} placeholder="123456" />
+      <Input id="pass" autoComplete="on" type={pass} bgColor="#f5f5f5" name='pass' color="black" _placeholder={{color:"Gray"}} placeholder="123456" />
       <InputRightElement>
-        <Button bg="none" minW="none" _hover={{bg:"none",_focus:"none"}} _focus="none" onClick={()=>{if(show==false){seticon(<FaRegEye color="black"/>);setpass("text");setshow(true)}else{seticon(<FaRegEyeSlash color="black"/>);setpass("password");setshow(false)}}}>
+        <Button bg="none" minW="none" _hover={{bg:"none"}} _focus={{display:'none'}} onClick={()=>{if(show==false){seticon(<FaRegEye color="black"/>);setpass("text");setshow(true)}else{seticon(<FaRegEyeSlash color="black"/>);setpass("password");setshow(false)}}}>
           {icon}
         </Button>
       </InputRightElement>
