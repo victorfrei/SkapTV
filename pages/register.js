@@ -6,7 +6,7 @@ import Input from '../components/Input'
 import {useColorModeValue,useColorMode} from '@chakra-ui/react';
 import {FiUser,FiSun,FiMoon} from 'react-icons/fi';
 import {csrfToken} from 'next-auth/client';
-import { FaDiscord,FaFacebook,FaRegEye,FaRegEyeSlash,FaTwitch } from "react-icons/fa";
+import { FaDiscord,FaFacebook,FaRegEye,FaRegEyeSlash,FaTwitch,FaGoogle } from "react-icons/fa";
 import {useEffect, useState } from 'react';
 import {useRouter} from 'next/router';
 export default function Register({csrfToken}) {
@@ -60,6 +60,8 @@ return (
         flexDir="column"
         alignItems="stretch"
         padding={16}
+        border="1px solid"
+        borderColor={useColorModeValue("black","white")}
       >
       
       <form method='post' id="registerform" action='/api/auth/callback/credentials'>
@@ -105,23 +107,29 @@ return (
     </form>
     
     <Divider/>
-          <Flex w="100%" justifyContent="center" alignItems="center">
+    <Flex w="100%" justifyContent="center" alignItems="center">
           <form method='post' action='/api/auth/signin/twitch'>
           <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
           <Tooltip label="Twitch" aria-label="Twitch">
-          <Button justifyContent="center" type="submit" h="50px"  m="10px 0" bg="none">{<FaTwitch size="30px"/>}</Button>
+          <Button onClick={()=>{if(loading==false){setloading(true)}}} justifyContent="center" type="submit" h="50px"  m="10px 0" bg="none">{<FaTwitch size="30px"/>}</Button>
           </Tooltip>
           </form>
           <form method='post' action='/api/auth/signin/facebook'>
           <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
           <Tooltip label="Facebook" aria-label="Facebook">
-            <Button justifyContent="center" type="submit" h="50px" m="10px 0" bg="none">{<FaFacebook size="30px"/>}</Button>
+            <Button onClick={()=>{if(loading==false){setloading(true)}}} justifyContent="center" type="submit" h="50px" m="10px 0" bg="none">{<FaFacebook size="30px"/>}</Button>
           </Tooltip>
           </form>
           <form method='post' action='/api/auth/signin/discord'>
           <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
           <Tooltip label="Discord" aria-label="Discord">
-            <Button justifyContent="center" type="submit" h="50px" m="10px 0" bg="none">{<FaDiscord size="30px"/>}</Button>
+            <Button onClick={()=>{if(loading==false){setloading(true)}}} justifyContent="center" type="submit" h="50px" m="10px 0" bg="none">{<FaDiscord size="30px"/>}</Button>
+          </Tooltip>
+          </form>
+          <form method='post' action='/api/auth/signin/google'>
+          <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
+          <Tooltip label="Google" aria-label="Google">
+            <Button onClick={()=>{if(loading==false){setloading(true)}}} justifyContent="center" type="submit" h="50px" m="10px 0" bg="none">{<FaGoogle size="30px"/>}</Button>
           </Tooltip>
           </form>
           </Flex>
