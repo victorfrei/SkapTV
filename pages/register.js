@@ -9,6 +9,23 @@ import {csrfToken} from 'next-auth/client';
 import { FaDiscord,FaFacebook,FaRegEye,FaRegEyeSlash,FaTwitch,FaGoogle } from "react-icons/fa";
 import {useEffect, useState } from 'react';
 import {useRouter} from 'next/router';
+
+function sendmsg(msg){
+  return (
+    toast({
+    title: "Register",
+    description: msg,
+    position: 'top',
+    status: "warning",
+    duration: 14000,
+    isClosable: true,
+  })
+  )}
+
+
+
+
+
 export default function Register({csrfToken}) {
   
   const toast = useToast();
@@ -47,6 +64,7 @@ return (
       justifyContent="center"
       alignItems="center"
       justifyItems="center"
+      overflow='hidden'
     >
      
       <Button style={{placeSelf:"Flex-Start",justifySelf:"Flex-End"}} gridArea="mode" w="50px" variant="ghost" onClick={toggleColorMode}>
@@ -54,7 +72,7 @@ return (
         </Button>
       <Flex 
         gridArea="form"
-        w="100%"
+        width="100%"
         h={['100vh','90vh','90vh']}
         borderRadius="md"
         flexDir="column"

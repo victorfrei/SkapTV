@@ -45,10 +45,11 @@ return (
       height="100vh"
       templateColumns="1fr 1fr 1fr"
       templateRows="1fr 480px 1fr"
-      templateAreas={["'. . mode''form form form'","'. . mode''. form .'"]}
+      templateAreas={["'. . mode''form form form'","'. . mode''form form form'","'. . mode''. form .'"]}
       justifyContent="center"
       alignItems="center"
       justifyItems="center"
+      overflow='hidden'
     >
      
       <Button style={{placeSelf:"Flex-Start",justifySelf:"Flex-End"}} gridArea="mode" w="50px" variant="ghost" onClick={toggleColorMode}>
@@ -57,6 +58,8 @@ return (
       <Flex 
         gridArea="form"
         width="100%"
+        h={['100vh','100vh','90vh']}
+        
         borderRadius="md"
         flexDir="column"
         alignItems="stretch"
@@ -69,10 +72,10 @@ return (
       <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
       <input name="register" type="hidden" defaultValue={false}></input>
       <label color="black" m="10px 0">Email</label>
-      <Input id="email" autoComplete="on" bgColor="#f5f5f5" m="5px 0"  type="text" name='email' _placeholder={{color:"Gray"}} color="black" placeholder="support@skap.tv"/>
+      <Input id="email"  autoComplete="on" bgColor="#f5f5f5" m="5px 0"  type="text" name='email' _placeholder={{color:"Gray"}} color="black" placeholder="support@skap.tv"/>
       <label color="black" m="10px 0">Senha</label>
       <InputGroup size="lg" m="5px 0">
-      <Input id="pass" autoComplete="on" type={pass} bgColor="#f5f5f5" name='pass' color="black" _placeholder={{color:"Gray"}} placeholder="123456" />
+      <Input id="pass"  autoComplete="on" type={pass} bgColor="#f5f5f5" name='pass' color="black" _placeholder={{color:"Gray"}} placeholder="123456" />
       <InputRightElement>
         <Button bg="none" minW="none" _hover={{bg:"none"}} _focus={{display:'none'}} onClick={()=>{if(show==false){seticon(<FaRegEye color="black"/>);setpass("text");setshow(true)}else{seticon(<FaRegEyeSlash color="black"/>);setpass("password");setshow(false)}}}>
           {icon}
@@ -85,7 +88,6 @@ return (
           backgroundColor="red.500"
           height="50px"
           w="100%"
-          h={['100vh','90vh','90vh']}
           borderRadius="sm"
           marginTop={6}
           isLoading={loading}

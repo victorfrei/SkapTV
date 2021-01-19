@@ -53,11 +53,13 @@ const options = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET
     }),
     Providers.Credentials({
-      name: 'Credentials',
       authorize: async (credentials) => 
       {
         console.log(credentials);
-        if(credentials.register==='true'){
+        if(credentials.name=="" || credentials.email=="" || credentials.pass==""){
+          Promise.reject(new Error("Sem dados!!"));
+        }else{
+        if(credentials.register=='true'){
 
         const conn = await mongoose.createConnection(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
         const user = conn.model("users",Users);
@@ -105,7 +107,7 @@ const options = {
         
         
       }
-      
+    }
     })
   ],
   session:{
