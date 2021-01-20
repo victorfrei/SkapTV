@@ -1,50 +1,92 @@
-import { Divider, Grid,Flex, useColorModeValue, } from "@chakra-ui/react";
+import {Flex,Stack,HStack, Heading, Input } from "@chakra-ui/react";
 import { useSession } from "next-auth/client"
 import {
     Modal,
     ModalOverlay,
     ModalContent,
-    ModalHeader,
-    ModalFooter,
     ModalBody,
-    ModalCloseButton,
+    
     useDisclosure,
     Avatar,
     Text,
     Button,
-    ButtonGroup
+    
   } from "@chakra-ui/react"
-import { FaSignInAlt } from "react-icons/fa";
+import { FaCogs, FaInfoCircle, FaRegCreditCard, FaRegUser, FaSignInAlt } from "react-icons/fa";
 import { useRouter } from "next/router";
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Progress,Select } from "@chakra-ui/react"
+import Navmenu from "../components/navmenu";
 
 
 export default function Account(){
-    const [session] = useSession();
+    const [session, loading] = useSession();
     const { isOpen,onClose } = useDisclosure({isOpen:true})
     const router = useRouter();
 
-
-
     return(<>
-    {session && 
-     <Grid templateColumns={["20% 1fr","40% 1fr" ,"20% 1fr"]} h="100vh" w='100vw' templateAreas="'sidebar .'">
-        <Flex flexDir="column" gridArea="sidebar" h="100%" w="100%" alignItems="center" justifyContent='center' borderRight="1px solid"  borderRightColor={useColorModeValue("gray.700","gray.700")}>
-        <Flex flexDir="column" mt="-150px" w="100%" h="100%" border="none">
-        <Divider/>
-        <ButtonGroup flexDir="column" mt="100px" >
-        <Button m="10px" size="md" >Minhas Informações</Button>
-        <Button m="10px" size="md">Métodos de Pagamento</Button>
-        <Button m="10px" size="md"></Button>
-        <Button m="10px" size="md"></Button>
-        </ButtonGroup>
-        
+    {session && <>
+    <Tabs >
+        <Navmenu navmenu={false}></Navmenu>
+    </Tabs>
+        <Tabs paddingTop="70px" isFitted variant="enclosed" w="85%" m="0 auto">
+        <TabList mb="1em">
+        <Tab><HStack spacing="20px"><FaRegUser size="20px" style={{marginLeft:"10px"}}/><Text>Minha conta</Text></HStack></Tab>
+        <Tab isDisabled><HStack spacing="20px"><FaCogs size="20px" style={{marginLeft:"10px"}}/><Text>Configurações de Conta</Text></HStack></Tab>
+        <Tab><HStack spacing="20px"><FaRegCreditCard size="20px" style={{marginLeft:"10px"}}/><Text>Informações de Pagamentos</Text></HStack></Tab>
+        <Tab><HStack spacing="20px"><FaInfoCircle size="20px" /> <Text>Ajuda</Text></HStack></Tab>
+        </TabList>
+        <TabPanels>
+        <TabPanel>
+        <Flex flexDir="column" alignItems="center">
+            <Avatar size="xl" src={session.user.image} name={session.user.name}></Avatar>
+            <Heading m="20px">{session.user.name}</Heading>
+           <Flex as="form">
+               <Flex flexDir="column" m="10px">
+               <Stack spacing="10px" m="10px">
+               <label>NickName</label>
+               <Input name="name" value={session.user.name} type="text" placeholder="João"></Input>
+               </Stack>
+               <Stack spacing="10px" m="10px">
+               <label>Email</label>
+               <Input name="email" value={session.user.email} type="email" placeholder="João@exemplo.com"></Input>
+               </Stack>
+               <Stack spacing="10px" m="10px">
+               <label>Visibilidade da Conta</label>
+               <Select placeholder="Selecione uma opção">
+                <option selected value="Publico">Público</option>
+                <option value="Privado">Privado</option>
+                </Select>
+               </Stack>
+               </Flex>
+               <Flex flexDir="column" m="10px">
+               <Stack spacing="10px" m="10px">
+               <label>Senha Atual</label>
+               <Input name="Asenha" type="password" placeholder="Digite sua senha atual"></Input>
+               </Stack>
+               <Stack spacing="10px" m="10px">
+               <label>Senha</label>
+               <Input name="senha" type="password" placeholder="Digite sua senha"></Input>
+               </Stack>
+               <Stack spacing="10px" m="10px">
+               <label>Confirmar Senha</label>
+               <Input name="csenha" type="password" placeholder="Confirme sua senha"></Input>
+               </Stack>
+               </Flex>
+               </Flex> 
+               <Stack spacing="10px" m="10px">
+                <Button colorScheme="green" size="lg">Atualizar</Button>
+               </Stack>
+               
+            
         </Flex>
-        <Divider/>
-         </Flex>
-         <Flex>
+        </TabPanel>
+        <TabPanel>
+        <p>two!</p>
+        </TabPanel>
+        </TabPanels>
+</Tabs>
 
-         </Flex>
-     </Grid>
+      </>
     
     }
     {!session &&
@@ -64,5 +106,8 @@ export default function Account(){
         </Modal>
     
     
+    }
+    {loading &&
+    <Progress size="xl" isIndeterminate />
     }
     </>)}

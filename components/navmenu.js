@@ -1,6 +1,8 @@
 
 import { useState } from "react";
-import { Avatar,useToast,Alert,AlertIcon,Link,Image, Badge,Button,useColorMode,useDisclosure, Box, MenuButton, Input, useColorModeValue, Progress } from "@chakra-ui/react";
+import { Avatar,useToast,Alert,AlertIcon,Link,Image, Badge,Button,
+useColorMode,useDisclosure, Box, MenuButton, Input, useColorModeValue,
+ Progress, InputGroup, InputRightAddon, Stack, InputRightElement } from "@chakra-ui/react";
 import Axios from "axios";
 import { TabList, Tab} from "@chakra-ui/react"
 import {signIn, signOut, useSession} from 'next-auth/client'
@@ -27,6 +29,7 @@ import {
   ModalCloseButton,
  } from "@chakra-ui/react"
 import { Router } from "next/router";
+import { FaSearch } from "react-icons/fa";
  
 
 
@@ -88,25 +91,33 @@ return(<>
         >
   
   <Link href="/"><Image src={colorMode=="light"?"/icons/logo/lightlogo.svg":"/icons/logo/darklogo.svg"} w="80px" m="20px" mt="30px"></Image></Link>
-  <TabList ml="-200px" color="whitesmoke" hidden={!props.navmenu}>
-    <Tab color="white" size={4}>Ínicio</Tab>
-    <Tab color="white" size={4}>Em Alta</Tab>
-    <Tab color="white" size={4}>Categorias</Tab>
+  <TabList ml="-200px" color="whitesmoke" _disabled={!props.navmenu} hidden={!props.navmenu}>
+    <Tab color="white" size={4} >Ínicio</Tab>
+    <Tab color="white" size={4} >Em Alta</Tab>
+    <Tab color="white" size={4} >Categorias</Tab>
     
   </TabList>
-  <Input w="400px" type="search"></Input>
+  <Stack>
+  <InputGroup>
+  <InputRightElement w="3rem" cursor="pointer" onClick={()=>{console.log("pesquisando!")}}><FaSearch /></InputRightElement>
+  <Input w="400px" variant="filled" placeholder="O que você está procurando?" type="search"></Input>
+  </InputGroup>
+  </Stack>
   {session && <>  
     <Menu bg={useColorModeValue("#011c26","")}>
           <MenuButton>
           <Avatar border="2px solid red" cursor="pointer"  size="sm" name={session.user.name} src={session.user.image} margin=" 0 20px 0 20px" />
           </MenuButton>
-          <MenuList bg="#091613" margin="10px 20px 0 0">
+          <MenuList bg="#091613" margin="10px 20px 0 0" textAlign="center">
           <Flex alignItems="center" flexDirection="column">
           <Avatar border="2px solid red" onClick={onOpen} cursor="pointer" size="lg" name={session.user.name} src={session.user.image} />
           <Box ml="3">
           <Flex flexDirection="column"> 
           <Text fontWeight="bold">
           {session.user.name}
+          </Text>
+          <Text mb="10px" color="Gray" fontSize="12px">
+            {session.user.email}
           </Text>
           <Badge ml="1" colorScheme={plan==true?"yellow":"gray"}>
           {plan==true?"Premium":"Standard"}
@@ -137,8 +148,11 @@ return(<>
         </Menu>
   </>}
   {!session &&
-  <Box>
-  <Link href="/login" marginRight="25px"><Button borderRadius="15px" colorScheme="red">Logar</Button></Link>
+   <Box>
+   <Link href="/register" marginRight="25px"><Button colorScheme="teal" mr="4">
+     Sign Up
+   </Button></Link>
+   <Link href="/login" marginRight="25px"><Button colorScheme="teal">Log in</Button></Link>
   </Box>
   }
   {session && <>
