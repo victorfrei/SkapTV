@@ -1,7 +1,21 @@
 
+@font-face {
+    src: url(../public/fonts/Gilroy-ExtraBold.otf);
+    font-family: 'Gilroy-Bold';    
+    font-weight: bold;
+} 
+@font-face {
+    src: url(../public/fonts/Gilroy-Light.otf);
+    font-family: 'Gilroy-Light';    
+    font-weight: normal;
+} 
+
 body{
     overflow-x: hidden;
+    
+    
 }
+
 
 a{
     text-decoration: none !important;
@@ -12,7 +26,7 @@ a{
 }
 
 .chakra-ui-dark{
-    background-color: #0d0d0d !important;
+    background-color: #0f1f1f !important;
     /* background-color: #090613 !important; */
 }
 

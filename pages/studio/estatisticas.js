@@ -5,7 +5,7 @@ import {useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { FaChevronCircleLeft, FaVideo, FaPlusCircle, FaChartBar, FaEllipsisH } from "react-icons/fa";
 
-export default function Studio(){
+export default function Estatisticas(){
     
     const [session, loading] = useSession();
   const router = useRouter();
@@ -52,7 +52,7 @@ return(
     </Flex>
     </Flex>
     <Flex gridArea="header" fontFamily="Gilroy-Light"  justifyContent="space-between" padding="20px 60px">
-    <Heading fontFamily="Gilroy-Bold">Meus Vídeos</Heading> <Button fontSize="15px" leftIcon={<FaPlusCircle/>} bg="#418dff" _hover={{bg:"#8d68fa"}} w="150px">Enviar</Button>
+    <Heading fontFamily="Gilroy-Bold">{router.pathname.split("/")[2].toLocaleUpperCase()}</Heading> <Button fontSize="15px" leftIcon={<FaPlusCircle/>} bg="#418dff" _hover={{bg:"#8d68fa"}} w="150px">Enviar</Button>
     </Flex>
     <Flex gridArea="content">
 
