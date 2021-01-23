@@ -1,5 +1,5 @@
 import {Grid,Flex,Button,Link, Text,
-Image,CircularProgress,Heading, Box, HStack, IconButton, Avatar, Spinner, AvatarBadge, SimpleGrid, Tooltip} from "@chakra-ui/react"
+Image,CircularProgress,Heading, Box, HStack, IconButton, Avatar, Spinner, AvatarBadge, SimpleGrid, Tooltip, CloseButton} from "@chakra-ui/react"
 import Axios from "axios";
 
 
@@ -10,7 +10,7 @@ import { FaChevronCircleLeft, FaVideo, FaPlusCircle, FaChartBar, FaEllipsisH, Fa
 
 export async function getServerSideProps(context){
   
-  const request = await Axios.get("http://localhost:3000/api/v2/user/videos",{headers:context.req.headers})
+  const request = await Axios.get("/api/v2/user/videos",{headers:context.req.headers})
   
   return {props:{videos:request.data}}
 }
@@ -83,8 +83,9 @@ return(
     </Box>
     </Flex>
     </Flex>
-    <Flex gridArea="header" fontFamily="Gilroy-Light"  justifyContent="space-between" padding="20px 60px">
-    <Heading fontFamily="Gilroy-Bold">Meus Vídeos</Heading> <Button fontSize="15px" leftIcon={<FaPlusCircle/>} bg="#418dff" _hover={{bg:"#8d68fa"}} w="150px">Enviar</Button>
+    <Flex gridArea="header" fontFamily="Gilroy-Light"  justifyContent="space-between" alignItems="center" padding="20px 30px">
+    <Heading fontFamily="Gilroy-Bold">Meus Vídeos</Heading> <Button fontSize="15px" leftIcon={<FaPlusCircle/>} ml="600px" bg="#418dff" _hover={{bg:"#8d68fa"}} w="150px">Enviar</Button>
+    <CloseButton onClick={()=>{router.push("/")}}/>
     </Flex>
     <Flex gridArea="content" m="20px" padding="10px">
      

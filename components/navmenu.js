@@ -149,11 +149,11 @@ return(<>
   </>}
   {!session &&
    <Box>
-   <Link href="/register" marginRight="25px"><Button colorScheme="teal" mr="4">
-     Sign Up
-   </Button></Link>
    <Link href="/login" marginRight="25px"><Button colorScheme="teal">Log in</Button></Link>
-  </Box>
+   <Link href="/register" marginRight="15px"><Button colorScheme="red">
+     Criar uma Conta
+   </Button></Link>
+   </Box>
   }
   {session && <>
     <Modal onClose={onClose} size="md" isOpen={isOpen}>

@@ -1,4 +1,4 @@
-import {Box,Grid,GridItem,Flex,Link} from "@chakra-ui/react";
+import {Box,Grid,GridItem,Flex, Spinner, SimpleGrid, Image, Text, Avatar, Button, Heading, Tooltip} from "@chakra-ui/react";
 import React, { useState,useEffect } from "react";
 import Thumbnailske from '../components/temp_thumbnail';
 import Thumbnail from '../components/thumbnail';
@@ -9,13 +9,36 @@ import { Tabs, TabPanels, TabPanel } from "@chakra-ui/react"
 import Navmenu from "../components/navmenu";
 import {useRouter} from 'next/router';
 import {useSession} from 'next-auth/client';
+import Axios from "axios";
 
-// export async function getStaticProps(){
-  
-//   const call = await fetch(`https://skap.tv/api/skap/listvideos?`)
-//   return {props:{LV:await call.json(),revalidate: 5}}
+export async function getVideos(amount){
+  console.log(process.env.NEXTAUTH_URL)
+  const videos = await Axios.post("/api/v2/users/videos",{amount});
+  const Content =[];
  
-// };
+  // for(let x=0;videos.data.length;x++){
+
+  // <Box w="300px" h="350px">
+  //       <Image borderRadius="10px" w="100%" h="50%" src="/icons/bannertest.jpg"></Image>
+  //       <Tooltip bg="white" label=" Nome do video que pode ser mais logo 
+  //         do que o imaginado por mim, já pensou nisso!">
+  //       <Heading isTruncated fontSize="15px" m="5px" noOfLines={2}>
+  //         Nome do video que pode ser mais logo 
+  //         do que o imaginado por mim, já pensou nisso!
+  //       </Heading>
+  //       </Tooltip>
+  //       <Flex p="10px" justifyContent="space-between" alignItems="center">
+  //       <Avatar size="md" name="Skap"></Avatar>
+  //       <Text mr="15px">Skap Streaming</Text>
+  //       <Button colorScheme="red" size="sm">Inscrever-se</Button>
+  //       </Flex>
+  //       </Box>
+  // }
+
+
+  return {Videos:videos}
+ 
+};
 
 
 
@@ -24,23 +47,17 @@ import {useSession} from 'next-auth/client';
 
 
 export default function Home(props){
-  const [isloaded,setisloaded] = useState(false);
-  const [Videos,setisvideos] = useState([]);
+  const [videos,setvideos] = useState([]);
+  const [hascontent,sethascontent] = useState(false);
   const router = useRouter();
-const [session,loading] = useSession();
+  const [session,loading] = useSession();
 
-//   useEffect(()=>{  
+  useEffect(()=>{
+    async ()=>{
+    console.log(await getVideos(2))
+    }
+  })
 
-//  const videos = []
-//   console.log(props.LV.length)
-//   for(let x=0;x<props.LV.length;x++){
-//   videos.push(<Thumbnail isloaded={true} user={props.LV[x].spS_PostedBy} title={props.LV[x].spS_Nome} img={props.LV[x].spS_Thumbnail} link={`watch/${props.LV[x]._id}`} category="Testes"></Thumbnail>)
-//   }
-//   setisloaded(true);
-//   setisvideos(videos);
- 
-  
-// },[isloaded]);
 
 
 return (<>
@@ -69,65 +86,56 @@ return (<>
      >
        
         <Box as={Flex} justifyContent="space-between" borderRadius="50px" m="10px 20px" backgroundImage='url("/icons/bannertest.jpg")' backgroundSize="cover" backgroundRepeat="no-repeat"  backgroundPosition="center" w="100%">
-          {/* <Flex alignItems="center" m="20px">
-          <Avatar size="xl"></Avatar>
-          <Heading ml="20px">Nome do canal Aqui</Heading>
-          </Flex> */}
-          <Channelspotlight isloaded={isloaded} name="Skap"></Channelspotlight>
+          
+          <Channelspotlight name="Skap"></Channelspotlight>
           <Flex flexDirection="column">
-          <SpotLight isloaded={isloaded}></SpotLight>
-          {/* <Flex  w='100%' justifyContent="center">
-          <Button m="20px" bg={"gray.600"} _hover={{bg:"gray.900"}}>Visitar</Button>
-          <Button m="20px" bg={"blue.600"} _hover={{bg:"blue.900"}}>Assistir</Button>  
-          </Flex>       */}
-          <Buttons isloaded={isloaded}></Buttons>
+          <SpotLight ></SpotLight>
+          
+          <Buttons ></Buttons>
           </Flex>
         </Box>
         <TabPanels>
         <TabPanel>
-        
-        <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
-        {Videos}
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>        
-       </Box>
+               
+        <SimpleGrid columns={4} spacing='10px' p="40px">
+        <Box w="300px" h="350px">
+        <Image borderRadius="10px" w="100%" h="50%" src="/icons/bannertest.jpg"></Image>
+        <Tooltip bg="white" label=" Nome do video que pode ser mais logo 
+          do que o imaginado por mim, já pensou nisso!">
+        <Heading isTruncated fontSize="15px" m="5px" noOfLines={2}>
+          Nome do video que pode ser mais logo 
+          do que o imaginado por mim, já pensou nisso!
+        </Heading>
+        </Tooltip>
+        <Flex p="10px" justifyContent="space-between" alignItems="center">
+        <Avatar size="md" name="Skap"></Avatar>
+        <Text mr="15px">Skap Streaming</Text>
+        <Button colorScheme="red" size="sm">Inscrever-se</Button>
+        </Flex>
+        </Box>
+
+        </SimpleGrid>
+        <Flex w="100%" h="500px" justifyContent="center" alignItems="center" mt="50px">
+        {/* hidden={!hascontent} */}
+        {/* <Spinner hidden={hascontent} color="red.600" size="lg"/> */}
+        </Flex>
+
        </TabPanel>         
 
         <TabPanel>
-        
-        <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
-        {Videos}
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
+        {videos}
+        <Flex w="100%" h="500px" justifyContent="center" alignItems="center" mt="50px">
+        <Spinner hidden={hascontent} color="red.600" size="lg"/>
+        </Flex>
 
-        </Box>
         </TabPanel>
 
         <TabPanel>
-        
-        <Box w="100%" as={Flex} flexWrap="wrap" justifyContent="center" mt="50px">
-        {Videos}
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        <Thumbnailske isloaded={isloaded}></Thumbnailske>
-        </Box>
+        {videos}
+        <Flex w="100%" h="500px" justifyContent="center" alignItems="center" mt="50px">
+        <Spinner hidden={hascontent} color="red.600" size="lg"/>
+        </Flex>
+
         </TabPanel>
         </TabPanels>
         
@@ -137,10 +145,6 @@ return (<>
     </Grid>
     
    
-    
-    
-    
-    
     </>
 
 

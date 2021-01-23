@@ -4,7 +4,6 @@ import mongoose from 'mongoose';
 
 export default async (req, res) => {
   const session = await getSession({ req })
-  console.log("session: "+ session)
   if (session) {
 
 const Videos = new mongoose.Schema(
