@@ -113,11 +113,71 @@ return (<>
         <Button colorScheme="red" size="sm">Inscrever-se</Button>
         </Flex>
         </Box>
+        <Box w="300px" h="350px">
+        <Image borderRadius="10px" w="100%" h="50%" src="/icons/bannertest.jpg"></Image>
+        <Tooltip bg="white" label=" Nome do video que pode ser mais logo 
+          do que o imaginado por mim, já pensou nisso!">
+        <Heading isTruncated fontSize="15px" m="5px" noOfLines={2}>
+          Nome do video que pode ser mais logo 
+          do que o imaginado por mim, já pensou nisso!
+        </Heading>
+        </Tooltip>
+        <Flex p="10px" justifyContent="space-between" alignItems="center">
+        <Avatar size="md" name="Skap"></Avatar>
+        <Text mr="15px">Skap Streaming</Text>
+        <Button colorScheme="red" size="sm">Inscrever-se</Button>
+        </Flex>
+        </Box>
+        <Box w="300px" h="350px">
+        <Image borderRadius="10px" w="100%" h="50%" src="/icons/bannertest.jpg"></Image>
+        <Tooltip bg="white" label=" Nome do video que pode ser mais logo 
+          do que o imaginado por mim, já pensou nisso!">
+        <Heading isTruncated fontSize="15px" m="5px" noOfLines={2}>
+          Nome do video que pode ser mais logo 
+          do que o imaginado por mim, já pensou nisso!
+        </Heading>
+        </Tooltip>
+        <Flex p="10px" justifyContent="space-between" alignItems="center">
+        <Avatar size="md" name="Skap"></Avatar>
+        <Text mr="15px">Skap Streaming</Text>
+        <Button colorScheme="red" size="sm">Inscrever-se</Button>
+        </Flex>
+        </Box>
+        <Box w="300px" h="350px">
+        <Image borderRadius="10px" w="100%" h="50%" src="/icons/bannertest.jpg"></Image>
+        <Tooltip bg="white" label=" Nome do video que pode ser mais logo 
+          do que o imaginado por mim, já pensou nisso!">
+        <Heading isTruncated fontSize="15px" m="5px" noOfLines={2}>
+          Nome do video que pode ser mais logo 
+          do que o imaginado por mim, já pensou nisso!
+        </Heading>
+        </Tooltip>
+        <Flex p="10px" justifyContent="space-between" alignItems="center">
+        <Avatar size="md" name="Skap"></Avatar>
+        <Text mr="15px">Skap Streaming</Text>
+        <Button colorScheme="red" size="sm">Inscrever-se</Button>
+        </Flex>
+        </Box>
+        <Box w="300px" h="350px">
+        <Image borderRadius="10px" w="100%" h="50%" src="/icons/bannertest.jpg"></Image>
+        <Tooltip bg="white" label=" Nome do video que pode ser mais logo 
+          do que o imaginado por mim, já pensou nisso!">
+        <Heading isTruncated fontSize="15px" m="5px" noOfLines={2}>
+          Nome do video que pode ser mais logo 
+          do que o imaginado por mim, já pensou nisso!
+        </Heading>
+        </Tooltip>
+        <Flex p="10px" justifyContent="space-between" alignItems="center">
+        <Avatar size="md" name="Skap"></Avatar>
+        <Text mr="15px">Skap Streaming</Text>
+        <Button colorScheme="red" size="sm">Inscrever-se</Button>
+        </Flex>
+        </Box>
 
         </SimpleGrid>
         <Flex w="100%" h="500px" justifyContent="center" alignItems="center" mt="50px">
         {/* hidden={!hascontent} */}
-        {/* <Spinner hidden={hascontent} color="red.600" size="lg"/> */}
+        <Spinner hidden={hascontent} color="red.600" size="lg"/>
         </Flex>
 
        </TabPanel>         
