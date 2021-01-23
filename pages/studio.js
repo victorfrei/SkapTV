@@ -1,16 +1,48 @@
-import {Grid,Flex,Button,Link, Text, CircularProgress,Heading, Box, HStack, IconButton, Avatar, Spinner, AvatarBadge} from "@chakra-ui/react"
+import {Grid,Flex,Button,Link, Text,
+Image,CircularProgress,Heading, Box, HStack, IconButton, Avatar, Spinner, AvatarBadge, SimpleGrid, Tooltip} from "@chakra-ui/react"
 import Axios from "axios";
+
 
 import {useSession } from "next-auth/client";
 import { useRouter } from "next/router";
-import { FaChevronCircleLeft, FaVideo, FaPlusCircle, FaChartBar, FaEllipsisH } from "react-icons/fa";
+import { useState,useEffect } from "react";
+import { FaChevronCircleLeft, FaVideo, FaPlusCircle, FaChartBar, FaEllipsisH, FaVideoSlash } from "react-icons/fa";
 
-export default function Studio(){
+export async function getServerSideProps(context){
+  
+  const request = await Axios.get("http://localhost:3000/api/v2/user/videos",{headers:context.req.headers})
+  
+  return {props:{videos:request.data}}
+}
+
+
+
+export default function Studio(props){
     
     const [session, loading] = useSession();
-  const router = useRouter();
+    const router = useRouter();
+    const [videos,setvideos] = useState([]);
 
 
+if(props.videos!=[]){
+  const videos = [];
+  for(let x=0;x<props.videos.length;x++){
+    videos.push(
+      <Box  w="300px" textAlign="center" height="300px">
+      <Image src={props.videos[x].spS_Thumbnail} w="100%" h="60%"></Image>
+      <Text>{props.videos[x].spS_Nome}</Text>
+      <Text>{props.videos[x].spS_Date}</Text>
+      </Box>
+    )
+    
+  }
+ 
+  useEffect(()=>{
+    setvideos(videos);
+  },[props.videos])
+ 
+ 
+}
 
 
 
@@ -54,8 +86,18 @@ return(
     <Flex gridArea="header" fontFamily="Gilroy-Light"  justifyContent="space-between" padding="20px 60px">
     <Heading fontFamily="Gilroy-Bold">Meus Vídeos</Heading> <Button fontSize="15px" leftIcon={<FaPlusCircle/>} bg="#418dff" _hover={{bg:"#8d68fa"}} w="150px">Enviar</Button>
     </Flex>
-    <Flex gridArea="content">
-
+    <Flex gridArea="content" m="20px" padding="10px">
+     
+    {videos.length!=0?
+    <SimpleGrid columns={3} overflow="auto" w="100%" h="100%" padding="60px" spacing={10}>
+    {videos}
+    </SimpleGrid>
+    :
+    <Flex w="100%" h="100%" flexDir="column" textAlign="center" justifyContent="center" alignItems="center">
+      <FaVideoSlash size="40px"/>
+      <Text>Sem vídeos</Text>
+    </Flex>
+    }
     </Flex>
   </Grid>
 }
