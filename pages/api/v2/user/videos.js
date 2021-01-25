@@ -1,15 +1,18 @@
-import { getSession } from 'next-auth/client'
-import mongoose from 'mongoose';
 
+import mongoose from 'mongoose';
+import {getSession} from 'next-auth/client'
 
 export default async (req, res) => {
-  const session = await getSession({ req })
-  if (session) {
+  //console.log(req);
+const session = await getSession({req})
+
+if (session) {
 
 const Videos = new mongoose.Schema(
   {
       spS_Nome:String,
       spS_Description:String,
+      sps_Avatar:String,
       spS_PostedBy:String,
       spS_Category:String,
       spS_Thumbnail:String,
@@ -28,7 +31,7 @@ const uservideos = await video.find({spS_PostedBy:session.user.name});
 res.send(JSON.stringify(uservideos,null,3));
   } else {
     // Not Signed in
-    res.status(401)
+    res.status(503)
   }
   res.end()
 }

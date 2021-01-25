@@ -40,3 +40,7 @@ a{
     width: 10px;
 }
 
+.plyr--video{
+    width: 60%;
+    margin: 60px;
+}

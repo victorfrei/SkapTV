@@ -20,7 +20,7 @@ const Videos = new mongoose.Schema(
 export default async (req, res) => {
 const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.env.R_PASS}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
 const videos = conn.model("videos",Videos);
-const usersvideos = await videos.find().sort({spS_Views:-1}).limit(req.body.amount);
+const usersvideos = await videos.find({spS_Public:true}).sort({spS_Views:-1}).limit(req.body.amount);
 res.send(JSON.stringify(usersvideos,null,3));
 res.end()
 }

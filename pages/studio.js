@@ -1,48 +1,53 @@
 import {Grid,Flex,Button,Link, Text,
-Image,CircularProgress,Heading, Box, HStack, IconButton, Avatar, Spinner, AvatarBadge, SimpleGrid, Tooltip, CloseButton} from "@chakra-ui/react"
+Image,Heading, Box, Avatar, Spinner, AvatarBadge, SimpleGrid, CloseButton} from "@chakra-ui/react"
 import Axios from "axios";
-
-
-import {useSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { useState,useEffect } from "react";
-import { FaChevronCircleLeft, FaVideo, FaPlusCircle, FaChartBar, FaEllipsisH, FaVideoSlash } from "react-icons/fa";
+import {FaVideo, FaPlusCircle, FaChartBar, FaEllipsisH, FaVideoSlash } from "react-icons/fa";
 
 export async function getServerSideProps(context){
-  
-  const request = await Axios.get("/api/v2/user/videos",{headers:context.req.headers})
-  
-  return {props:{videos:request.data}}
+ const session = await getSession(context);
+ if(session){ 
+ const data = await fetch("http://skap.tv/api/v2/user/videos",{method:"POST",headers:context.req.headers})
+ return {
+   props: {data: await data.json()},
+ }
+}else{
+  return{
+     props: {data:{}}
+  }
 }
+}   
 
 
 
 export default function Studio(props){
-    
     const [session, loading] = useSession();
     const router = useRouter();
     const [videos,setvideos] = useState([]);
-
-
-if(props.videos!=[]){
-  const videos = [];
-  for(let x=0;x<props.videos.length;x++){
-    videos.push(
-      <Box  w="300px" textAlign="center" height="300px">
-      <Image src={props.videos[x].spS_Thumbnail} w="100%" h="60%"></Image>
-      <Text>{props.videos[x].spS_Nome}</Text>
-      <Text>{props.videos[x].spS_Date}</Text>
-      </Box>
-    )
     
-  }
- 
-  useEffect(()=>{
-    setvideos(videos);
-  },[props.videos])
- 
- 
-}
+
+  
+    if(props.data!=[]){
+      const videos = [];
+      for(let x=0;x<props.data.length;x++){
+        videos.push(
+          <Box  w="300px" textAlign="center" height="300px">
+          <Image src={`https://image.mux.com/${props.data[x].spS_Thumbnail}/thumbnail.png?width=214&height=121&fit_mode=pad`} borderRadius="20px" w="100%" h="60%"></Image>
+          <Text>{props.data[x].spS_Nome}</Text>
+          <Text>{props.data[x].spS_Date}</Text>
+          </Box>
+        )
+        
+      }
+     
+      useEffect(()=>{
+        setvideos(videos);
+      },[router.pathname])
+    }
+    
+
 
 
 
