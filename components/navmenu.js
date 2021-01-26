@@ -134,7 +134,7 @@ return(<>
         <MenuDivider />
         <Link href={`/${ID}`} ><MenuItem>Meu Canal</MenuItem></Link>
         <Link href="/account"><MenuItem>Minha Conta</MenuItem></Link>
-        <Link href="/studio"><MenuItem >Fazer Upload</MenuItem></Link>
+        <Link href="/studio"><MenuItem >Studio</MenuItem></Link>
         </MenuGroup>
         <MenuDivider />
         <MenuGroup title="Outros">
