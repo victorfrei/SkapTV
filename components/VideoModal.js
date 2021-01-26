@@ -17,9 +17,16 @@ import {
   Select,
   Box,
 } from "@chakra-ui/react"
+import {
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+} from "@chakra-ui/react"
 import { useEffect, useState } from "react";
 import Hls from 'hls.js';
-
+import { Kbd } from "@chakra-ui/react"
 
 
 
@@ -68,20 +75,34 @@ export default function VideoModal(props) {
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Configurações de Envio</ModalHeader>
-            <ModalCloseButton />
+            <ModalCloseButton><Kbd>Esc</Kbd></ModalCloseButton>
             <ModalBody pb={6}>
             <Grid templateColumns="1fr 1fr" h="340px" templateAreas="'preview edit'">
-            <Flex gridArea="preview" flexDir="column" overflow="auto">
+            <Flex gridArea="preview" flexDir="column" p="20px" textAlign="start" overflow="auto">
             <Box>
-            <Flex w="90%" m="0 auto" >
+            <Flex  m="0 auto" >
             <video style={{margin:0}}  constrols id="player"></video>
             </Flex>
             <Heading>Nome do vídeo</Heading>
-            <Text>Descrição do vídeo pode ser grande porque aqui não vai existir problemas com isso.</Text>
-            <Text>Categoria</Text>
-            <Text>Linguagem</Text>
-            <Text>Publicado por</Text>
-            <Text>Visibilidade</Text>
+            <Accordion defaultIndex={[0]} allowMultiple>
+            <AccordionItem>
+            <AccordionButton>
+            <Box flex="1" textAlign="left">
+                 Descrição
+            </Box>
+            <AccordionIcon />
+            </AccordionButton>
+            <AccordionPanel pb={4}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat.
+            <Text>--------------------------------------------------------------</Text>
+            <Text>Categoria: Gaming - Linguagem: PT-BR</Text>
+            </AccordionPanel>
+            </AccordionItem>
+            </Accordion>
+            <Text>Publicado por</Text> - <Text>Visibilidade</Text> -
             </Box>
             </Flex>
             <Flex gridArea="edit" flexDir="column" p="40px" overflow="auto">
@@ -92,13 +113,13 @@ export default function VideoModal(props) {
               <Textarea resize="none" height="200px" placeholder="Aqui você escreverá a descrição do vídeo." />
               <label>Categoria:</label>
               <Select placeholder="Select option">
-              <option value="option1">Option 1</option>
+              <option value="option1">Gaming</option>
               <option value="option2">Option 2</option>
               <option value="option3">Option 3</option>
               </Select>
               <label>Languagem:</label>
               <Select placeholder="Select option">
-              <option value="option1">Option 1</option>
+              <option value="option1">PT-BR</option>
               <option value="option2">Option 2</option>
               <option value="option3">Option 3</option>
               </Select>

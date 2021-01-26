@@ -10,7 +10,7 @@ import VideoModal from "../components/VideoModal";
 export async function getServerSideProps(context){
  const session = await getSession(context);
  if(session){ 
- const data = await fetch("http://localhost:3000/api/v2/user/videos",{method:"POST",headers:context.req.headers})
+ const data = await fetch("http://skap.tv/api/v2/user/videos",{method:"POST",headers:context.req.headers})
  return {
    props: {data: await data.json()},
  }
