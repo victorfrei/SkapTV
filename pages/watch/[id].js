@@ -58,7 +58,9 @@ return(
 <Tabs h="40px" >
 <Navmenu navmenu={false}></Navmenu>
 </Tabs>
+<Box className="player-watch">
 <video controls id="player"/>
+</Box>
 </Box>
 )
 }else{

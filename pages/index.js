@@ -51,7 +51,9 @@ export default function Home(){
   useEffect(()=>{
     async function Videos(){
     console.log(await getVideos(2))
+    sethasloading(true);
     setvideos(await getVideos(8));
+    sethasloading(false);
     }
     Videos();
   },[router.pathname])
@@ -99,24 +101,24 @@ return (<>
         {videos}
 
         </SimpleGrid>
-        <Flex w="100%" h="500px" justifyContent="center" alignItems="center" mt="50px">
-        <Spinner hidden={hasloading} color="red.600" size="lg"/>
+        <Flex w="100%" h="500px" justifyContent="center" hidden={!hasloading} alignItems="center" mt="50px">
+        <Spinner  color="red.600" size="lg"/>
         </Flex>
 
        </TabPanel>         
 
         <TabPanel>
         {videos}
-        <Flex w="100%" h="500px" justifyContent="center" alignItems="center" mt="50px">
-        <Spinner hidden={hasloading} color="red.600" size="lg"/>
+        <Flex w="100%" h="500px" justifyContent="center" hidden={!hasloading} alignItems="center" mt="50px">
+        <Spinner color="red.600" size="lg"/>
         </Flex>
 
         </TabPanel>
 
         <TabPanel>
         {videos}
-        <Flex w="100%" h="500px" justifyContent="center" alignItems="center" mt="50px">
-        <Spinner hidden={hasloading} color="red.600" size="lg"/>
+        <Flex w="100%" h="500px" justifyContent="center" hidden={!hasloading} alignItems="center" mt="50px">
+        <Spinner  color="red.600" size="lg"/>
         </Flex>
 
         </TabPanel>

@@ -32,7 +32,8 @@
     "react-dom": "16.13.1",
     "react-icons": "^4.1.0",
     "react-player": "^2.7.2",
-    "shaka-player-react": "^1.1.2"
+    "shaka-player-react": "^1.1.2",
+    "yarn": "^1.22.10"
   },
   "devDependencies": {
     "@types/node": "^14.6.0",

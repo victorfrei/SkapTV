@@ -40,7 +40,12 @@ a{
     width: 10px;
 }
 
-.plyr--video{
+/* .plyr--video{
+    width: 60%;
+    margin: 60px;
+} */
+
+.player-watch{
     width: 60%;
     margin: 60px;
 }
