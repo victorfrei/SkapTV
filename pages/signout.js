@@ -33,7 +33,7 @@ return (<>
     <Avatar src={session.user.image} name={session.user.name} size="xl"></Avatar>
     <Text fontSize="20px" >{session.user.name}</Text>
     <h1 style={{margin:"40px 0", fontSize:"30px"}} ><strong>Você tem certeza que deseja sair?</strong></h1>
-    <form action="http://localhost:3000/api/auth/signout" style={{width:"100%"}} method="POST">
+    <form action="http://skap.tv/api/auth/signout" style={{width:"100%"}} method="POST">
     <input type="hidden" name="csrfToken" value={csrfToken}/>
     <ButtonGroup m="10px">
     <Button onClick={()=>{router.replace("/")}} leftIcon={<FaTimes/>}>Cancelar</Button>
