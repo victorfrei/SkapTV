@@ -34,8 +34,8 @@ export default function Studio(props){
       const videos = [];
       for(let x=0;x<props.data.length;x++){
         videos.push(
-          <Box  w="300px" textAlign="center" height="300px">
-          <Image src={`https://image.mux.com/${props.data[x].spS_Thumbnail}/thumbnail.png?width=214&height=121&fit_mode=pad`} borderRadius="20px" w="100%" h="60%"></Image>
+          <Box key={x} w="300px" textAlign="center" height="300px">
+          <Image cursor="pointer" _hover={{border:"1px solid white"}} onClick={()=>{setupload(<VideoModal id={props.data[x].spS_Thumbnail} name={props.data[x].spS_Nome} desc={props.data[x].spS_Description} visibi={props.data[x].spS_Public?'Público':'Privado'} cat={props.data[x].spS_Category} by={props.data[x].spS_PostedBy} lang={props.data[x].spS_Lang}></VideoModal>)}} src={`https://image.mux.com/${props.data[x].spS_Thumbnail}/thumbnail.png?width=214&height=121&fit_mode=pad`} borderRadius="20px" w="100%" h="60%"></Image>
           <Text>{props.data[x].spS_Nome}</Text>
           <Text>{Date(props.data[x].spS_Date)}</Text>
           </Box>
@@ -91,7 +91,7 @@ return(
     </Flex>
     <Flex gridArea="header" fontFamily="Gilroy-Light"  justifyContent="space-between" alignItems="center" padding="20px 30px">
     <Heading fontFamily="Gilroy-Bold">Meus Vídeos</Heading>
-    <Button fontSize="15px" onClick={()=>{setupload(<VideoModal ></VideoModal>)}} leftIcon={<FaPlusCircle/>} ml="700px" bg="#418dff" _hover={{bg:"#8d68fa"}} w="150px">Enviar</Button>
+    <Button fontSize="15px" leftIcon={<FaPlusCircle/>} ml="700px" bg="#418dff" _hover={{bg:"#8d68fa"}} w="150px">Enviar</Button>
     {upload}
     
    

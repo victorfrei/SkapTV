@@ -16,6 +16,7 @@ import {
   Textarea,
   Select,
   Box,
+  Link,
 } from "@chakra-ui/react"
 import {
   Accordion,
@@ -27,17 +28,13 @@ import {
 import { useEffect, useState } from "react";
 import Hls from 'hls.js';
 import { Kbd } from "@chakra-ui/react"
-import InputUpload from './inputUpload';
 
 
 
 export default function VideoModal(props) {
     const [isOpen,setisOpen] = useState(true);
     
-
-
-
-    useEffect(()=>{
+   useEffect(()=>{
       setisOpen(true);
     },[props])
 
@@ -48,6 +45,7 @@ export default function VideoModal(props) {
         tooltips: {controls: true},
         controls:[
                 'play',
+                'progress',
                 'current-time',
                 'duration',
                 'fullscreen',
@@ -56,7 +54,7 @@ export default function VideoModal(props) {
     });
       
       const Player = document.querySelector("#player")
-      let source = `https://stream.mux.com/iR6Obl01MDsmSbl2H9COoFXhsWKeyctO2VYA91UV1Xnc.m3u8`;
+      let source = `https://stream.mux.com/${props.id}.m3u8`;
       
       const hls = new Hls();
       hls.loadSource(source);
@@ -75,64 +73,71 @@ export default function VideoModal(props) {
         >
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Configurações de Envio</ModalHeader>
+            <ModalHeader><Link href={`/watch/${props.id}`}>skap.tv/watch/{props.id}</Link></ModalHeader>
             <ModalCloseButton><Kbd>Esc</Kbd></ModalCloseButton>
             <ModalBody pb={6}>
             <Grid  templateColumns="1fr 1fr" h="340px" templateAreas="'preview edit'">
+
             <Flex  gridArea="preview" flexDir="column" p="20px" textAlign="start" overflow="auto">
-            <Box>
-            <Flex justifyContent="center" h="300px" border="1px dashed white" borderRadius="20px" alignItems="center">
-            <InputUpload/>
-            </Flex>
-            <Box hidden="true">
             <Flex  m="0 auto" >
-            <video style={{margin:0}}  constrols id="player"></video>
+            <video style={{margin:0}}  controls id="player"></video>
             </Flex>
-            <Heading>Nome do vídeo</Heading>
-            <Accordion defaultIndex={[0]} allowMultiple>
+            <Heading m="15px 0">{props.name}</Heading>
+            <Accordion defaultIndex={[-1]} allowMultiple>
             <AccordionItem>
             <AccordionButton>
-            <Box flex="1" textAlign="left">
+            <Box m="10px 0" flex="1" textAlign="left">
                  Descrição
             </Box>
             <AccordionIcon />
             </AccordionButton>
             <AccordionPanel pb={4}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                commodo consequat.
+            {props.desc}
             <Text>--------------------------------------------------------------</Text>
-            <Text>Categoria: Gaming - Linguagem: PT-BR</Text>
+            <Text>Publicado por: {props.by}</Text> 
+            <Text>Categoria: {props.cat}</Text>
+            <Text>Linguagem: {props.lang}</Text>
+            </AccordionPanel>
+            </AccordionItem>
+
+            <AccordionItem>
+            <AccordionButton>
+            <Box m="10px 0" flex="1" textAlign="left">
+                 Informações Adicionais
+            </Box>
+            <AccordionIcon />
+            </AccordionButton>
+            <AccordionPanel pb={4}>
+            <Text>Visibilidade: {props.visibi}</Text> 
             </AccordionPanel>
             </AccordionItem>
             </Accordion>
-            <Text>Publicado por</Text> - <Text>Visibilidade</Text> -
-            </Box>
-            </Box>
+            
             </Flex>
+
+
             <Flex gridArea="edit" flexDir="column" p="40px" overflow="auto">
             <form>
               <label>Nome:</label>
-              <Input placeholder='Nome do vídeo'></Input>
+              <Input defaultValue={props.name} placeholder='Nome do vídeo'></Input>
               <label>Descrição:</label>
-              <Textarea resize="none" height="200px" placeholder="Aqui você escreverá a descrição do vídeo." />
+              <Textarea defaultValue={props.desc} resize="none" height="200px" placeholder="Aqui você escreverá a descrição do vídeo." />
               <label>Categoria:</label>
-              <Select placeholder="Select option">
-              <option value="option1">Gaming</option>
+              <Select defaultValue={props.cat} placeholder="Select option">
+              <option value="Gaming">Gaming</option>
               <option value="option2">Option 2</option>
               <option value="option3">Option 3</option>
               </Select>
               <label>Languagem:</label>
-              <Select placeholder="Select option">
-              <option value="option1">PT-BR</option>
+              <Select defaultValue={props.lang} placeholder="Select option">
+              <option value="PT-BR">PT-BR</option>
               <option value="option2">Option 2</option>
               <option value="option3">Option 3</option>
               </Select>
               <label>Visibilidade:</label>
-              <Select placeholder="Select option">
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
+              <Select defaultValue={props.visibi} placeholder="Select option">
+              <option value="Público">Público</option>
+              <option value="Privado">Privado</option>
               <option value="option3">Option 3</option>
               </Select>
             </form>
@@ -140,10 +145,10 @@ export default function VideoModal(props) {
             </Grid>
             </ModalBody>
             <ModalFooter>
-              <Button colorScheme="blue" mr={3}>
-                Cancelar
+              <Button onClick={()=>{setisOpen(false)}} colorScheme="blue" mr={3}>
+                Sair
               </Button>
-              <Button>Pronto</Button>
+              <Button>Alterar</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
