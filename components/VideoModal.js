@@ -27,6 +27,7 @@ import {
 import { useEffect, useState } from "react";
 import Hls from 'hls.js';
 import { Kbd } from "@chakra-ui/react"
+import InputUpload from './inputUpload';
 
 
 
@@ -77,9 +78,13 @@ export default function VideoModal(props) {
             <ModalHeader>Configurações de Envio</ModalHeader>
             <ModalCloseButton><Kbd>Esc</Kbd></ModalCloseButton>
             <ModalBody pb={6}>
-            <Grid templateColumns="1fr 1fr" h="340px" templateAreas="'preview edit'">
-            <Flex gridArea="preview" flexDir="column" p="20px" textAlign="start" overflow="auto">
+            <Grid  templateColumns="1fr 1fr" h="340px" templateAreas="'preview edit'">
+            <Flex  gridArea="preview" flexDir="column" p="20px" textAlign="start" overflow="auto">
             <Box>
+            <Flex justifyContent="center" h="300px" border="1px dashed white" borderRadius="20px" alignItems="center">
+            <InputUpload/>
+            </Flex>
+            <Box hidden="true">
             <Flex  m="0 auto" >
             <video style={{margin:0}}  constrols id="player"></video>
             </Flex>
@@ -103,6 +108,7 @@ export default function VideoModal(props) {
             </AccordionItem>
             </Accordion>
             <Text>Publicado por</Text> - <Text>Visibilidade</Text> -
+            </Box>
             </Box>
             </Flex>
             <Flex gridArea="edit" flexDir="column" p="40px" overflow="auto">

@@ -30,6 +30,7 @@
     "plyr": "^3.6.3",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-dropzone": "^11.2.4",
     "react-icons": "^4.1.0",
     "react-player": "^2.7.2",
     "shaka-player-react": "^1.1.2",
