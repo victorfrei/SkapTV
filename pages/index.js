@@ -32,9 +32,10 @@ return (<>
       justifyContent="center"
       mt="50px"
      >
+       {session &&
        <Heading>Olá,{session.user.name}</Heading>
        
-        
+       }
      </Flex>   
      </Grid>
     
