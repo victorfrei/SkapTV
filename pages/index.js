@@ -1,9 +1,14 @@
-import {Box,Grid,GridItem,Flex, Spinner, SimpleGrid, Image, Text, Avatar, Button, Heading, Tooltip, Link} from "@chakra-ui/react";
+import {Box,Grid,GridItem,Flex, Spinner, SimpleGrid, Image, Text, Avatar, Button, Heading, Tooltip, Link, HStack} from "@chakra-ui/react";
 import React from "react";
 import Navmenu from "../components/navmenu";
-import Sidebar from "../components/sidebar";
 import {useSession} from 'next-auth/client'
-
+import {
+  Tag,
+  TagLabel,
+  TagLeftIcon,
+  TagRightIcon,
+  TagCloseButton,
+} from "@chakra-ui/react"
 
 export default function Home(){
 
@@ -14,15 +19,15 @@ return (<>
         <Grid
 
         h="100vh"
-        templateColumns="200px 1fr"
-        templateRows="50px 1fr"
-        templateAreas={'"side nav""side content"'}
+        templateColumns="1fr"
+        templateRows="70px 1fr"
+        templateAreas={'"nav""content"'}
         >
          
        
 
 <Navmenu></Navmenu>
-<Sidebar></Sidebar>
+
 
      <Flex
       gridArea="content"
@@ -33,8 +38,33 @@ return (<>
       mt="50px"
      >
        {session &&
-       <Heading>Olá,{session.user.name}</Heading>
-       
+       <Flex w="100%" m="0 40px" flexDirection="column">
+       <Heading m="10px 0">Olá, {session.user.name}!</Heading>
+
+      <HStack>
+       <Tag size="lg" bg="#D9B160" color="black" borderRadius="full">
+       <TagLabel>Início</TagLabel>
+       </Tag>
+       <Tag size="lg" bg="#D9B160" color="black" borderRadius="full">
+       <TagLabel>Cursos</TagLabel>
+       </Tag>
+       <Tag size="lg" bg="#D9B160" color="black" borderRadius="full">
+       <TagLabel>Categorias</TagLabel>
+       </Tag>
+       <Tag size="lg" bg="#D9B160" color="black" borderRadius="full">
+       <TagLabel>Aulas</TagLabel>
+       </Tag>
+       </HStack>
+
+
+
+
+
+
+
+
+
+       </Flex>
        }
      </Flex>   
      </Grid>

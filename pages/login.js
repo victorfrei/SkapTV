@@ -1,6 +1,6 @@
 // import Head from 'next/head'
 
-import {Grid, Flex, Tooltip, Button,useToast,Input, Text, InputGroup, InputRightElement,Link} from '@chakra-ui/react'
+import {Grid, Flex, Tooltip, Button,useToast,Input, Text,Image, InputGroup, InputRightElement,Link, Box} from '@chakra-ui/react'
 import {useColorModeValue,useColorMode} from '@chakra-ui/react';
 //import {SiGoogle} from 'react-icons/si';
 import {FiUser,FiSun,FiMoon} from 'react-icons/fi';
@@ -39,33 +39,30 @@ useEffect(()=>{
 
 return (
     <Grid
-      as="main"
       height="100vh"
-      templateColumns="1fr 1fr 1fr"
-      templateRows="1fr 480px 1fr"
-      templateAreas={["'. . mode''form form form'","'. . mode''form form form'","'. . mode''. form .'"]}
-      justifyContent="center"
-      alignItems="center"
-      justifyItems="center"
+      templateColumns="1.7fr 1fr"
+      templateAreas={"'image login'"}
       overflow='hidden'
     >
      
-      <Button style={{placeSelf:"Flex-Start",justifySelf:"Flex-End"}} gridArea="mode" w="50px" variant="ghost" onClick={toggleColorMode}>
+<Box w="100%" bg="#3a405f">
+
+
+</Box>
+
+
+      {/* <Button style={{placeSelf:"Flex-Start",justifySelf:"Flex-End"}} gridArea="login" w="50px" variant="ghost" onClick={toggleColorMode}>
           {colorMode === "light" ? <FiSun size="80px"/>:<FiMoon size="80px"/>}
-        </Button>
+        </Button> */}
       <Flex 
-        gridArea="form"
-        width="100%"
-        h={['100vh','100vh','90vh']}
-        
+        gridArea="login"
+        width="100%"        
         borderRadius="md"
         flexDir="column"
-        alignItems="stretch"
-        border="1px solid"
-        borderColor={useColorModeValue("black","white")}
+        alignItems="center"
         padding={16}
       >
-      
+      <Image src="/icons/logo.png" width="100px" marginBottom="10px"></Image>
       <form method='post' id="loginform" action='/api/auth/callback/credentials'>
       <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
       <input name="register" type="hidden" defaultValue={false}></input>
