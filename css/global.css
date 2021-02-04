@@ -1,19 +1,6 @@
 
-@font-face {
-    src: url(../public/fonts/Gilroy-ExtraBold.otf);
-    font-family: 'Gilroy-Bold';    
-    font-weight: bold;
-} 
-@font-face {
-    src: url(../public/fonts/Gilroy-Light.otf);
-    font-family: 'Gilroy-Light';    
-    font-weight: normal;
-} 
-
 body{
     overflow-x: hidden;
-    
-    
 }
 
 
@@ -22,13 +9,13 @@ a{
 }
 
 .chakra-ui-light{
-    background-color: #f2f2f2 !important;
+    background-color: #E4E8F1 !important;
 }
 
-.chakra-ui-dark{
+/* .chakra-ui-dark{
     background-color: #0f1f1f !important;
-    /* background-color: #090613 !important; */
-}
+    background-color: #090613 !important;
+} */
 
 ::-webkit-scrollbar-thumb {
    border: 1px solid rgba(255,255,255,0.3);

@@ -1,8 +1,6 @@
 // import Head from 'next/head'
 
-import {Grid, Flex, Tooltip, Button,useToast, Text, InputGroup, InputRightElement,Link} from '@chakra-ui/react'
-import Divider from '../components/Divider'
-import Input from '../components/Input'
+import {Grid, Flex, Tooltip, Button,useToast,Input, Text, InputGroup, InputRightElement,Link} from '@chakra-ui/react'
 import {useColorModeValue,useColorMode} from '@chakra-ui/react';
 //import {SiGoogle} from 'react-icons/si';
 import {FiUser,FiSun,FiMoon} from 'react-icons/fi';
@@ -108,7 +106,7 @@ return (
         
     </form>
     
-    <Divider/>
+   
           <Flex w="100%" justifyContent="center" alignItems="center">
           <form method='post' action='/api/auth/signin/twitch'>
           <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
