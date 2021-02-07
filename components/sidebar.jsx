@@ -19,12 +19,9 @@ export default class SideBar extends React.Component{
         };
       }
 
-      //bg={useColorModeValue("#f2f2f2","#2f2f3f")}
-      //bg={useColorModeValue("#1A202C","#1A202C")}
-
 render(){
     return(
-        <Flex gridArea="side" className={this.state.col==true?"":"Collapsed"}  flexDir="column" justifyContent="space-between">
+        <Flex gridArea="side" bg="#1A202C" color="#f2f2f2" className={this.state.col==true?"":"Collapsed"}  flexDir="column" justifyContent="space-between">
         <Flex alignItems="center"  h="70px" justifyContent="center"> 
         <Link href="/"><Tooltip label="Skap"><Image  src="/icons/logo.png" width="50px"/></Tooltip></Link>
         </Flex>

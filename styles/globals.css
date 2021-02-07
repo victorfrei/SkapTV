@@ -16,6 +16,7 @@ a{
 .Collapsed{
     width: 60px;
     border-radius: 30px;
+    margin: 5px;
 }
 
 .CollapsedBut{
@@ -24,6 +25,7 @@ margin-bottom: 10px;
 
 .CollapsedGrid{
     grid-template-columns: 60px 1fr !important;
+    
 }
 
 /* .chakra-ui-dark{
