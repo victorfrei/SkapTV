@@ -1,34 +1,49 @@
-import {Box,Grid,GridItem,Flex, Spinner, SimpleGrid, Image, Text, Avatar, Button, Heading, Tooltip, Link, HStack} from "@chakra-ui/react";
-import React from "react";
+import {Grid,Flex, Spinner,Heading, HStack} from "@chakra-ui/react";
+import React from 'react';
 import Navmenu from "../components/navmenu";
-import {useSession} from 'next-auth/client'
+import SideBar from "../components/sidebar";
 import {
   Tag,
   TagLabel,
-  TagLeftIcon,
-  TagRightIcon,
-  TagCloseButton,
 } from "@chakra-ui/react"
+import { getSession } from "next-auth/client";
 
-export default function Home(){
 
- const [session,loading] = useSession();
 
+export default class Home extends React.Component{
+
+constructor(props){
+  super(props);
+  this.state = {
+    col: props.col,
+    session: ""
+  };
+fetch("http://localhost:3000/api/auth/session").then(data=>{data.json().then((json)=>{this.setState({session:json.user})})})
+
+}
+
+componentDidMount(){
+  const res = localStorage.getItem("collapsed")
+  this.setState(()=>{return{col:res}})
+}
+
+
+
+render(){
 return (<>
      
         <Grid
-
+        className={this.state.col?"CollapsedGrid":""}
         h="100vh"
-        templateColumns="1fr"
+        templateColumns="150px 1fr"
         templateRows="70px 1fr"
-        templateAreas={'"nav""content"'}
+        templateAreas={'"side nav""side content"'}
         >
          
        
 
 <Navmenu></Navmenu>
-
-
+<SideBar></SideBar>
      <Flex
       gridArea="content"
       display="flex"
@@ -37,9 +52,10 @@ return (<>
       justifyContent="center"
       mt="50px"
      >
-       {session &&
+
+       {this.state.session &&
        <Flex w="100%" m="0 40px" flexDirection="column">
-       <Heading m="10px 0">Olá, {session.user.name}!</Heading>
+       <Heading m="10px 0">Olá, {this.state.session.name}!</Heading>
 
       <HStack>
        <Tag size="lg" bg="#D9B160" color="black" borderRadius="full">
@@ -73,8 +89,10 @@ return (<>
     </>
 
 
-    )
+    )}
 
     
 
 }
+
+

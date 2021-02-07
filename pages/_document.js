@@ -1,7 +1,7 @@
-import Document, { Html, Head, Main, NextScript, DocumentProps } from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 
-class MyDocument extends Document<DocumentProps> {
-  render(): JSX.Element {
+class MyDocument extends Document {
+  render(){
     return (
       <Html>
         <Head>
