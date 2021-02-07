@@ -14,9 +14,9 @@ a{
 }
 
 .Collapsed{
-    width: 60px;
+    width: 60px !important;
     border-radius: 30px;
-    margin: 5px;
+    margin-left: 5px;
 }
 
 .CollapsedBut{
