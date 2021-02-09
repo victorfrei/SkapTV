@@ -9,7 +9,12 @@ import { FaDiscord,FaFacebook,FaRegEye,FaRegEyeSlash,FaTwitch,FaGoogle } from "r
 import { useEffect, useState } from 'react';
 import {useRouter} from 'next/router';
 
-export default function Login({csrfToken}) {
+
+
+
+
+
+export default function Login({csrfToken,image}) {
   
   const toast = useToast();
   const color = useColorModeValue("white","gray.300");
@@ -45,7 +50,7 @@ return (
       overflow='hidden'
     >
      
-<Box w="100%" bg="#3a405f">
+<Box w="100%" bgImage={`url(${image})`} bgRepeat="no-repeat" bgSize="cover">
 
 
 </Box>
@@ -136,8 +141,15 @@ return (
  
 }
 
-Login.getInitialProps = async (context) => {
+export async function getStaticProps(context){
+
+  const img = await fetch('https://picsum.photos/800/700/?blur=2')
+  const json = await img.url;
   return {
-    csrfToken: await csrfToken(context)
+    props:{
+    csrfToken: await csrfToken(context),
+    image: await json
+    },
+    revalidate: 3600,
   }
 }

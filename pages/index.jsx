@@ -87,11 +87,12 @@ return (<>
       justifyContent="center"
       mt="50px"
      >
-       {this.props.session &&
+       
        
        <Flex w="100%" m="0 40px" flexDirection="column">
+       {this.props.session && <>
        <Heading m="10px 0">Olá, {this.props.session.user.name}!</Heading>
-      {this.state.preview}
+        {this.state.preview}
       
       <HStack>
        <Tag size="lg" bg="#D9B160" color="black" borderRadius="full">
@@ -107,7 +108,8 @@ return (<>
        <TagLabel>Aulas</TagLabel>
        </Tag>
        </HStack>
-
+       </>
+          }
         <SimpleGrid mt="20px" columns={4} spacing={10}>
         
        <Box  w="250px" h="auto" bg="#ffffff" borderRadius="30px" padding="5px">
@@ -360,7 +362,7 @@ return (<>
 
 
        </Flex>
-       }
+       
      </Flex>   
      </Grid>
     
