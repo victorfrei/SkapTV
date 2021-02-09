@@ -7,16 +7,62 @@ import {
   TagLabel,
 } from "@chakra-ui/react"
 import { getSession } from "next-auth/client";
+import {
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  useDisclosure,
+  CloseButton,
+} from "@chakra-ui/react"
+import { render } from "react-dom";
+
+
+
+
 
 
 
 export default class Home extends React.Component{
 
-
   static async getInitialProps(ctx) {
     const res = getSession(ctx);
     return { session: await res }
   }
+
+  state={
+    preview: <div></div>,
+    open: true
+  }
+
+
+ Preview(){
+    console.log(this.state)
+
+  return (
+      <>
+      
+       <Drawer onClose={()=>{}} isOpen={this.state.open} size="md">
+          <DrawerOverlay>
+            <DrawerContent>
+              <DrawerHeader>{`drawer contents`}<CloseButton onClick={()=>{this.setState({open:false})}}></CloseButton></DrawerHeader>
+              <DrawerBody>
+                {`Conteúdo do curso`}
+              </DrawerBody>
+              
+            </DrawerContent>
+          </DrawerOverlay>
+        </Drawer>
+      </>
+    )
+   
+  }
+
+
+
 
 render(){
 return (<>
@@ -45,7 +91,7 @@ return (<>
        
        <Flex w="100%" m="0 40px" flexDirection="column">
        <Heading m="10px 0">Olá, {this.props.session.user.name}!</Heading>
-
+      {this.state.preview}
       
       <HStack>
        <Tag size="lg" bg="#D9B160" color="black" borderRadius="full">
@@ -63,10 +109,10 @@ return (<>
        </HStack>
 
         <SimpleGrid mt="20px" columns={4} spacing={10}>
-
-       <Box w="250px" h="auto" bg="#ffffff" borderRadius="30px" padding="5px">
+        
+       <Box  w="250px" h="auto" bg="#ffffff" borderRadius="30px" padding="5px">
         <Flex w="100%" flexDir="column" color="black" padding="5px">
-        <Image src="/linguagem-c.png" borderTopRadius="30px"></Image>
+        <Image onClick={()=>{this.setState({preview:this.Preview()})}} cursor="pointer" src="/linguagem-c.png" borderTopRadius="30px"></Image>
         <Text> Linguagem C - Estrutura de Dados</Text>
         <Flex justify="flex-start" m="0 10px" > 
         <Flex mr="10px"><svg width="20px" style={{marginRight:"10px"}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
