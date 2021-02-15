@@ -15,7 +15,7 @@ import {useRouter} from 'next/router';
 
 
 export default function Login({csrfToken}) {
-  console.log(csrfToken);
+  
   const toast = useToast();
   const color = useColorModeValue("white","gray.300");
   const { colorMode, toggleColorMode } = useColorMode()

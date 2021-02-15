@@ -56,7 +56,7 @@ return(<>
           </MenuButton>
           <MenuList margin="10px 20px 0 0" alignItems="center" textAlign="center">
 
-          <Flex alignItems="center" flexDirection="column" justifyContent="center" m="0 auto">
+          <Flex display="-webkit-box" alignItems="center" flexDirection="column" justifyContent="center" m="0 auto">
           <Avatar border="2px solid green" size="lg" name={session.user.name} src={session.user.image} />
           <Box ml="3">
           <Flex flexDirection="column"> 

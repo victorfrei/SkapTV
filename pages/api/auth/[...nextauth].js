@@ -57,7 +57,6 @@ const options = {
     Providers.Credentials({
       authorize: async (credentials) => 
       {
-        console.log(credentials);
         if(credentials.name=="" || credentials.email=="" || credentials.pass==""){
           if(credentials.register=='true'){
           return Promise.reject("/register?error=true&sms=Sem dados suficientes!");
@@ -73,7 +72,6 @@ const options = {
         const findedname = await user.findOne({name:credentials.name})
         if(findedemail==null){
           if(findedname==null){
-            console.log(process.env.SECRET);
             const hash = bcrypt.hashSync(credentials.pass,bcrypt.genSaltSync(14))
             const newuser = await new user({
               email:credentials.email,
