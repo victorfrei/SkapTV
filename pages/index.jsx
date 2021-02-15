@@ -1,7 +1,6 @@
 import {Grid,Flex, Spinner,Heading, HStack, Box,Image,Text, SimpleGrid} from "@chakra-ui/react";
 import React from 'react';
 import Navmenu from "../components/navmenu";
-import SideBar from "../components/sidebar";
 import {
   Tag,
   TagLabel,
@@ -71,13 +70,13 @@ return (<>
         h="100vh"
         templateColumns="100px 1fr"
         templateRows="70px 1fr"
-        templateAreas={'"side nav""side content"'}
+        templateAreas={'"nav nav"". content"'}
+        overflow="auto"
         >
          
        
 
 <Navmenu></Navmenu>
-<SideBar></SideBar>
 
      <Flex
       gridArea="content"

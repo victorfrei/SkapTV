@@ -14,8 +14,8 @@ import {useRouter} from 'next/router';
 
 
 
-export default function Login({csrfToken,image}) {
-  
+export default function Login({csrfToken}) {
+  console.log(csrfToken);
   const toast = useToast();
   const color = useColorModeValue("white","gray.300");
   const { colorMode, toggleColorMode } = useColorMode()
@@ -50,7 +50,7 @@ return (
       overflow='hidden'
     >
      
-<Box w="100%" bgImage={`url(${image})`} bgRepeat="no-repeat" bgSize="cover">
+<Box w="100%" bgImage={`url(/lr/1.jpg)`} gridArea="image" bgRepeat="no-repeat" bgSize="cover">
 
 
 </Box>
@@ -72,10 +72,10 @@ return (
       <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
       <input name="register" type="hidden" defaultValue={false}></input>
       <label color="black" m="10px 0">Email</label>
-      <Input id="email"  autoComplete="on" bgColor="#f5f5f5" m="5px 0"  type="text" name='email' _placeholder={{color:"Gray"}} color="black" placeholder="support@skap.tv"/>
+      <Input id="email"  autoComplete="on" bgColor="#f5f5f5" m="5px 0"  type="text" name='email' _placeholder={{color:"Gray"}} color="black" placeholder="exemplo@email.com"/>
       <label color="black" m="10px 0">Senha</label>
       <InputGroup size="lg" m="5px 0">
-      <Input id="pass"  autoComplete="on" type={pass} bgColor="#f5f5f5" name='pass' color="black" _placeholder={{color:"Gray"}} placeholder="123456" />
+      <Input id="pass"  autoComplete="on" type={pass} bgColor="#f5f5f5" name='pass' color="black" _placeholder={{color:"Gray"}} placeholder="Sua Senha" />
       <InputRightElement>
         <Button bg="none" minW="none" _hover={{bg:"none"}} _focus={{display:'none'}} onClick={()=>{if(show==false){seticon(<FaRegEye color="black"/>);setpass("text");setshow(true)}else{seticon(<FaRegEyeSlash color="black"/>);setpass("password");setshow(false)}}}>
           {icon}
@@ -100,9 +100,10 @@ return (
           textAlign="center"
           fontSize="sm"
           marginTop={6}
-          
+          onClick={()=>{router.push("/register")}}
+          cursor="pointer"
         >
-          Não tem uma conta? <Link href="/register">Cadastrar</Link>
+          Não tem uma conta? Fazer Cadastro!
           
         </Text>
         
@@ -141,15 +142,10 @@ return (
  
 }
 
-export async function getStaticProps(context){
 
-  const img = await fetch('https://picsum.photos/800/700/?blur=2')
-  const json = await img.url;
+
+Login.getInitialProps = async (context)=>{
   return {
-    props:{
-    csrfToken: await csrfToken(context),
-    image: await json
-    },
-    revalidate: 3600,
+    csrfToken: await csrfToken(context)
   }
 }

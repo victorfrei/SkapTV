@@ -1,6 +1,6 @@
 // import Head from 'next/head'
 
-import {Grid, Flex, Tooltip, Button,useToast,Input, Text, InputGroup, InputRightElement,Link} from '@chakra-ui/react'
+import {Grid,Box, Flex, Tooltip,Image, Button,useToast,Input, Text, InputGroup, InputRightElement,Link} from '@chakra-ui/react'
 import {useColorModeValue,useColorMode} from '@chakra-ui/react';
 import {FiUser,FiSun,FiMoon} from 'react-icons/fi';
 import {csrfToken} from 'next-auth/client';
@@ -54,42 +54,39 @@ export default function Register({csrfToken}) {
 
 return (
     <Grid
-      as="main"
       height="100vh"
-      templateColumns="1fr 1fr 1fr"
-      templateRows="1fr 480px 1fr"
-      templateAreas={["'. . mode''form form form'","'. . mode''. form .'"]}
-      justifyContent="center"
-      alignItems="center"
-      justifyItems="center"
+      templateColumns="1.7fr 1fr"
+      templateAreas={"'image register'"}
       overflow='hidden'
-    >
+      >
      
-      <Button style={{placeSelf:"Flex-Start",justifySelf:"Flex-End"}} gridArea="mode" w="50px" variant="ghost" onClick={toggleColorMode}>
+     <Box w="100%" bgImage={`url(/lr/1.jpg)`} gridArea="image" bgRepeat="no-repeat" bgSize="cover"></Box>
+
+
+      {/* <Button style={{placeSelf:"Flex-Start",justifySelf:"Flex-End"}} gridArea="mode" w="50px" variant="ghost" onClick={toggleColorMode}>
           {colorMode === "light" ? <FiSun size="80px"/>:<FiMoon size="80px"/>}
-        </Button>
+        </Button> */}
       <Flex 
-        gridArea="form"
+        gridArea="register"
         width="100%"
-        h={['100vh','90vh','90vh']}
         borderRadius="md"
         flexDir="column"
-        alignItems="stretch"
+        alignItems="center"
         padding={16}
-        border="1px solid"
-        borderColor={useColorModeValue("black","white")}
       >
-      
+
+
+      <Image src="/icons/logo.png" width="100px" marginBottom="10px"></Image>
       <form method='post' id="registerform" action='/api/auth/callback/credentials'>
       <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
       <input name="register" type="hidden" defaultValue={true}></input>
-      <label color="black" m="10px 0">NickName</label>
-      <Input id="name" autoComplete="on" bgColor="#f5f5f5" m="5px 0"  type="text" name='name' _placeholder={{color:"Gray"}} color="black" placeholder="Skap"/>
+      <label color="black" m="10px 0">Nickname</label>
+      <Input id="name" autoComplete="on" bgColor="#f5f5f5" m="5px 0"  type="text" name='name' _placeholder={{color:"Gray"}} color="black" placeholder="TigerTayzen"/>
       <label color="black" m="10px 0">Email</label>
-      <Input id="email" autoComplete="on" bgColor="#f5f5f5" m="5px 0"  type="email" name='email' _placeholder={{color:"Gray"}} color="black" placeholder="support@skap.tv"/>
+      <Input id="email" autoComplete="on" bgColor="#f5f5f5" m="5px 0"  type="email" name='email' _placeholder={{color:"Gray"}} color="black" placeholder="exemplo@email.com"/>
       <label color="black" m="10px 0">Senha</label>
       <InputGroup size="lg" m="5px 0">
-      <Input id="pass" autoComplete="on" type={pass} bgColor="#f5f5f5" name='pass' color="black" _placeholder={{color:"Gray"}} placeholder="123456" />
+      <Input id="pass" autoComplete="on" type={pass} bgColor="#f5f5f5" name='pass' color="black" _placeholder={{color:"Gray"}} placeholder="Sua senha" />
       <InputRightElement>
         <Button bg="none" minW="none" _hover={{bg:"none"}} _focus={{display:'none'}} onClick={()=>{if(show==false){seticon(<FaRegEye color="black"/>);setpass("text");setshow(true)}else{seticon(<FaRegEyeSlash color="black"/>);setpass("password");setshow(false)}}}>
           {icon}
@@ -114,9 +111,10 @@ return (
           textAlign="center"
           fontSize="sm"
           marginTop={6}
-         
+          onClick={()=>{router.push("/login")}}
+          cursor="pointer"
         >
-         Já tem uma conta? <Link href="/login">Login</Link>
+        Já tem uma conta? Fazer Login!
           
         </Text>
         
