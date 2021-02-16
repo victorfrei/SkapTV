@@ -51,6 +51,7 @@ return(<>
   <Input w="400px" variant="filled" borderRadius="16px" _placeholder={{fontSize:"12px"}} placeholder="O que você está procurando?" type="search"></Input>
   </InputGroup>
   </Stack>
+  
   {session && <>  
     <Menu>
           <MenuButton>
