@@ -17,6 +17,7 @@ import {
  
 } from "@chakra-ui/react"
 import { FaSearch } from "react-icons/fa";
+import { useRouter } from "next/router";
 
 
 
@@ -24,6 +25,7 @@ export default function Navmenu(props){
     const { colorMode, toggleColorMode } = useColorMode()
     const [plan,setPlan] = useState("Standard");
     const [session,loading] = useSession()
+    const router = useRouter();
     
 return(<>
 
@@ -42,7 +44,7 @@ return(<>
         justifyContent="space-between"
         position="fixed"
         >
-  
+  <Image paddingLeft="10px" w="100px" cursor="pointer" onClick={()=>{router.push("/")}} src="/icons/logo.png"></Image>
   <Stack marginLeft="20px">
   <InputGroup >
   <InputRightElement w="3rem" cursor="pointer" onClick={()=>{console.log("pesquisando!")}}><FaSearch /></InputRightElement>
