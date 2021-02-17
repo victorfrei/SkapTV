@@ -45,10 +45,10 @@ return(<>
         position="fixed"
         >
   <Image paddingLeft="10px" w="100px" cursor="pointer" onClick={()=>{router.push("/")}} src="/icons/logo.png"></Image>
-  <Stack marginLeft="20px">
+  <Stack width={["15%","400px"]} marginLeft="20px">
   <InputGroup >
   <InputRightElement w="3rem" cursor="pointer" onClick={()=>{console.log("pesquisando!")}}><FaSearch /></InputRightElement>
-  <Input w="400px" variant="filled" borderRadius="16px" _placeholder={{fontSize:"12px"}} placeholder="O que você está procurando?" type="search"></Input>
+  <Input w="100%" variant="filled" borderRadius="16px" _placeholder={{fontSize:"12px"}} placeholder="O que você está procurando?" type="search"></Input>
   </InputGroup>
   </Stack>
   

@@ -2,7 +2,7 @@ import { Box, Flex, SimpleGrid,Image,Text, useColorModeValue, Skeleton, Tag, Hea
 import mongoose from "mongoose"
 import Navmenu from "../components/navmenu";
 import {useRouter} from 'next/router';
-
+import { useEffect } from "react";
 
 export default function Category({categories}){
    const cat = JSON.parse(categories);
@@ -16,9 +16,10 @@ export default function Category({categories}){
     cat[x].Tags.forEach(element => {
         tags.push(<Tag cursor="pointer" bg="gray.300" color="black" onClick={()=>{router.push(`/videos?t=${element}`)}} w="fit-content">{element}</Tag>);
     });
+
        data.push(
-        <Flex  bg={useColorModeValue("#f0f0f0","#0f0f0f")} color={useColorModeValue("black","white")} borderRadius="20px" flexDir="column" w="220px" h="400px" alignItems="flex-start" justifyContent="center">
-            <Image cursor="pointer" onClick={()=>{router.push(`/videos/?q=${cat[x].Name}`)}} borderTopRadius="20px" w="220px" h="216px" fit="cover" src={cat[x].Image}></Image>
+        <Flex key={Math.random().toString()} marginTop="80px" bg={useColorModeValue("#f0f0f0","#0f0f0f")} color={useColorModeValue("black","white")} borderRadius="20px" flexDir="column" w={["60vw","220px"]} h="400px" alignItems="flex-start" justifySelf="center" justifyContent="center">
+            <Image cursor="pointer" onClick={()=>{router.push(`/videos/?q=${cat[x].Name}`)}} borderTopRadius="20px" minW="100%" h="216px" fit="cover" src={cat[x].Image}></Image>
             <Flex padding="15px" w="100%" flexDir="column">
             <Heading size={3} alignSelf="center">{cat[x].Name}</Heading>
             <Text noOfLines={3}>{cat[x].Description}</Text>
@@ -28,11 +29,11 @@ export default function Category({categories}){
         </Flex>
        )
        loading= false;
-    }
-
+       }
+   
     return <>
         <Navmenu></Navmenu>
-        <SimpleGrid columns={4} spacing={10} padding="80px" >
+        <SimpleGrid key="A" columns={[1,2,3,4]} spacing={[0,10]} padding={["20px","80px"]} >
         {data &&   
         data
         }
