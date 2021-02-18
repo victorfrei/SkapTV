@@ -2,10 +2,8 @@
 import { useState } from "react";
 import { Avatar,Image,Link, Badge,Button,
 useColorMode, Box, MenuButton, Input,
- Progress, InputGroup,Stack, InputRightElement, HStack, useColorModeValue, Grid } from "@chakra-ui/react";
+ Progress, InputGroup,Stack, InputRightElement, HStack, useColorModeValue, Grid, useColorModePreference } from "@chakra-ui/react";
 import {signIn, signOut, useSession} from 'next-auth/client'
-
-
 import {
   Menu,
   MenuList,
@@ -16,7 +14,6 @@ import {
  Text,
  
 } from "@chakra-ui/react"
-import { FaSearch } from "react-icons/fa";
 import { useRouter } from "next/router";
 
 
@@ -26,7 +23,7 @@ export default function Navmenu(props){
     const [plan,setPlan] = useState("Standard");
     const [session,loading] = useSession()
     const router = useRouter();
-    
+    const color = useColorModeValue("#E4E8F1","#1A202C");
 return(<>
 
 
@@ -37,29 +34,33 @@ return(<>
         zIndex="1"
         alignItems="center"
         textAlign="center"
-        gridArea="nav"
         width="100%"
+        height="60px"
         padding="10px 0"
-        bg={useColorModeValue("#E4E8F1","#1A202C")}
-        position="fixed"
+        bg={color}
+        // position="fixed"
+        gridArea="nav"
         >
 
   <Grid w="100%" templateColumns="100px 1fr 80px 80px" templateAreas='"logo search but avatar"'>     
   <Image gridArea="logo" paddingLeft="10px" w="100px" cursor="pointer" onClick={()=>{router.push("/")}} src="/icons/logo.png"></Image>
-  <Stack width={["15%","400px"]} gridArea="search" alignItems="center" marginLeft="20px">
+  <Stack width={["15%","400px"]} gridArea="search" alignSelf="center" marginLeft="20px">
   <InputGroup>
-  <InputRightElement w="3rem" cursor="pointer" onClick={()=>{console.log("pesquisando!")}}><FaSearch /></InputRightElement>
+  <InputRightElement w="3rem" cursor="pointer" onClick={()=>{console.log("pesquisando!")}}><svg width="22px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+</svg></InputRightElement>
   <Input w="100%" variant="filled" borderRadius="16px" _placeholder={{fontSize:"12px"}} placeholder="O que você está procurando?" type="search"></Input>
   </InputGroup>
   </Stack>
 
   <HStack gridArea="but" alignItems="center" justifyContent="center">
- <svg width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+  <svg cursor="pointer" width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
   <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
 </svg>
+<Link href={`/channel/${session.user.name}/upload`}>
 <svg width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
-</svg>
+  <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
+</svg></Link>
 </HStack>
  
   {session && <>  
@@ -70,11 +71,11 @@ return(<>
           <MenuList margin="10px 20px 0 0" alignItems="center" textAlign="center">
 
           <Flex display="-webkit-box" alignItems="center" flexDirection="column" justifyContent="center" m="0 auto">
-          <Avatar border="2px solid green" size="lg" name={session.user.name} src={session.user.image} />
+          <Link href={`/user/account/settings`}><Avatar border="2px solid green" size="lg" name={session.user.name} src={session.user.image} /></Link>
           <Box ml="3">
           <Flex flexDirection="column"> 
           <Text fontWeight="bold">
-          {session.user.name}
+          <Link href={`/user/account/settings`}>{session.user.name}</Link>
           </Text>
           <Text mb="10px" color="Gray" fontSize="12px">
             {session.user.email}
@@ -92,14 +93,14 @@ return(<>
         <MenuDivider />
         <MenuGroup>
         
-        <Link href="/channel"><MenuItem><svg width="22px" style={{marginRight:"10px"}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+        <Link href={`/channel/${session.user.name}`}><MenuItem><svg width="22px" style={{marginRight:"10px"}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
 </svg>Meu Canal</MenuItem></Link>
         <Link href="/user/account"><MenuItem><svg width="22px" style={{marginRight:"10px"}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
 </svg>Minha Conta</MenuItem></Link>
         <Link href="/user/wallet"><MenuItem><svg width="22px" style={{marginRight:"10px"}} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
 </svg>Carteira</MenuItem></Link>
         </MenuGroup>
         <MenuDivider />
@@ -142,7 +143,7 @@ return(<>
 
 {loading && 
 
-  <Progress size="xs" isIndeterminate />
+  <Progress w="100%" size="xs" isIndeterminate />
 
 }
 </>)    

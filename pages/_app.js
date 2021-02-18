@@ -11,8 +11,9 @@ function MyApp({ Component, pageProps }) {
       <link rel="icon" href="/icons/logo.png" type="image/x-icon"></link>
       <script data-ad-client="ca-pub-5207306970891415" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
       <link rel="stylesheet" href="https://cdn.plyr.io/3.6.3/plyr.css" />
-      <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"></link>
-      </Head>
+      <link rel="preconnect" href="https://fonts.gstatic.com"/>
+      <link href="https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300;400;500;600;900&display=swap" rel="stylesheet"/>
+</Head>
     <Provider session={pageProps.session}>
     <ChakraProvider>
       <Component {...pageProps} />
