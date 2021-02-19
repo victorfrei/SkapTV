@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { Avatar,Image,Link, Badge,Button,
 useColorMode, Box, MenuButton, Input,
- Progress, InputGroup,Stack, InputRightElement, HStack, useColorModeValue, Grid, useColorModePreference } from "@chakra-ui/react";
-import {signIn, signOut, useSession} from 'next-auth/client'
+ Progress, InputGroup,Stack, InputRightElement, HStack, useColorModeValue, Grid} from "@chakra-ui/react";
+import {useSession} from 'next-auth/client'
 import {
   Menu,
   MenuList,
@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 
 
 
-export default function Navmenu(props){
+export default function Navmenu(){
     const { colorMode, toggleColorMode } = useColorMode()
     const [plan,setPlan] = useState("Standard");
     const [session,loading] = useSession()
@@ -27,7 +27,7 @@ export default function Navmenu(props){
 return(<>
 
 
-{!loading &&
+{!loading && session && <>
  
  <Box
         as={Flex}
@@ -63,7 +63,7 @@ return(<>
 </svg></Link>
 </HStack>
  
-  {session && <>  
+    
     <Menu>
           <MenuButton>
           <Avatar gridArea="avatar" border="2px solid green" cursor="pointer"  size="md" name={session.user.name} src={session.user.image} margin=" 0 20px 0 20px" />
@@ -124,8 +124,10 @@ return(<>
         </MenuList>
         </Menu>
          
-  </>}
+  
   </Grid> 
+
+
   {!session &&
    <Box>
    <Link href="/login" marginRight="25px"><Button colorScheme="teal">Log in</Button></Link>
@@ -136,10 +138,7 @@ return(<>
   }
 </Box>
 
-   
- 
-  
-}
+</>}
 
 {loading && 
 
