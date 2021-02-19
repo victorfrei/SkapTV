@@ -27,7 +27,7 @@ export default function Navmenu(){
 return(<>
 
 
-{!loading && session && <>
+{session && <>
  
  <Box
         as={Flex}
