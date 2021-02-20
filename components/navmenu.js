@@ -24,10 +24,13 @@ export default function Navmenu(){
     const [session,loading] = useSession()
     const router = useRouter();
     const color = useColorModeValue("#E4E8F1","#1A202C");
+
+
+
 return(<>
 
 
-{session &&
+{!loading &&
  
  <Box
         as={Flex}
