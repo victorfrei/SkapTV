@@ -45,7 +45,7 @@ return(<>
         >
 
   <Grid w="100%" templateColumns="100px 1fr 80px 80px" templateAreas='"logo search but avatar"'>     
-  {!session && <>
+  {session && <>
   
   <Image gridArea="logo" paddingLeft="10px" w="100px" cursor="pointer" onClick={()=>{router.push("/")}} src="/icons/logo.png"></Image>
   <Stack width={["15%","400px"]} gridArea="search" alignSelf="center" marginLeft="20px">
