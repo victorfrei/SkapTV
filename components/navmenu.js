@@ -45,7 +45,7 @@ return(<>
         >
 
   <Grid w="100%" templateColumns="100px 1fr 80px 80px" templateAreas='"logo search but avatar"'>     
-  {session && <>
+  
   
   <Image gridArea="logo" paddingLeft="10px" w="100px" cursor="pointer" onClick={()=>{router.push("/")}} src="/icons/logo.png"></Image>
   <Stack width={["15%","400px"]} gridArea="search" alignSelf="center" marginLeft="20px">
@@ -57,17 +57,21 @@ return(<>
   </InputGroup>
   </Stack>
 
+
+  {session && <>
+
   <HStack gridArea="but" alignItems="center" justifyContent="center">
   <svg cursor="pointer" width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
   <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
 </svg>
+
 <Link href={`/channel/${session.user.name}/upload`}>
 <svg width="24px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
   <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
 </svg></Link>
 </HStack>
  
-    
+
     <Menu>
           <MenuButton>
           <Avatar gridArea="avatar" border="2px solid green" cursor="pointer"  size="md" name={session.user.name} src={session.user.image} margin=" 0 20px 0 20px" />
@@ -131,12 +135,10 @@ return(<>
 </>}
 
 {!session &&
-   <Box>
-   <Link href="/login" marginRight="25px"><Button colorScheme="teal">Log in</Button></Link>
-   <Link href="/register" marginRight="15px"><Button colorScheme="red">
-     Criar uma Conta
-   </Button></Link>
-   </Box>
+   <Flex marginLeft="-60px" alignItems="center">
+     <Link href="/login" m="0 5px" ><Button colorScheme="green">Login</Button></Link>
+     <Link href="/register" m="0 5px"><Button colorScheme="blue">Cadastre-se</Button></Link>
+   </Flex>
   }
 
 
@@ -149,7 +151,7 @@ return(<>
 
 {loading && 
 
-  <Progress w="100%" size="xs" isIndeterminate />
+  <Progress w="100vw" overflow="auto" size="xs" isIndeterminate />
 
 }
 </>)    
