@@ -88,16 +88,16 @@ export default function Home({Trending,Newest,MostLiked}){
       </Box>
       )
       trending.push(
-        <Box  key={x} w="90%" h="265px" borderRadius="20px" fontSize={15} bg={useColorModeValue("#a0a0a0","#2f2f2f")}>
+        <Box  key={x} w="100%" h="100%" borderRadius="20px" fontSize={15} bg={useColorModeValue("#a0a0a0","#2f2f2f")}>
         <Flex w="100%" h="100%" flexDir="column" >
-        <Link  w="100%" h="80%" href={`/watch/${tre[x].VideoID}`}><Image  borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${tre[x].VideoID}/animated.gif?`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
-        <Grid w="100%" h="90%" justifyItems="start" alignItems="center" padding="5px" marginTop="10px"  templateColumns="50px 1fr 1fr" templateRows="40px 20px 20px"
+        <Link  w="100%" h="100%" href={`/watch/${tre[x].VideoID}`}><Image w="100%" h="100%" borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${tre[x].VideoID}/animated.gif?`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
+        <Grid w="100%" h="100%" justifyItems="start" alignItems="center" padding="15px" marginTop="10px"  templateColumns="50px 1fr 1fr" templateRows="40px 20px 20px"
         templateAreas='"avatar nome nome"". author ."". dados dados"'
         > 
         <Link href={`/channel/${tre[x].Owner.Name}`}><Avatar  gridArea="avatar" src={tre[x].Owner.Image} name={tre[x].Owner.Name}></Avatar></Link>
         <Link href={`/watch/${tre[x].VideoID}`}  gridArea="nome" ><Text noOfLines={2} marginLeft="10px"><strong>{tre[x].Name}</strong></Text></Link>
         <Link href={`/channel/${tre[x].Owner.Name}`}  marginTop="10px" marginLeft="10px" gridArea="author"><Text>{tre[x].Owner.Name}</Text></Link>
-        <Text marginTop="10px" marginLeft="10px" gridArea="dados">{tre[x].Views} views - {moment(tre[x].Data).fromNow()} - {tre[x].Likes} Curtidas</Text>
+        <Text margin="30px 0 20px 10px" gridArea="dados">{tre[x].Views} views - {moment(tre[x].Data).fromNow()} - {tre[x].Likes} Curtidas</Text>
         </Grid>
         </Flex>
       </Box>
