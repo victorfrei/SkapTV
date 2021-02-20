@@ -135,7 +135,7 @@ return (<>
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
 </svg><Heading className="newfont" fontSize={23} size={1} m="12px">Em Alta</Heading>
 </HStack>
-      <SimpleGrid columns={[1,2,2,4]} spacing={10} m="10px" columnGap={15}>
+      <SimpleGrid columns={[1,2,2,4,5,6,8]} spacing={10} m="10px" columnGap={15}>
       {trending}
       </SimpleGrid>
       <HStack >
@@ -145,7 +145,7 @@ return (<>
 <Heading className="newfont" fontSize={23} mt="40px" m="12px" size={1}>Publicados Recentemente</Heading>
       </HStack>
     
-     <SimpleGrid columns={[1,2,2,4]} spacing={10} m="10px" columnGap={15}>
+     <SimpleGrid columns={[1,2,2,4,5,6,7,8]} spacing={10} m="10px" columnGap={15}>
       {newest}
      </SimpleGrid>
      <HStack>
@@ -154,7 +154,7 @@ return (<>
 </svg>
      <Heading className="newfont" fontSize={23} mt="40px" m="12px" size={1}>Mais Curtidos</Heading>
      </HStack>
-     <SimpleGrid columns={[1,2,2,4]} spacing={10} m="10px" columnGap={15}>
+     <SimpleGrid columns={[1,2,2,4,5,6,7,8]} spacing={10} m="10px" columnGap={15}>
       {mostliked}
      </SimpleGrid>
      </Box>
