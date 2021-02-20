@@ -30,7 +30,7 @@ export default function Navmenu(){
 return(<>
 
 
-{!loading &&
+{session &&
  
  <Box
         as={Flex}
