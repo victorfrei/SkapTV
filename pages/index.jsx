@@ -59,7 +59,7 @@ export default function Home({Trending,Newest,MostLiked}){
       newest.push(
         <Box  key={x} w="300px" h="265px" borderRadius="20px" fontSize={15} bg={useColorModeValue("#a0a0a0","#2f2f2f")}>
         <Flex w="100%" h="100%" flexDir="column" >
-        <Link  w="100%" h="80%" href={`/watch/${tre[x].VideoID}`}><Image  borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${nw[x].VideoID}/animated.gif?width=300&height=160`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${nw[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${nw[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
+        <Link  w="100%" h="80%" href={`/watch/${tre[x].VideoID}`}><Image  borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${nw[x].VideoID}/animated.gif?`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${nw[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${nw[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
         <Grid w="100%" h="90%" justifyItems="start" alignItems="center" padding="5px" marginTop="10px"  templateColumns="50px 1fr 1fr" templateRows="40px 20px 20px"
         templateAreas='"avatar nome nome"". author ."". dados dados"'
         > 
@@ -75,7 +75,7 @@ export default function Home({Trending,Newest,MostLiked}){
       mostliked.push(
         <Box  key={x} w="300px" h="265px" borderRadius="20px" fontSize={15} bg={useColorModeValue("#a0a0a0","#2f2f2f")}>
         <Flex w="100%" h="100%" flexDir="column" >
-        <Link  w="100%" h="80%" href={`/watch/${tre[x].VideoID}`}><Image  borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${ml[x].VideoID}/animated.gif?width=300&height=160`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${ml[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${ml[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
+        <Link  w="100%" h="80%" href={`/watch/${tre[x].VideoID}`}><Image  borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${ml[x].VideoID}/animated.gif?`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${ml[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${ml[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
         <Grid w="100%" h="90%" justifyItems="start" alignItems="center" padding="5px" marginTop="10px"  templateColumns="50px 1fr 1fr" templateRows="40px 20px 20px"
         templateAreas='"avatar nome nome"". author ."". dados dados"'
         > 
@@ -90,7 +90,7 @@ export default function Home({Trending,Newest,MostLiked}){
       trending.push(
         <Box  key={x} w="90%" h="265px" borderRadius="20px" fontSize={15} bg={useColorModeValue("#a0a0a0","#2f2f2f")}>
         <Flex w="100%" h="100%" flexDir="column" >
-        <Link  w="100%" h="80%" href={`/watch/${tre[x].VideoID}`}><Image  borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${tre[x].VideoID}/animated.gif?width=300&height=160`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
+        <Link  w="100%" h="80%" href={`/watch/${tre[x].VideoID}`}><Image  borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${tre[x].VideoID}/animated.gif?`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
         <Grid w="100%" h="90%" justifyItems="start" alignItems="center" padding="5px" marginTop="10px"  templateColumns="50px 1fr 1fr" templateRows="40px 20px 20px"
         templateAreas='"avatar nome nome"". author ."". dados dados"'
         > 
