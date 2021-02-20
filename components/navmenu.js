@@ -29,8 +29,7 @@ export default function Navmenu(){
 
 return(<>
 
-
-{session &&
+{!loading &&
  
  <Box
         as={Flex}
@@ -46,6 +45,8 @@ return(<>
         >
 
   <Grid w="100%" templateColumns="100px 1fr 80px 80px" templateAreas='"logo search but avatar"'>     
+  {!session && <>
+  
   <Image gridArea="logo" paddingLeft="10px" w="100px" cursor="pointer" onClick={()=>{router.push("/")}} src="/icons/logo.png"></Image>
   <Stack width={["15%","400px"]} gridArea="search" alignSelf="center" marginLeft="20px">
   <InputGroup>
@@ -127,11 +128,9 @@ return(<>
         </MenuList>
         </Menu>
          
-  
-  </Grid> 
+</>}
 
-
-  {!session &&
+{!session &&
    <Box>
    <Link href="/login" marginRight="25px"><Button colorScheme="teal">Log in</Button></Link>
    <Link href="/register" marginRight="15px"><Button colorScheme="red">
@@ -139,6 +138,11 @@ return(<>
    </Button></Link>
    </Box>
   }
+
+
+  </Grid> 
+
+  
 </Box>
 
 }
