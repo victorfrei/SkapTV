@@ -44,10 +44,15 @@ return(<>
         gridArea="nav"
         >
 
-  <Grid w="100%" templateColumns="100px 1fr 80px 80px" templateAreas='"logo search but avatar"'>     
+  <Grid w="100%" templateColumns="100px 100px 1fr 80px 80px" templateAreas='"logo nav search but avatar"'>     
   
   
   <Image gridArea="logo" paddingLeft="10px" w="100px" cursor="pointer" onClick={()=>{router.push("/")}} src="/icons/logo.png"></Image>
+  
+  <Stack gridArea="nav">
+  <Text>Inícios</Text>
+  <Text>Categorias</Text>
+  </Stack>
   <Stack width={["15%","400px"]} gridArea="search" alignSelf="center" marginLeft="20px">
   <InputGroup>
   <InputRightElement w="3rem" cursor="pointer" onClick={()=>{console.log("pesquisando!")}}><svg width="22px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
