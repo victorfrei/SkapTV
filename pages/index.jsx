@@ -66,7 +66,7 @@ export default function Home({Trending,Newest,MostLiked}){
         <Link href={`/channel/${nw[x].Owner.Name}`}><Avatar  gridArea="avatar" src={nw[x].Owner.Image} name={nw[x].Owner.Name}></Avatar></Link>
         <Link href={`/watch/${nw[x].VideoID}`}  gridArea="nome" ><Text noOfLines={2} marginLeft="10px"><strong>{nw[x].Name}</strong></Text></Link>
         <Link href={`/channel/${nw[x].Owner.Name}`} marginTop="10px" marginLeft="10px" gridArea="author"><Text>{nw[x].Owner.Name}</Text></Link>
-        <Text marginTop="10px" marginLeft="10px" gridArea="dados">{nw[x].Views} views - {moment(nw[x].Data).fromNow()}</Text>
+        <Text marginTop="10px" marginLeft="10px" gridArea="dados">{nw[x].Views} views - {moment(nw[x].Data).fromNow()} - {nw[x].Likes} Curtidas</Text>
         </Grid>
         </Flex>
       </Box>
@@ -82,7 +82,7 @@ export default function Home({Trending,Newest,MostLiked}){
         <Link href={`/channel/${ml[x].Owner.Name}`}><Avatar  gridArea="avatar" src={ml[x].Owner.Image} name={ml[x].Owner.Name}></Avatar></Link>
         <Link href={`/watch/${ml[x].VideoID}`}  gridArea="nome" ><Text noOfLines={2} marginLeft="10px"><strong>{ml[x].Name}</strong></Text></Link>
         <Link href={`/channel/${ml[x].Owner.Name}`} marginTop="10px" marginLeft="10px" gridArea="author"><Text>{ml[x].Owner.Name}</Text></Link>
-        <Text marginTop="10px" marginLeft="10px" gridArea="dados">{ml[x].Views} views - {moment(ml[x].Data).fromNow()}</Text>
+        <Text marginTop="10px" marginLeft="10px" gridArea="dados">{ml[x].Views} views - {moment(ml[x].Data).fromNow()} - {ml[x].Likes} Curtidas</Text>
         </Grid>
         </Flex>
       </Box>
@@ -97,7 +97,7 @@ export default function Home({Trending,Newest,MostLiked}){
         <Link href={`/channel/${tre[x].Owner.Name}`}><Avatar  gridArea="avatar" src={tre[x].Owner.Image} name={tre[x].Owner.Name}></Avatar></Link>
         <Link href={`/watch/${tre[x].VideoID}`}  gridArea="nome" ><Text noOfLines={2} marginLeft="10px"><strong>{tre[x].Name}</strong></Text></Link>
         <Link href={`/channel/${tre[x].Owner.Name}`}  marginTop="10px" marginLeft="10px" gridArea="author"><Text>{tre[x].Owner.Name}</Text></Link>
-        <Text marginTop="10px" marginLeft="10px" gridArea="dados">{tre[x].Views} views - {moment(tre[x].Data).fromNow()}</Text>
+        <Text marginTop="10px" marginLeft="10px" gridArea="dados">{tre[x].Views} views - {moment(tre[x].Data).fromNow()} - {tre[x].Likes} Curtidas</Text>
         </Grid>
         </Flex>
       </Box>
