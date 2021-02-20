@@ -119,7 +119,7 @@ return (<>
          
        
 
-<Navmenu gridArea="nav"></Navmenu>
+<Navmenu></Navmenu>
 
      <Flex
       gridArea="content"
