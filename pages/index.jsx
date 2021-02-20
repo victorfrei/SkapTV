@@ -88,7 +88,7 @@ export default function Home({Trending,Newest,MostLiked}){
       </Box>
       )
       trending.push(
-        <Box  key={x} w="100%" h="100%" borderRadius="20px" fontSize={15} bg={useColorModeValue("#a0a0a0","#2f2f2f")}>
+        <Box  key={x} w="85%" h="100%" borderRadius="20px" fontSize={15} bg={useColorModeValue("#a0a0a0","#2f2f2f")}>
         <Flex w="100%" h="100%" flexDir="column" >
         <Link  w="100%" h="100%" href={`/watch/${tre[x].VideoID}`}><Image w="100%" h="100%" borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${tre[x].VideoID}/animated.gif?`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
         <Grid w="100%" h="100%" justifyItems="start" alignItems="center" padding="15px" marginTop="10px"  templateColumns="50px 1fr 1fr" templateRows="40px 20px 20px"
