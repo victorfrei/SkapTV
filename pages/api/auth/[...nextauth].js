@@ -32,7 +32,6 @@ const options = {
     signOut: '/signout',
     error: '/callback'
   },
-  debug: true,
 
   // Configure one or more authentication providers
   providers: [

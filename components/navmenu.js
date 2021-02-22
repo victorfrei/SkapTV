@@ -44,15 +44,30 @@ return(<>
         gridArea="nav"
         >
 
-  <Grid w="100%" templateColumns="100px 100px 1fr 80px 80px" templateAreas='"logo nav search but avatar"'>     
+  <Grid w="100%" templateColumns="100px 350px 1fr 80px 80px" templateAreas='"logo nav search but avatar"'>     
   
   
-  <Image gridArea="logo" paddingLeft="10px" w="100px" cursor="pointer" onClick={()=>{router.push("/")}} src="/icons/logo.png"></Image>
+  <Link href="/"><Image gridArea="logo" paddingLeft="10px" w="100px" cursor="pointer" src="/icons/logo.png"></Image></Link>
   
-  <Stack gridArea="nav">
-  <Text>Inícios</Text>
-  <Text>Categorias</Text>
-  </Stack>
+  <Flex gridArea="nav" alignItems="center" justifyContent="center">
+  <Link href="/"><Text m="10px">Inícios</Text></Link>
+  <Link href="/categories"><Text m="10px">Categorias</Text></Link>
+  <Link href="/lives"><Text m="10px">Lives</Text></Link>
+  <Menu>
+  <MenuButton as={Button} w="55px" bg="transparent" _hover={{backgroundColor:"transparent"}}>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
+</svg>
+  </MenuButton>
+  <MenuList>
+    <Link href="/recommended"><MenuItem>Vídeos Recomendados</MenuItem></Link>
+    <Link href="/user/following"><MenuItem>Vídeos de Inscrições</MenuItem></Link>
+    <Link href="/terms"><MenuItem>Termos e Politícas</MenuItem></Link>
+    <Link href="/terms/privacy"><MenuItem>Politíca de Privacidade</MenuItem></Link>
+    <Link href="/help"><MenuItem>Ajuda</MenuItem></Link>
+    </MenuList>
+</Menu>
+  </Flex>
   <Stack width={["15%","400px"]} gridArea="search" alignSelf="center" marginLeft="20px">
   <InputGroup>
   <InputRightElement w="3rem" cursor="pointer" onClick={()=>{console.log("pesquisando!")}}><svg width="22px" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

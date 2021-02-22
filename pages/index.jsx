@@ -5,8 +5,8 @@ import mongoose from 'mongoose';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 moment.locale("pt-br")
-
-
+import Createchannel from '../components/createchannel'
+import { getSession } from 'next-auth/client';
 
 
 
@@ -23,29 +23,47 @@ const Videos = new mongoose.Schema(
 }
 )
 
+const User = new mongoose.Schema(
+  {
+    name:String,
+    haschannel: Boolean
+  
+  }
+  )
 
 
 
-export async function getStaticProps(){
+
+
+export async function getStaticProps(context){
+  console.log(context)
+  const session = await getSession(context)
+  console.log(session)
   const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.env.R_PASS}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
   const data = conn.model("videos",Videos);
   const trending = await data.find().sort({Views:-1});
   const newest = await data.find().sort({Data:-1});
   const mostliked = await data.find().sort({Likes:-1});
+  const user = conn.model("users",User);
+  let userfinded = {};
+  session!=null?
+  userfinded = await user.find({})
+  : 
+  userfinded = null;
 
 return {
   props:{
     Trending:JSON.stringify(trending,null,0),
     Newest:JSON.stringify(newest,null,0),
     MostLiked:JSON.stringify(mostliked,null,0),
-  
+    user: userfinded
   
   },revalidate:1
 }
 }
 
 
-export default function Home({Trending,Newest,MostLiked}){
+export default function Home({Trending,Newest,MostLiked,user}){
   const tre = JSON.parse(Trending);
   const nw = JSON.parse(Newest);
   const ml = JSON.parse(MostLiked);
@@ -57,32 +75,32 @@ export default function Home({Trending,Newest,MostLiked}){
         
 
       newest.push(
-        <Box  key={x} w="300px" h="265px" borderRadius="20px" fontSize={15} bg={useColorModeValue("#a0a0a0","#2f2f2f")}>
+        <Box  key={x} w="85%" h="100%" borderRadius="20px" fontSize={15} bg={useColorModeValue("#a0a0a0","#2f2f2f")}>
         <Flex w="100%" h="100%" flexDir="column" >
-        <Link  w="100%" h="80%" href={`/watch/${tre[x].VideoID}`}><Image  borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${nw[x].VideoID}/animated.gif?`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${nw[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${nw[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
-        <Grid w="100%" h="90%" justifyItems="start" alignItems="center" padding="5px" marginTop="10px"  templateColumns="50px 1fr 1fr" templateRows="40px 20px 20px"
+        <Link  w="100%" h="100%" href={`/watch/${tre[x].VideoID}`}><Image  borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${nw[x].VideoID}/animated.gif?width=300&height=160`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${nw[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${nw[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
+        <Grid w="100%" h="100%" justifyItems="start" alignItems="center" padding="20px 10px" marginTop="10px"  templateColumns="50px 1fr 1fr" templateRows="40px 20px 20px"
         templateAreas='"avatar nome nome"". author ."". dados dados"'
         > 
         <Link href={`/channel/${nw[x].Owner.Name}`}><Avatar  gridArea="avatar" src={nw[x].Owner.Image} name={nw[x].Owner.Name}></Avatar></Link>
         <Link href={`/watch/${nw[x].VideoID}`}  gridArea="nome" ><Text noOfLines={2} marginLeft="10px"><strong>{nw[x].Name}</strong></Text></Link>
         <Link href={`/channel/${nw[x].Owner.Name}`} marginTop="10px" marginLeft="10px" gridArea="author"><Text>{nw[x].Owner.Name}</Text></Link>
-        <Text marginTop="10px" marginLeft="10px" gridArea="dados">{nw[x].Views} views - {moment(nw[x].Data).fromNow()} - {nw[x].Likes} Curtidas</Text>
+        <Text margin="40px 0 20px 10px" gridArea="dados">{nw[x].Views} views - {moment(nw[x].Data).fromNow()}</Text>
         </Grid>
         </Flex>
       </Box>
       )
 
       mostliked.push(
-        <Box  key={x} w="300px" h="265px" borderRadius="20px" fontSize={15} bg={useColorModeValue("#a0a0a0","#2f2f2f")}>
+        <Box  key={x} w="85%" h="100%" borderRadius="20px" fontSize={15} bg={useColorModeValue("#a0a0a0","#2f2f2f")}>
         <Flex w="100%" h="100%" flexDir="column" >
-        <Link  w="100%" h="80%" href={`/watch/${tre[x].VideoID}`}><Image  borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${ml[x].VideoID}/animated.gif?`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${ml[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${ml[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
-        <Grid w="100%" h="90%" justifyItems="start" alignItems="center" padding="5px" marginTop="10px"  templateColumns="50px 1fr 1fr" templateRows="40px 20px 20px"
+        <Link  w="100%" h="100%" href={`/watch/${tre[x].VideoID}`}><Image  borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${ml[x].VideoID}/animated.gif?width=300&height=160`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${ml[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${ml[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
+        <Grid w="100%" h="100%" justifyItems="start" alignItems="center" padding="20px 10px" marginTop="10px"  templateColumns="50px 1fr 1fr" templateRows="40px 20px 20px"
         templateAreas='"avatar nome nome"". author ."". dados dados"'
         > 
         <Link href={`/channel/${ml[x].Owner.Name}`}><Avatar  gridArea="avatar" src={ml[x].Owner.Image} name={ml[x].Owner.Name}></Avatar></Link>
         <Link href={`/watch/${ml[x].VideoID}`}  gridArea="nome" ><Text noOfLines={2} marginLeft="10px"><strong>{ml[x].Name}</strong></Text></Link>
         <Link href={`/channel/${ml[x].Owner.Name}`} marginTop="10px" marginLeft="10px" gridArea="author"><Text>{ml[x].Owner.Name}</Text></Link>
-        <Text marginTop="10px" marginLeft="10px" gridArea="dados">{ml[x].Views} views - {moment(ml[x].Data).fromNow()} - {ml[x].Likes} Curtidas</Text>
+        <Text margin="40px 0 20px 10px" gridArea="dados">{ml[x].Views} views - {moment(ml[x].Data).fromNow()}</Text>
         </Grid>
         </Flex>
       </Box>
@@ -90,14 +108,14 @@ export default function Home({Trending,Newest,MostLiked}){
       trending.push(
         <Box  key={x} w="85%" h="100%" borderRadius="20px" fontSize={15} bg={useColorModeValue("#a0a0a0","#2f2f2f")}>
         <Flex w="100%" h="100%" flexDir="column" >
-        <Link  w="100%" h="100%" href={`/watch/${tre[x].VideoID}`}><Image w="100%" h="100%" borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${tre[x].VideoID}/animated.gif?`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
-        <Grid w="100%" h="100%" justifyItems="start" alignItems="center" padding="15px" marginTop="10px"  templateColumns="50px 1fr 1fr" templateRows="40px 20px 20px"
+        <Link  w="100%" h="100%" href={`/watch/${tre[x].VideoID}`}><Image w="100%" h="100%"  borderTopRadius="20px" onMouseEnter={(e)=>{e.currentTarget.src = `https://image.mux.com/${tre[x].VideoID}/animated.gif?width=300&height=160`}} onMouseLeave={(e)=>{e.currentTarget.src=`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}} src={`https://image.mux.com/${tre[x].VideoID}/thumbnail.png?width=300&height=160&fit_mode=smartcrop`}></Image></Link>
+        <Grid w="100%" h="100%" justifyItems="start" alignItems="center" padding="20px 10px" marginTop="10px"  templateColumns="50px 1fr 1fr" templateRows="40px 20px 20px"
         templateAreas='"avatar nome nome"". author ."". dados dados"'
         > 
         <Link href={`/channel/${tre[x].Owner.Name}`}><Avatar  gridArea="avatar" src={tre[x].Owner.Image} name={tre[x].Owner.Name}></Avatar></Link>
         <Link href={`/watch/${tre[x].VideoID}`}  gridArea="nome" ><Text noOfLines={2} marginLeft="10px"><strong>{tre[x].Name}</strong></Text></Link>
         <Link href={`/channel/${tre[x].Owner.Name}`}  marginTop="10px" marginLeft="10px" gridArea="author"><Text>{tre[x].Owner.Name}</Text></Link>
-        <Text margin="30px 0 20px 10px" gridArea="dados">{tre[x].Views} views - {moment(tre[x].Data).fromNow()} - {tre[x].Likes} Curtidas</Text>
+        <Text margin="40px 0 20px 10px" gridArea="dados">{tre[x].Views} views - {moment(tre[x].Data).fromNow()}</Text>
         </Grid>
         </Flex>
       </Box>
@@ -117,7 +135,7 @@ return (<>
         overflow="auto"
         >
          
-       
+<Createchannel user={user}></Createchannel>
 
 <Navmenu></Navmenu>
 
