@@ -5,9 +5,6 @@ import mongoose from 'mongoose';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 moment.locale("pt-br")
-import Createchannel from '../components/createchannel'
-import { getSession } from 'next-auth/client';
-
 
 
 const Videos = new mongoose.Schema(
@@ -23,40 +20,23 @@ const Videos = new mongoose.Schema(
 }
 )
 
-const User = new mongoose.Schema(
-  {
-    name:String,
-    haschannel: Boolean
-  
-  }
-  )
 
 
 
 
-
-export async function getStaticProps(context){
-  console.log(context)
-  const session = await getSession(context)
-  console.log(session)
+export async function getStaticProps(){
   const conn = await mongoose.createConnection(`mongodb+srv://Register:${process.env.R_PASS}@skap.fpqyg.mongodb.net/SkapDB?retryWrites=true&w=majority`, {useNewUrlParser: true, useUnifiedTopology: true});
   const data = conn.model("videos",Videos);
   const trending = await data.find().sort({Views:-1});
   const newest = await data.find().sort({Data:-1});
   const mostliked = await data.find().sort({Likes:-1});
-  const user = conn.model("users",User);
-  let userfinded = {};
-  session!=null?
-  userfinded = await user.find({})
-  : 
-  userfinded = null;
+  
 
 return {
   props:{
     Trending:JSON.stringify(trending,null,0),
     Newest:JSON.stringify(newest,null,0),
     MostLiked:JSON.stringify(mostliked,null,0),
-    user: userfinded
   
   },revalidate:1
 }
@@ -64,6 +44,7 @@ return {
 
 
 export default function Home({Trending,Newest,MostLiked,user}){
+  
   const tre = JSON.parse(Trending);
   const nw = JSON.parse(Newest);
   const ml = JSON.parse(MostLiked);
@@ -134,8 +115,7 @@ return (<>
         templateAreas={'"nav nav""content content"'}
         overflow="auto"
         >
-         
-<Createchannel user={user}></Createchannel>
+      
 
 <Navmenu></Navmenu>
 
@@ -153,7 +133,7 @@ return (<>
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
 </svg><Heading className="newfont" fontSize={23} size={1} m="12px">Em Alta</Heading>
 </HStack>
-      <SimpleGrid columns={[1,2,2,4]} spacing={15} m="10px" columnGap={15}>
+      <SimpleGrid columns={[1,2,2,4]} spacing={20} m="10px" columnGap={15}>
       {trending}
       </SimpleGrid>
       <HStack >
