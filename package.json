@@ -20,7 +20,7 @@
     "framer-motion": "^2.9.4",
     "fs": "^0.0.1-security",
     "hls.js": "^0.14.17",
-    "i": "^0.3.6",
+    "i": "^0.3.7",
     "jsonwebtoken": "^8.5.1",
     "micro": "^9.3.4",
     "mongoose": "^5.10.18",
