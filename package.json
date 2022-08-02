@@ -25,7 +25,7 @@
     "micro": "^9.3.4",
     "mongoose": "^5.10.18",
     "next": "9.5.2",
-    "next-auth": "^3.3.0",
+    "next-auth": "^3.29.10",
     "nodemailer": "^6.4.16",
     "plyr": "^3.6.3",
     "react": "16.13.1",
